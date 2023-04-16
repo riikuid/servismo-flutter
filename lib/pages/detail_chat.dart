@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tokosepatu/theme.dart';
-import 'package:tokosepatu/widgets/chat_bubble.dart';
+import 'package:serpismotor2/theme.dart';
+import 'package:serpismotor2/widgets/chat_bubble.dart';
 
 class DetailChatPage extends StatelessWidget {
   const DetailChatPage({super.key});

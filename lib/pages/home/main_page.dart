@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tokosepatu/pages/home/home_page.dart';
-import 'package:tokosepatu/pages/home/chat_page.dart';
-import 'package:tokosepatu/pages/home/wishlist_page.dart';
-import 'package:tokosepatu/pages/home/profile_page.dart';
-import 'package:tokosepatu/theme.dart';
+import 'package:serpismotor2/pages/home/home_page.dart';
+import 'package:serpismotor2/pages/home/chat_page.dart';
+import 'package:serpismotor2/pages/home/wishlist_page.dart';
+import 'package:serpismotor2/pages/home/profile_page.dart';
+import 'package:serpismotor2/theme.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -18,7 +18,9 @@ class _MainPageState extends State<MainPage> {
     Widget cartButton() {
       return FloatingActionButton(
         backgroundColor: secondaryColor,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/cart');
+        },
         child: Image.asset(
           'assets/icon_cart.png',
           width: 20,
@@ -110,7 +112,7 @@ class _MainPageState extends State<MainPage> {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor1,
+      backgroundColor: currentIndex == 0 ? backgroundColor1 : backgroundColor3,
       floatingActionButton: cartButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: customBottomNav(),

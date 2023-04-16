@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tokosepatu/theme.dart';
-import 'package:tokosepatu/widgets/product_card.dart';
-import 'package:tokosepatu/widgets/product_tile.dart';
+import 'package:serpismotor2/theme.dart';
+import 'package:serpismotor2/widgets/product_card.dart';
+import 'package:serpismotor2/widgets/product_tile.dart';
 
 class HomePage extends StatelessWidget {
   @override

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:tokosepatu/theme.dart';
+import 'package:serpismotor2/theme.dart';
 
 class SplashPage extends StatefulWidget {
   @override

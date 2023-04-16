@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tokosepatu/theme.dart';
-import 'package:tokosepatu/widgets/chat_tile.dart';
+import 'package:serpismotor2/theme.dart';
+import 'package:serpismotor2/widgets/chat_tile.dart';
 
 class ChatPage extends StatelessWidget {
   @override

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:tokosepatu/pages/detail_chat.dart';
-import 'package:tokosepatu/pages/home/main_page.dart';
-import 'package:tokosepatu/pages/sign_in_page.dart';
-import 'package:tokosepatu/pages/splash_pages.dart';
-import 'package:tokosepatu/pages/sign_up_page.dart';
+import 'package:serpismotor2/pages/cart_page.dart';
+import 'package:serpismotor2/pages/checkout_page.dart';
+import 'package:serpismotor2/pages/checkout_success_page.dart';
+import 'package:serpismotor2/pages/detail_chat.dart';
+import 'package:serpismotor2/pages/home/edit_profile_page.dart';
+import 'package:serpismotor2/pages/home/main_page.dart';
+import 'package:serpismotor2/pages/product_page.dart';
+import 'package:serpismotor2/pages/sign_in_page.dart';
+import 'package:serpismotor2/pages/splash_pages.dart';
+import 'package:serpismotor2/pages/sign_up_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,6 +23,12 @@ class MyApp extends StatelessWidget {
         '/sign-up': (context) => SignUpPage(),
         '/home': (context) => MainPage(),
         '/detail-chat': (context) => DetailChatPage(),
+        '/edit-profile': (context) => EditProfilePage(),
+        '/product': (context) => ProductPage(),
+        '/cart': (context) => CartPage(),
+        '/checkout': (context) => CheckoutPage(),
+        '/checkout-success': (context) => CheckoutSuccessPage(),
+
       },
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tokosepatu/theme.dart';
+import 'package:serpismotor2/theme.dart';
+
 
 class SignUpPage extends StatelessWidget {
   @override
