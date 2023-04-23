@@ -10,8 +10,19 @@ import 'package:serpismotor2/pages/service_detail.dart';
 import 'package:serpismotor2/pages/sign_in_page.dart';
 import 'package:serpismotor2/pages/splash_pages.dart';
 import 'package:serpismotor2/pages/sign_up_page.dart';
+import 'package:flutter/services.dart';
+import 'package:serpismotor2/theme.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: backgroundColor1, // warna status bar
+    statusBarIconBrightness: Brightness.dark, // warna icon pada status bar
+    systemNavigationBarColor: whiteColor, // warna navigation bar
+    systemNavigationBarIconBrightness:
+        Brightness.dark, // warna icon pada navigation bar
+  ));
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

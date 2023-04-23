@@ -158,7 +158,10 @@ class _ServiceDetailState extends State<ServiceDetail> {
             ),
           ),
           Container(
-              height: 1, width: double.infinity, color: secondaryTextColor),
+            height: 1,
+            width: double.infinity,
+            color: secondaryTextColor.withOpacity(0.5),
+          ),
           Container(
             width: double.infinity,
             padding:
@@ -226,22 +229,23 @@ class _ServiceDetailState extends State<ServiceDetail> {
                   style: primaryTextStyle.copyWith(
                       fontSize: 16, fontWeight: semibold),
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 14),
-                  child: const SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: ResponsiveGridRow(
-                      spacing: 15,
-                      itemWidth: 150,
-                      rowItems: [
-                        ServiceCardAll(),
-                        ServiceCardAll(),
-                        ServiceCardAll(),
-                      ],
-                    ),
-                  ),
-                )
               ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 14),
+            child: const SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: ResponsiveGridRow(
+                horizontalGridMargin: 30,
+                spacing: 15,
+                itemWidth: 150,
+                rowItems: [
+                  ServiceCardAll(),
+                  ServiceCardAll(),
+                  ServiceCardAll(),
+                ],
+              ),
             ),
           )
         ],
