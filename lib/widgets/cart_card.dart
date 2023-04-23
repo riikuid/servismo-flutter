@@ -8,14 +8,14 @@ class CartCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
-        top: defaultMargin,
+        top: 14,
       ),
       padding: EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 10,
       ),
       decoration: BoxDecoration(
-        color: backgroundColor4,
+        color: whiteColor,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -38,22 +38,31 @@ class CartCard extends StatelessWidget {
                 width: 12,
               ),
               Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Terrex Urban Low',
-                        style: primaryTextStyle.copyWith(
-                          fontWeight: semibold,
-                        ),
+                  child: Container(
+                padding: EdgeInsets.only(right: 2),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Servis Rutin",
+                      style: secondaryTextStyle.copyWith(
+                          fontWeight: semibold, fontSize: 12),
+                    ),
+                    Text(
+                      'Tune Up / Maintenance Tune Up / Maintenance Tune Up / Maintenance Tune Up / Maintenance ',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: primaryTextStyle.copyWith(
+                        fontWeight: semibold,
                       ),
-                      Text(
-                        '\$143,98',
-                        style: priceTextStyle,
-                      ),
-                    ],
-                  )
-              ),
+                    ),
+                    Text(
+                      'Rp. 150,000',
+                      style: priceTextStyle.copyWith(fontWeight: medium),
+                    ),
+                  ],
+                ),
+              )),
               Column(
                 children: [
                   Image.asset(
@@ -61,7 +70,7 @@ class CartCard extends StatelessWidget {
                     width: 16,
                   ),
                   SizedBox(
-                    height: 2,
+                    height: 3,
                   ),
                   Text(
                     '2',
@@ -70,7 +79,7 @@ class CartCard extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 2,
+                    height: 3,
                   ),
                   Image.asset(
                     'assets/button_min.png',
@@ -102,7 +111,6 @@ class CartCard extends StatelessWidget {
             ],
           ),
         ],
-
       ),
     );
   }

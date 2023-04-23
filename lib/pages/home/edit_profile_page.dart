@@ -10,7 +10,7 @@ class EditProfilePage extends StatelessWidget {
       return AppBar();
     }
 
-    Widget nameInput(){
+    Widget nameInput() {
       return Container(
         margin: EdgeInsets.only(
           top: 30,
@@ -41,7 +41,7 @@ class EditProfilePage extends StatelessWidget {
       );
     }
 
-    Widget usernameInput(){
+    Widget usernameInput() {
       return Container(
         margin: EdgeInsets.only(
           top: 30,
@@ -72,7 +72,7 @@ class EditProfilePage extends StatelessWidget {
       );
     }
 
-    Widget emailInput(){
+    Widget emailInput() {
       return Container(
         margin: EdgeInsets.only(
           top: 30,
@@ -121,9 +121,7 @@ class EditProfilePage extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: AssetImage(
-                    'assets/image_profile.png'
-                  ),
+                  image: AssetImage('assets/image_profile.png'),
                 ),
               ),
             ),
@@ -136,27 +134,32 @@ class EditProfilePage extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor3,
+      backgroundColor: backgroundColor1,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.close),
+          icon: Icon(
+            Icons.close,
+            color: priceColor,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         backgroundColor: backgroundColor1,
-        elevation: 0,
+        toolbarHeight: 60,
+        elevation: 1,
         centerTitle: true,
         title: Text(
-          'Edit Profile'
+          'Edit Profile',
+          style: primaryTextStyle.copyWith(fontWeight: semibold),
         ),
         actions: [
           IconButton(
-              icon: Icon(
-                Icons.check,
-                color: primaryColor,
-              ),
-              onPressed: () {},
+            icon: Icon(
+              Icons.check,
+              color: primaryColor,
+            ),
+            onPressed: () {},
           ),
         ],
       ),

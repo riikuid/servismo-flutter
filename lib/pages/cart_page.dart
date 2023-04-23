@@ -8,7 +8,17 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget header() {
-      return AppBar();
+      return AppBar(
+        backgroundColor: backgroundColor1,
+        centerTitle: true,
+        toolbarHeight: 80,
+        title: Text(
+          "Total Servis",
+          style: primaryTextStyle.copyWith(fontWeight: semibold),
+        ),
+        elevation: 0,
+        automaticallyImplyLeading: false,
+      );
     }
 
     Widget emptyCart() {
@@ -69,21 +79,36 @@ class CartPage extends StatelessWidget {
     }
 
     Widget content() {
-      return ListView(
-        padding: EdgeInsets.symmetric(
-          horizontal: defaultMargin,
+      return Expanded(
+        child: ListView(
+          padding: EdgeInsets.symmetric(
+            horizontal: defaultMargin,
+          ),
+          children: [
+            CartCard(),
+            CartCard(),
+            CartCard(),
+            CartCard(),
+            CartCard(),
+            CartCard(),
+            CartCard(),
+            CartCard(),
+            CartCard(),
+            CartCard(),
+          ],
         ),
-        children: [
-          CartCard(),
-        ],
       );
     }
 
-    Widget customBottomNav(){
+    Widget customBottomNav() {
       return Container(
-        height: 180,
+        height: 130,
         child: Column(
           children: [
+            Divider(
+              thickness: 0.3,
+              color: subtitleColor,
+            ),
             Container(
               margin: EdgeInsets.symmetric(
                 horizontal: defaultMargin,
@@ -92,11 +117,11 @@ class CartPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                      'Subtotal',
+                    'Total',
                     style: primaryTextStyle,
                   ),
                   Text(
-                    '\$287,96',
+                    'Rp. 19,233,029',
                     style: priceTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semibold,
@@ -106,14 +131,7 @@ class CartPage extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 30,
-            ),
-            Divider(
-              thickness: 0.3,
-              color: subtitleColor,
-            ),
-            SizedBox(
-              height: 30,
+              height: 20,
             ),
             Container(
               height: 50,
@@ -137,11 +155,10 @@ class CartPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Continue to Checkout',
+                      'Save Service List',
                       style: primaryTextStyle.copyWith(
                         fontSize: 16,
                         fontWeight: semibold,
-
                       ),
                     ),
                     Icon(
@@ -158,16 +175,31 @@ class CartPage extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor3,
-      appBar: AppBar(
-        backgroundColor: backgroundColor1,
-        centerTitle: true,
-        title: Text(
-          'Cart',
+      backgroundColor: backgroundColor1,
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(top: 14),
+        child: FloatingActionButton(
+          heroTag: null,
+          mini: true,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Image.asset(
+            "assets/icon_back.png",
+            color: blackColor,
+            height: 18,
+          ),
+          backgroundColor:
+              primaryColor, // sesuaikan dengan warna yang diinginkan
+          shape: CircleBorder(),
+          elevation: 1,
+          // set shape menjadi CircleBorder
         ),
-        elevation: 0,
       ),
-      body: content(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      body: Column(
+        children: [header(), content()],
+      ),
       bottomNavigationBar: customBottomNav(),
     );
   }

@@ -12,40 +12,38 @@ class ProfilePage extends StatelessWidget {
         flexibleSpace: SafeArea(
           child: Container(
             padding: EdgeInsets.all(
-                defaultMargin,
+              defaultMargin,
             ),
             child: Row(
               children: [
                 ClipOval(
                   child: Image.asset(
-                      'assets/image_profile.png',
+                    'assets/image_profile.png',
                     width: 64,
                   ),
-
                 ),
                 SizedBox(
                   width: 16,
                 ),
                 Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                            'Hallo, bambe',
-                          style: primaryTextStyle.copyWith(
-                            fontSize: 24,
-                            fontWeight: semibold,
-                          ),
-                        ),
-                        Text(
-                          '@bambegresik',
-                          style: primaryTextStyle.copyWith(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    )
-                ),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Hallo, bambe',
+                      style: primaryTextStyle.copyWith(
+                        fontSize: 24,
+                        fontWeight: semibold,
+                      ),
+                    ),
+                    Text(
+                      '@bambegresik',
+                      style: primaryTextStyle.copyWith(
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                )),
                 GestureDetector(
                   onTap: () {
                     Navigator.pushNamedAndRemoveUntil(
@@ -72,9 +70,10 @@ class ProfilePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              text, style: secondaryTextStyle.copyWith(
-              fontSize: 13,
-            ),
+              text,
+              style: secondaryTextStyle.copyWith(
+                fontSize: 13,
+              ),
             ),
             Icon(
               Icons.chevron_right,
@@ -85,69 +84,68 @@ class ProfilePage extends StatelessWidget {
       );
     }
 
-    Widget content(){
+    Widget content() {
       return Expanded(
-          child: Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(
-              horizontal: defaultMargin,
-            ),
-            decoration: BoxDecoration(
-              color: backgroundColor3,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'Account',
-                  style: primaryTextStyle.copyWith(
-                    fontSize: 16,
-                    fontWeight: semibold,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/edit-profile');
-                  },
-                  child: menuItem(
-                    'Edit Profile',
-                  ),
-                ),
-                menuItem(
-                  'Your Orders',
-                ),
-                menuItem(
-                  'Help',
-                ),
-
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  'General',
-                  style: primaryTextStyle.copyWith(
-                    fontSize: 16,
-                    fontWeight: semibold,
-                  ),
-                ),
-
-                menuItem(
-                  'Privacy & Policy',
-                ),
-                menuItem(
-                  'Terms of Service',
-                ),
-                menuItem(
-                  'Rate App',
-                ),
-              ],
-            ),
+        child: Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: defaultMargin,
           ),
+          decoration: BoxDecoration(
+            color: backgroundColor1,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Account',
+                style: primaryTextStyle.copyWith(
+                  fontSize: 16,
+                  fontWeight: semibold,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/edit-profile');
+                },
+                child: menuItem(
+                  'Edit Profile',
+                ),
+              ),
+              menuItem(
+                'Your Orders',
+              ),
+              menuItem(
+                'Help',
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                'General',
+                style: primaryTextStyle.copyWith(
+                  fontSize: 16,
+                  fontWeight: semibold,
+                ),
+              ),
+              menuItem(
+                'Privacy & Policy',
+              ),
+              menuItem(
+                'Terms of Service',
+              ),
+              menuItem(
+                'Rate App',
+              ),
+            ],
+          ),
+        ),
       );
     }
+
     return Column(
       children: [
         header(),

@@ -4,8 +4,9 @@ import 'package:serpismotor2/pages/checkout_page.dart';
 import 'package:serpismotor2/pages/checkout_success_page.dart';
 import 'package:serpismotor2/pages/detail_chat.dart';
 import 'package:serpismotor2/pages/home/edit_profile_page.dart';
-import 'package:serpismotor2/pages/home/main_page.dart';
+import 'package:serpismotor2/pages/home/navbar_main.dart';
 import 'package:serpismotor2/pages/product_page.dart';
+import 'package:serpismotor2/pages/service_detail.dart';
 import 'package:serpismotor2/pages/sign_in_page.dart';
 import 'package:serpismotor2/pages/splash_pages.dart';
 import 'package:serpismotor2/pages/sign_up_page.dart';
@@ -21,14 +22,13 @@ class MyApp extends StatelessWidget {
         '/': (context) => SplashPage(),
         '/sign-in': (context) => SignInPage(),
         '/sign-up': (context) => SignUpPage(),
-        '/home': (context) => MainPage(),
+        '/home': (context) => NavbarMain(),
         '/detail-chat': (context) => DetailChatPage(),
         '/edit-profile': (context) => EditProfilePage(),
-        '/product': (context) => ProductPage(),
+        '/product': (context) => ServiceDetail(),
         '/cart': (context) => CartPage(),
         '/checkout': (context) => CheckoutPage(),
         '/checkout-success': (context) => CheckoutSuccessPage(),
-
       },
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:serpismotor2/theme.dart';
 
-
 class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -52,8 +51,7 @@ class SignUpPage extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                  color: backgroundColor2,
-                  borderRadius: BorderRadius.circular(12)),
+                  color: whiteColor, borderRadius: BorderRadius.circular(12)),
               child: Center(
                 child: Row(
                   children: [
@@ -103,8 +101,7 @@ class SignUpPage extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                  color: backgroundColor2,
-                  borderRadius: BorderRadius.circular(12)),
+                  color: whiteColor, borderRadius: BorderRadius.circular(12)),
               child: Center(
                 child: Row(
                   children: [
@@ -154,8 +151,7 @@ class SignUpPage extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                  color: backgroundColor2,
-                  borderRadius: BorderRadius.circular(12)),
+                  color: whiteColor, borderRadius: BorderRadius.circular(12)),
               child: Center(
                 child: Row(
                   children: [
@@ -205,8 +201,7 @@ class SignUpPage extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                  color: backgroundColor2,
-                  borderRadius: BorderRadius.circular(12)),
+                  color: whiteColor, borderRadius: BorderRadius.circular(12)),
               child: Center(
                 child: Row(
                   children: [
@@ -270,7 +265,7 @@ class SignUpPage extends StatelessWidget {
             },
             child: Text(
               'Sign In',
-              style: purpleTextStyle.copyWith(fontSize: 12, fontWeight: medium),
+              style: purpleTextStyle.copyWith(fontSize: 12, fontWeight: bold),
             ),
           )
         ]),
