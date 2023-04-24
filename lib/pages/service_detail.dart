@@ -1,39 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
+import 'package:serpismotor2/providers/cart_provider.dart';
+import 'package:serpismotor2/providers/product_provider.dart';
 import 'package:serpismotor2/theme.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:serpismotor2/widgets/service_card.dart';
 
+import '../models/product_model.dart';
+
 class ServiceDetail extends StatefulWidget {
-  const ServiceDetail({super.key});
+  // const ServiceDetail({super.key});
+  ProductModel product;
+  ServiceDetail(this.product);
 
   @override
   State<ServiceDetail> createState() => _ServiceDetailState();
 }
 
 class _ServiceDetailState extends State<ServiceDetail> {
+  List<ProductModel> similarProducts = [];
+
   List images = [
     'assets/image_cat.jpg',
     'assets/image_cat.jpg',
     'assets/image_shoes.png',
   ];
 
-  List familiarShoes = [
-    'assets/image_shoes.png',
-    'assets/image_shoes.png',
-    'assets/image_shoes.png',
-    'assets/image_shoes.png',
-    'assets/image_shoes.png',
-    'assets/image_shoes.png',
-    'assets/image_shoes.png',
-    'assets/image_shoes.png',
-  ];
-
   int currentIndex = 0;
   bool isWishList = false;
+  void initState() {
+    super.initState();
+    _getSimilarProducts();
+  }
+
+  void _getSimilarProducts() async {
+    final productProvider =
+        Provider.of<ProductProvider>(context, listen: false);
+    // Mendapatkan daftar produk dengan kategori yang sama
+    final products = await productProvider
+        .getProductsByCategory(widget.product.category.name);
+    // Menyaring produk agar tidak menampilkan produk yang sedang ditampilkan
+    similarProducts = products.where((p) => p.id != widget.product.id).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
+
     Future<void> showSuccessDialog() async {
       return showDialog(
         context: context,
@@ -87,7 +103,9 @@ class _ServiceDetailState extends State<ServiceDetail> {
                     width: 154,
                     height: 44,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/cart');
+                      },
                       style: TextButton.styleFrom(
                           backgroundColor: primaryColor,
                           shape: RoundedRectangleBorder(
@@ -134,18 +152,19 @@ class _ServiceDetailState extends State<ServiceDetail> {
             child: Column(
               children: [
                 CarouselSlider(
-                  items: images
+                  items: widget.product.galleries
                       .map(
-                        (image) => Image.asset(
-                          image,
+                        (image) => Image.network(
+                          'http://dashboard.servismo.me${image.url}',
                           width: MediaQuery.of(context).size.width,
-                          height: 300,
+                          height: MediaQuery.of(context).size.width,
                           fit: BoxFit.cover,
                         ),
                       )
                       .toList(),
                   options: CarouselOptions(
                     initialPage: 0,
+                    enableInfiniteScroll: widget.product.galleries.length > 1,
                     onPageChanged: (context, reason) {
                       setState(() {
                         currentIndex = index;
@@ -172,13 +191,13 @@ class _ServiceDetailState extends State<ServiceDetail> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Servis Rutin",
+                  widget.product.category.name,
                   style: secondaryTextStyle.copyWith(
                     fontWeight: semibold,
                   ),
                 ),
                 Text(
-                  "Tune Up / Maintenance Tune Up / Maintenance Tune Up / Maintenance",
+                  widget.product.name,
                   style: primaryTextStyle.copyWith(
                       fontWeight: semibold, fontSize: 20),
                 ),
@@ -186,7 +205,11 @@ class _ServiceDetailState extends State<ServiceDetail> {
                   height: 4,
                 ),
                 Text(
-                  "Rp. 150,000",
+                  NumberFormat.currency(
+                    locale: 'id', // sesuaikan dengan locale yang diinginkan
+                    symbol: 'Rp. ',
+                    decimalDigits: 0, // jumlah digit dibelakang koma
+                  ).format(widget.product.price),
                   style: priceTextStyle.copyWith(
                       fontWeight: semibold, fontSize: 18),
                 )
@@ -215,7 +238,7 @@ class _ServiceDetailState extends State<ServiceDetail> {
                   height: 8,
                 ),
                 Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a blandit elit, vitae aliquam urna. Fusce suscipit vitae massa a ultricies. Nulla rutrum ac nulla non accumsan. Nunc consequat luctus tempor. Sed eu diam rutrum, tincidunt lectus ut, iaculis lacus. Maecenas volutpat mi volutpat sem mollis auctor. Sed eget augue sit amet ante ultrices pellentesque. Maecenas id elit nulla. Nullam ac imperdiet tortor, ut egestas felis. Sed nisl est, condimentum sit amet consequat at, fringilla nec justo. Donec a erat sed nunc mollis porta at non nulla. Maecenas in consequat neque. Nam fermentum, orci quis molestie hendrerit, nibh elit luctus orci, ac scelerisque libero diam sed metus. Aliquam sollicitudin auctor volutpat. Nulla posuere metus non malesuada auctor. \n\nIn tellus nunc, porttitor ac volutpat vitae, ullamcorper ut nibh. Etiam nibh nunc, posuere vel augue in, convallis vehicula nisl. Integer fringilla ligula nec orci bibendum lacinia. Mauris et rutrum lacus. Nam ultricies ultrices nunc, in vulputate arcu laoreet a. Nunc in leo in arcu viverra eleifend sit amet ut leo. Maecenas eu faucibus nisi. Pellentesque sit amet sagittis neque. Sed at massa at ex aliquam pharetra non at diam. Donec sed euismod dolor, id sollicitudin mauris. Morbi eu tempus neque. Maecenas congue orci ante, aliquet ornare risus venenatis sed. Donec congue pharetra ipsum rutrum rhoncus. In convallis ipsum sed tortor sollicitudin rhoncus.",
+                  widget.product.description,
                   style: primaryTextStyle.copyWith(
                     fontWeight: medium,
                   ),
@@ -225,7 +248,7 @@ class _ServiceDetailState extends State<ServiceDetail> {
                   height: defaultMargin,
                 ),
                 Text(
-                  "Service Lain Dari Prolem Ini",
+                  "Servis yang Serupa",
                   style: primaryTextStyle.copyWith(
                       fontSize: 16, fontWeight: semibold),
                 ),
@@ -234,16 +257,22 @@ class _ServiceDetailState extends State<ServiceDetail> {
           ),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 14),
-            child: const SingleChildScrollView(
+            width: double.infinity,
+            child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: ResponsiveGridRow(
                 horizontalGridMargin: 30,
                 spacing: 15,
                 itemWidth: 150,
+                rowMainAxisAlignment: MainAxisAlignment.start,
                 rowItems: [
-                  ServiceCardAll(),
-                  ServiceCardAll(),
-                  ServiceCardAll(),
+                  ...productProvider.products
+                      .map(
+                        (product) => ServiceCardAll(product),
+                      )
+                      .where((product) =>
+                          product.category.id == widget.product.category.id)
+                      .toList(),
                 ],
               ),
             ),
@@ -318,6 +347,7 @@ class _ServiceDetailState extends State<ServiceDetail> {
             height: 50,
             child: TextButton(
               onPressed: () {
+                cartProvider.addCart(widget.product);
                 showSuccessDialog();
               },
               style: TextButton.styleFrom(

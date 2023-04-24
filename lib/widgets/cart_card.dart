@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:serpismotor2/models/cart_model.dart';
+import 'package:serpismotor2/providers/cart_provider.dart';
 import 'package:serpismotor2/theme.dart';
 
 class CartCard extends StatelessWidget {
-  const CartCard({Key? key}) : super(key: key);
+  // const CartCard({Key? key}) : super(key: key);
+  final CartModel cart;
+  CartCard(this.cart);
 
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
     return Container(
       margin: EdgeInsets.only(
         top: 14,
@@ -28,8 +35,8 @@ class CartCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
-                    image: AssetImage(
-                      'assets/image_shoes.png',
+                    image: NetworkImage(
+                      'http://dashboard.servismo.me${cart.product.galleries[0].url}',
                     ),
                   ),
                 ),
@@ -44,12 +51,12 @@ class CartCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Servis Rutin",
+                      cart.product.category.name,
                       style: secondaryTextStyle.copyWith(
                           fontWeight: semibold, fontSize: 12),
                     ),
                     Text(
-                      'Tune Up / Maintenance Tune Up / Maintenance Tune Up / Maintenance Tune Up / Maintenance ',
+                      cart.product.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: primaryTextStyle.copyWith(
@@ -57,7 +64,11 @@ class CartCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Rp. 150,000',
+                      NumberFormat.currency(
+                        locale: 'id', // sesuaikan dengan locale yang diinginkan
+                        symbol: 'Rp. ',
+                        decimalDigits: 0, // jumlah digit dibelakang koma
+                      ).format(cart.product.price),
                       style: priceTextStyle.copyWith(fontWeight: medium),
                     ),
                   ],
@@ -65,15 +76,20 @@ class CartCard extends StatelessWidget {
               )),
               Column(
                 children: [
-                  Image.asset(
-                    'assets/button_add.png',
-                    width: 16,
+                  GestureDetector(
+                    onTap: () {
+                      cartProvider.addQuantity(cart.id);
+                    },
+                    child: Image.asset(
+                      'assets/button_add.png',
+                      width: 16,
+                    ),
                   ),
                   SizedBox(
                     height: 3,
                   ),
                   Text(
-                    '2',
+                    cart.quantity.toString(),
                     style: primaryTextStyle.copyWith(
                       fontWeight: medium,
                     ),
@@ -81,9 +97,14 @@ class CartCard extends StatelessWidget {
                   SizedBox(
                     height: 3,
                   ),
-                  Image.asset(
-                    'assets/button_min.png',
-                    width: 16,
+                  GestureDetector(
+                    onTap: () {
+                      cartProvider.reduceQuantity(cart.id);
+                    },
+                    child: Image.asset(
+                      'assets/button_min.png',
+                      width: 16,
+                    ),
                   ),
                 ],
               ),
@@ -92,23 +113,28 @@ class CartCard extends StatelessWidget {
           SizedBox(
             height: 12,
           ),
-          Row(
-            children: [
-              Image.asset(
-                'assets/icon_remove.png',
-                width: 10,
-              ),
-              SizedBox(
-                width: 4,
-              ),
-              Text(
-                'Remove',
-                style: alertTextStyle.copyWith(
-                  fontSize: 12,
-                  fontWeight: light,
+          GestureDetector(
+            onTap: () {
+              cartProvider.removeCart(cart.id);
+            },
+            child: Row(
+              children: [
+                Image.asset(
+                  'assets/icon_remove.png',
+                  width: 10,
                 ),
-              ),
-            ],
+                SizedBox(
+                  width: 4,
+                ),
+                Text(
+                  'Remove',
+                  style: alertTextStyle.copyWith(
+                    fontSize: 12,
+                    fontWeight: light,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

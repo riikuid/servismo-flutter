@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
+import 'package:serpismotor2/providers/auth_provider.dart';
+import 'package:serpismotor2/providers/product_provider.dart';
 import 'package:serpismotor2/theme.dart';
-import 'package:serpismotor2/widgets/product_card.dart';
-import 'package:serpismotor2/widgets/product_tile.dart';
 import 'package:serpismotor2/widgets/service_card.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:provider/provider.dart';
+import 'package:serpismotor2/models/user_model.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
+
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+
+    profileImage() {
+      try {
+        return SvgPicture.network(user.profilePhotoUrl!);
+      } catch (e) {
+        // Use Image.memory to load the data as image
+        return Image.network(user.profilePhotoUrl!);
+      }
+    }
+
     Widget header() {
       return Container(
         margin: EdgeInsets.only(
@@ -20,28 +37,25 @@ class HomePage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Halo Akmal',
+                  'Halo ${user.name}',
                   style: primaryTextStyle.copyWith(
                     fontSize: 22,
                     fontWeight: semibold,
                   ),
                 ),
                 Text(
-                  '@akmalgantenkidaman',
+                  '@${user.username}',
                   style: subtitleTextStyle.copyWith(fontSize: 16),
                 )
               ],
             ),
           ),
-          Container(
-            width: 45,
-            height: 45,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                    image: AssetImage(
-                  'assets/image_profile.png',
-                ))),
+          ClipOval(
+            child: SvgPicture.network(
+              user.profilePhotoUrl!,
+              height: 54,
+              width: 54,
+            ),
           )
         ]),
       );
@@ -214,11 +228,12 @@ class HomePage extends StatelessWidget {
             itemWidth: 150,
             spacing: 15,
             rowItems: [
-              ServiceCardAll(),
-              ServiceCardAll(),
-              ServiceCardAll(),
-              ServiceCardAll(),
-              ServiceCardAll(),
+              ...productProvider.products
+                  .map(
+                    (product) => ServiceCardAll(product),
+                  )
+                  .where((product) => product.category.id == 1)
+                  .toList(),
             ],
           ),
         ),
@@ -263,11 +278,13 @@ class HomePage extends StatelessWidget {
             itemWidth: 150,
             spacing: 15,
             rowItems: [
-              ServiceCardAll(),
-              ServiceCardAll(),
-              ServiceCardAll(),
-              ServiceCardAll(),
-              ServiceCardAll(),
+              ...productProvider.products
+                  .map(
+                    (product) => ServiceCardAll(product),
+                  )
+                  .where((product) =>
+                      product.category.id != 1 && product.category.id != 2)
+                  .toList(),
             ],
           ),
         ),

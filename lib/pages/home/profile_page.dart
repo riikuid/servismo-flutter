@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:serpismotor2/models/user_model.dart';
+import 'package:serpismotor2/providers/auth_provider.dart';
 import 'package:serpismotor2/theme.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+
     Widget header() {
       return AppBar(
         backgroundColor: backgroundColor1,
@@ -17,8 +24,10 @@ class ProfilePage extends StatelessWidget {
             child: Row(
               children: [
                 ClipOval(
-                  child: Image.asset(
-                    'assets/image_profile.png',
+                  child: SvgPicture.network(
+                    user.profilePhotoUrl!,
+                    alignment: Alignment.center,
+                    // fit: BoxFit.cover,
                     width: 64,
                   ),
                 ),
@@ -30,14 +39,14 @@ class ProfilePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Hallo, bambe',
+                      'Hallo, ${user.name}',
                       style: primaryTextStyle.copyWith(
                         fontSize: 24,
                         fontWeight: semibold,
                       ),
                     ),
                     Text(
-                      '@bambegresik',
+                      '@${user.username}',
                       style: primaryTextStyle.copyWith(
                         fontSize: 16,
                       ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:serpismotor2/pages/home/home_page.dart';
-import 'package:serpismotor2/pages/home/chat_page.dart';
 import 'package:serpismotor2/pages/home/service_page.dart';
-import 'package:serpismotor2/pages/home/wishlist_page.dart';
 import 'package:serpismotor2/pages/home/profile_page.dart';
 import 'package:serpismotor2/theme.dart';
 import 'package:google_fonts/google_fonts.dart';

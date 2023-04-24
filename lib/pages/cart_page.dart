@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:serpismotor2/providers/cart_provider.dart';
 import 'package:serpismotor2/theme.dart';
 import 'package:serpismotor2/widgets/cart_card.dart';
 
@@ -7,6 +9,7 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
     Widget header() {
       return AppBar(
         backgroundColor: backgroundColor1,
@@ -84,18 +87,7 @@ class CartPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             horizontal: defaultMargin,
           ),
-          children: [
-            CartCard(),
-            CartCard(),
-            CartCard(),
-            CartCard(),
-            CartCard(),
-            CartCard(),
-            CartCard(),
-            CartCard(),
-            CartCard(),
-            CartCard(),
-          ],
+          children: cartProvider.carts.map((cart) => CartCard(cart)).toList(),
         ),
       );
     }
@@ -182,7 +174,7 @@ class CartPage extends StatelessWidget {
           heroTag: null,
           mini: true,
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushNamed(context, '/home');
           },
           child: Image.asset(
             "assets/icon_back.png",

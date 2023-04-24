@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:serpismotor2/theme.dart';
-import 'package:serpismotor2/widgets/wishlist_card.dart';
-import 'package:serpismotor2/widgets/service_card.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
+import 'package:serpismotor2/models/product_model.dart';
+import 'package:serpismotor2/providers/product_provider.dart';
+import 'package:serpismotor2/theme.dart';
+import 'package:serpismotor2/widgets/service_card.dart';
 
 class ServicePage extends StatefulWidget {
   const ServicePage({super.key});
@@ -14,6 +16,7 @@ class ServicePage extends StatefulWidget {
 class _ServicePageState extends State<ServicePage> {
   @override
   Widget build(BuildContext context) {
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
     Widget header() {
       return AppBar(
         backgroundColor: backgroundColor1,
@@ -77,23 +80,20 @@ class _ServicePageState extends State<ServicePage> {
     Widget content() {
       return Expanded(
         child: Container(
-          width: double.infinity,
-          margin: EdgeInsets.symmetric(
-            horizontal: 30,
-          ),
-          // padding: EdgeInsets.symmetric(vertical: 14),
+          margin: EdgeInsets.symmetric(horizontal: defaultMargin),
           child: ResponsiveGridList(
             minItemWidth: MediaQuery.of(context).size.width / 3.5,
             maxItemsPerRow: 2,
             horizontalGridSpacing: 15,
+            rowMainAxisAlignment: MainAxisAlignment.start,
             verticalGridSpacing: 15,
+            // verticalGridMargin: 30,
             children: [
-              ServiceCardAll(),
-              ServiceCardAll(),
-              ServiceCardAll(),
-              ServiceCardAll(),
-              ServiceCardAll(),
-              // ServiceCardAll(),
+              ...productProvider.products
+                  .map(
+                    (product) => ServiceCardAll(product),
+                  )
+                  .toList(),
             ],
           ),
         ),
