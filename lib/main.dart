@@ -5,6 +5,8 @@ import 'package:serpismotor2/pages/checkout_page.dart';
 import 'package:serpismotor2/pages/checkout_success_page.dart';
 import 'package:serpismotor2/pages/home/edit_profile_page.dart';
 import 'package:serpismotor2/pages/home/navbar_main.dart';
+import 'package:serpismotor2/pages/home/servis_problem.dart';
+import 'package:serpismotor2/pages/home/servis_rutin.dart';
 import 'package:serpismotor2/pages/product_page.dart';
 import 'package:serpismotor2/pages/service_detail.dart';
 import 'package:serpismotor2/pages/sign_in_page.dart';
@@ -47,6 +49,8 @@ class MyApp extends StatelessWidget {
           '/sign-in': (context) => SignInPage(),
           '/sign-up': (context) => SignUpPage(),
           '/home': (context) => NavbarMain(),
+          '/servis-problem': (context) => ServisProblem(),
+          '/servis-rutin': (context) => ServisRutin(),
           '/edit-profile': (context) => EditProfilePage(),
           '/cart': (context) => CartPage(),
           '/checkout': (context) => CheckoutPage(),

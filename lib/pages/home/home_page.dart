@@ -62,130 +62,141 @@ class HomePage extends StatelessWidget {
     }
 
     Widget bannerServisRutin() {
-      return Container(
-        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 12),
-        margin: EdgeInsets.only(
-          top: defaultMargin,
-          right: defaultMargin,
-          left: defaultMargin,
-        ),
-        height: 150,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), color: Color(0xFFFFCD5D)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Servis Rutin",
-                  style:
-                      whiteTextStyle.copyWith(fontSize: 20, fontWeight: bold),
-                ),
-                Text(
-                  "Kendaraanmu",
-                  style:
-                      whiteTextStyle.copyWith(fontSize: 20, fontWeight: bold),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Servis Sekarang",
-                      style: whiteTextStyle.copyWith(
-                          fontWeight: medium, fontSize: 14),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Icon(
-                      Icons.arrow_forward_rounded,
-                      color: whiteColor,
-                      size: 18,
-                    )
-                  ],
-                )
-              ],
-            ),
-            Image.asset(
-              'assets/image_servis_rutin.png',
-              // height: 150,
-              fit: BoxFit.contain,
-            )
-          ],
+      return GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, '/servis-rutin');
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 25, vertical: 12),
+          margin: EdgeInsets.only(
+            top: defaultMargin,
+            right: defaultMargin,
+            left: defaultMargin,
+          ),
+          height: 150,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Color(0xFFFFCD5D)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Servis Rutin",
+                    style:
+                        whiteTextStyle.copyWith(fontSize: 20, fontWeight: bold),
+                  ),
+                  Text(
+                    "Kendaraanmu",
+                    style:
+                        whiteTextStyle.copyWith(fontSize: 20, fontWeight: bold),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Servis Sekarang",
+                        style: whiteTextStyle.copyWith(
+                            fontWeight: medium, fontSize: 14),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Icon(
+                        Icons.arrow_forward_rounded,
+                        color: whiteColor,
+                        size: 18,
+                      )
+                    ],
+                  )
+                ],
+              ),
+              Image.asset(
+                'assets/image_servis_rutin.png',
+                // height: 150,
+                fit: BoxFit.contain,
+              )
+            ],
+          ),
         ),
       );
     }
 
     Widget bannerServisProblem() {
-      return Container(
-        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 12),
-        margin: EdgeInsets.only(
-          top: defaultMargin,
-          right: defaultMargin,
-          left: defaultMargin,
-        ),
-        height: 150,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), color: alertColor),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Kenali Apa",
-                  style:
-                      whiteTextStyle.copyWith(fontSize: 20, fontWeight: bold),
-                ),
-                Text(
-                  "Kendalamu",
-                  style:
-                      whiteTextStyle.copyWith(fontSize: 20, fontWeight: bold),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Servis Sekarang",
-                      style: whiteTextStyle.copyWith(
-                          fontWeight: medium, fontSize: 14),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Icon(
-                      Icons.arrow_forward_rounded,
-                      color: whiteColor,
-                      size: 18,
-                    )
-                  ],
-                )
-              ],
-            ),
-            AspectRatio(
-              aspectRatio: 1 / 1,
-              child: Image.asset(
-                'assets/image_servis_problem.png',
-                // height: 120,
-                // fit: BoxFit.fitWidth,
+      return GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, '/servis-problem');
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 25, vertical: 12),
+          margin: EdgeInsets.only(
+            top: defaultMargin,
+            right: defaultMargin,
+            left: defaultMargin,
+          ),
+          height: 150,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10), color: alertColor),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Kenali Apa",
+                    style:
+                        whiteTextStyle.copyWith(fontSize: 20, fontWeight: bold),
+                  ),
+                  Text(
+                    "Kendalamu",
+                    style:
+                        whiteTextStyle.copyWith(fontSize: 20, fontWeight: bold),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Servis Sekarang",
+                        style: whiteTextStyle.copyWith(
+                            fontWeight: medium, fontSize: 14),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Icon(
+                        Icons.arrow_forward_rounded,
+                        color: whiteColor,
+                        size: 18,
+                      )
+                    ],
+                  )
+                ],
               ),
-            )
-          ],
+              AspectRatio(
+                aspectRatio: 1 / 1,
+                child: Image.asset(
+                  'assets/image_servis_problem.png',
+                  // height: 120,
+                  // fit: BoxFit.fitWidth,
+                ),
+              )
+            ],
+          ),
         ),
       );
     }
@@ -205,10 +216,15 @@ class HomePage extends StatelessWidget {
               style:
                   primaryTextStyle.copyWith(fontSize: 18, fontWeight: semibold),
             ),
-            Text(
-              "See All",
-              style: yellowTextStyle.copyWith(
-                fontWeight: semibold,
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/servis-rutin');
+              },
+              child: Text(
+                "See All",
+                style: yellowTextStyle.copyWith(
+                  fontWeight: semibold,
+                ),
               ),
             )
           ],
@@ -227,14 +243,12 @@ class HomePage extends StatelessWidget {
             horizontalGridMargin: 30,
             itemWidth: 150,
             spacing: 15,
-            rowItems: [
-              ...productProvider.products
-                  .map(
-                    (product) => ServiceCardAll(product),
-                  )
-                  .where((product) => product.category.id == 1)
-                  .toList(),
-            ],
+            rowItems: productProvider.products
+                .map(
+                  (product) => ServiceCardAll(product),
+                )
+                .where((product) => product.category.id == 1)
+                .toList(),
           ),
         ),
       );
@@ -255,10 +269,15 @@ class HomePage extends StatelessWidget {
               style:
                   primaryTextStyle.copyWith(fontSize: 18, fontWeight: semibold),
             ),
-            Text(
-              "See All",
-              style: yellowTextStyle.copyWith(
-                fontWeight: semibold,
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/servis-problem');
+              },
+              child: Text(
+                "See All",
+                style: yellowTextStyle.copyWith(
+                  fontWeight: semibold,
+                ),
               ),
             )
           ],
@@ -282,6 +301,7 @@ class HomePage extends StatelessWidget {
                   .map(
                     (product) => ServiceCardAll(product),
                   )
+                  // .take(10)
                   .where((product) =>
                       product.category.id != 1 && product.category.id != 2)
                   .toList(),

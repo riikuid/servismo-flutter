@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:serpismotor2/providers/cart_provider.dart';
 import 'package:serpismotor2/theme.dart';
@@ -25,7 +26,7 @@ class CartPage extends StatelessWidget {
     }
 
     Widget emptyCart() {
-      return Center(
+      return Expanded(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -113,7 +114,11 @@ class CartPage extends StatelessWidget {
                     style: primaryTextStyle,
                   ),
                   Text(
-                    'Rp. 19,233,029',
+                    NumberFormat.currency(
+                      locale: 'id', // sesuaikan dengan locale yang diinginkan
+                      symbol: 'Rp. ',
+                      decimalDigits: 0, // jumlah digit dibelakang koma
+                    ).format(cartProvider.totalPrice()),
                     style: priceTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semibold,
@@ -190,9 +195,14 @@ class CartPage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: Column(
-        children: [header(), content()],
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          header(),
+          cartProvider.carts.length == 0 ? emptyCart() : content(),
+        ],
       ),
-      bottomNavigationBar: customBottomNav(),
+      bottomNavigationBar:
+          cartProvider.carts.length == 0 ? SizedBox() : customBottomNav(),
     );
   }
 }
