@@ -4,6 +4,7 @@ import 'package:serpismotor2/models/user_model.dart';
 import 'package:serpismotor2/providers/auth_provider.dart';
 import 'package:serpismotor2/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -55,6 +56,7 @@ class ProfilePage extends StatelessWidget {
                 )),
                 GestureDetector(
                   onTap: () {
+                    
                     Navigator.pushNamedAndRemoveUntil(
                         context, '/sign-in', (route) => false);
                   },

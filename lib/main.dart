@@ -18,6 +18,7 @@ import 'package:serpismotor2/providers/cart_provider.dart';
 import 'package:serpismotor2/providers/product_provider.dart';
 import 'package:serpismotor2/theme.dart';
 
+
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: backgroundColor1, // warna status bar

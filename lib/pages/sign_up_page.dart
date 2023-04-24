@@ -34,7 +34,7 @@ class _SignUpPageState extends State<SignUpPage> {
           username: usernameController.text,
           email: emailController.text,
           password: passwordController.text)) {
-        Navigator.pushNamed(context, '/home');
+        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

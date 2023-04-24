@@ -3,6 +3,8 @@ import 'package:serpismotor2/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:serpismotor2/providers/auth_provider.dart';
 import 'package:serpismotor2/widgets/loading_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class SignInPage extends StatefulWidget {
   @override
@@ -26,7 +28,7 @@ class _SignInPageState extends State<SignInPage> {
 
       if (await authProvider.login(
           email: emailController.text, password: passwordController.text)) {
-        Navigator.pushNamed(context, '/home');
+        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

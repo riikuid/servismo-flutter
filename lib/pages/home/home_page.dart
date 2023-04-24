@@ -238,6 +238,7 @@ class HomePage extends StatelessWidget {
           top: 14,
         ),
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           child: ResponsiveGridRow(
             horizontalGridMargin: 30,
@@ -291,6 +292,7 @@ class HomePage extends StatelessWidget {
           top: 14,
         ),
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           child: ResponsiveGridRow(
             horizontalGridMargin: 30,
