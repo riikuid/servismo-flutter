@@ -6,6 +6,7 @@ double defaultMargin = 30.0;
 Color primaryColor = Color(0xffFFC646); //sudah
 Color secondaryColor = Color(0xff38ABBE);
 Color alertColor = Color(0xffED6363);
+Color successColor = Color(0xff00c851);
 Color priceColor = Color(0xffFE3A30);
 Color subtitleColor = Color(0xff504F5E);
 Color transparentColor = Colors.transparent;
@@ -33,7 +34,9 @@ TextStyle secondaryTextStyle = GoogleFonts.poppins(
   color: secondaryTextColor,
 );
 
-TextStyle subtitleTextStyle = GoogleFonts.poppins(color: subtitleColor);
+TextStyle subtitleTextStyle = GoogleFonts.poppins(
+  color: subtitleColor,
+);
 
 TextStyle priceTextStyle = GoogleFonts.poppins(
   color: priceColor,

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:serpismotor2/models/user_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:serpismotor2/providers/auth_provider.dart';
 
 class AuthService {
   String baseUrl = 'http://dashboard.servismo.me/api';
@@ -84,6 +85,37 @@ class AuthService {
       print('Success logout');
     } else {
       throw Exception('Failed to logout user.');
+    }
+  }
+
+  Future<UserModel> updateProfile({
+    UserModel? user,
+    String? name,
+    String? username,
+    String? email,
+  }) async {
+    var url = '$baseUrl/user';
+    var body = jsonEncode({
+      'name': name,
+      'username': username,
+      'email': email,
+    });
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': user!.token!,
+    };
+    final response =
+        await http.post(Uri.parse(url), headers: headers, body: body);
+    print('$name dan $email');
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body)['data'];
+      UserModel user = UserModel.fromJson(data);
+      print("Success Update Profile");
+      return user;
+    } else {
+      throw Exception('Failed to update user profile.');
     }
   }
 }

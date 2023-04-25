@@ -45,4 +45,30 @@ class AuthProvider with ChangeNotifier {
       print(e);
     }
   }
+
+  Future<bool> updateProfile({
+    UserModel? user,
+    String? name,
+    String? username,
+    String? email,
+  }) async {
+    try {
+      await AuthService().updateProfile(
+        user: user,
+        name: name,
+        username: username,
+        email: email,
+      );
+      _user = user;
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  void setUser(UserModel user) {
+    _user = user;
+    notifyListeners();
+  }
 }
