@@ -222,7 +222,7 @@ class _ServiceDetailBengkelState extends State<ServiceDetailBengkel> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Deskripsi",
+                  "Alamat dan Deskripsi",
                   style: primaryTextStyle.copyWith(
                       fontSize: 16, fontWeight: semibold),
                 ),
