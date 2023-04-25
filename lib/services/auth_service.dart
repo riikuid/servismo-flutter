@@ -66,4 +66,24 @@ class AuthService {
       throw Exception('Failed to register user.');
     }
   }
+
+  Future<void> logout({UserModel? user}) async {
+    var url = '$baseUrl/logout';
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': user!.token!,
+    };
+
+    final response = await http.post(Uri.parse(url), headers: headers);
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      // clear user token
+      user.token = null;
+      print('Success logout');
+    } else {
+      throw Exception('Failed to logout user.');
+    }
+  }
 }

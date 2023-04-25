@@ -27,7 +27,7 @@ class ServiceCardBengkel extends StatelessWidget {
       child: Container(
         // width: MediaQuery.of(context).size.width / 3.5,
         // height: MediaQuery.of(context).size.height / 4,
-        width: 150,
+        // width: 200,
         // height: 230,
         // margin: EdgeInsets.only(
         //   right: defaultMargin,
@@ -40,16 +40,11 @@ class ServiceCardBengkel extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             AspectRatio(
-                aspectRatio: 1 / 1,
+                aspectRatio: 16 / 9,
                 child: product.galleries.isEmpty
-                    ? Image.asset(
-                        'assets/image_servis_rutin.png',
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Icon(Icons
-                              .error); // widget pengganti ketika terjadi kesalahan
-                        },
-                      )
+                    ? Icon(Icons
+                        .error) // widget pengganti ketika terjadi kesalahan
+
                     : Image.network(
                         'http://dashboard.servismo.me${product.galleries[0].url}',
                         fit: BoxFit.cover,
@@ -67,19 +62,19 @@ class ServiceCardBengkel extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    style: secondaryTextStyle.copyWith(
-                        fontSize: 12, fontWeight: semibold),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    product.category.name,
-                  ),
                   SizedBox(
                     height: 2,
                   ),
                   Text(
                     product.name,
                     style: blackTextStyle.copyWith(fontWeight: semibold),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                  Text(
+                    product.description,
+                    style: blackTextStyle.copyWith(
+                        fontWeight: medium, fontSize: 12),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),

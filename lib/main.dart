@@ -7,6 +7,7 @@ import 'package:serpismotor2/pages/home/edit_profile_page.dart';
 import 'package:serpismotor2/pages/home/navbar_main.dart';
 import 'package:serpismotor2/pages/home/servis_problem.dart';
 import 'package:serpismotor2/pages/home/servis_rutin.dart';
+import 'package:serpismotor2/pages/home/spare_part.dart';
 import 'package:serpismotor2/pages/product_page.dart';
 import 'package:serpismotor2/pages/service_detail.dart';
 import 'package:serpismotor2/pages/sign_in_page.dart';
@@ -17,7 +18,6 @@ import 'package:serpismotor2/providers/auth_provider.dart';
 import 'package:serpismotor2/providers/cart_provider.dart';
 import 'package:serpismotor2/providers/product_provider.dart';
 import 'package:serpismotor2/theme.dart';
-
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -51,6 +51,7 @@ class MyApp extends StatelessWidget {
           '/sign-up': (context) => SignUpPage(),
           '/home': (context) => NavbarMain(),
           '/servis-problem': (context) => ServisProblem(),
+          '/spare-part': (context) => SparePart(),
           '/servis-rutin': (context) => ServisRutin(),
           '/edit-profile': (context) => EditProfilePage(),
           '/cart': (context) => CartPage(),

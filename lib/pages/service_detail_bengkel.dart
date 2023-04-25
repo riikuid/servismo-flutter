@@ -23,12 +23,6 @@ class ServiceDetailBengkel extends StatefulWidget {
 class _ServiceDetailBengkelState extends State<ServiceDetailBengkel> {
   List<ProductModel> similarProducts = [];
 
-  List images = [
-    'assets/image_cat.jpg',
-    'assets/image_cat.jpg',
-    'assets/image_shoes.png',
-  ];
-
   int currentIndex = 0;
   bool isWishList = false;
   void initState() {
@@ -147,34 +141,40 @@ class _ServiceDetailBengkelState extends State<ServiceDetailBengkel> {
       int index = -1;
       return Column(
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: backgroundColor1,
-            child: Column(
-              children: [
-                CarouselSlider(
-                  items: widget.product.galleries
-                      .map(
-                        (image) => Image.network(
-                          'http://dashboard.servismo.me${image.url}',
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.width,
-                          fit: BoxFit.cover,
+          AspectRatio(
+            aspectRatio: 16 / 9,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              color: backgroundColor1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  widget.product.galleries.isEmpty
+                      ? Center(child: Icon(Icons.error))
+                      : CarouselSlider(
+                          items: widget.product.galleries
+                              .map(
+                                (image) => Image.network(
+                                  'http://dashboard.servismo.me${image.url}',
+                                  width: MediaQuery.of(context).size.width,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                              .toList(),
+                          options: CarouselOptions(
+                            initialPage: 0,
+                            enableInfiniteScroll:
+                                widget.product.galleries.length > 1,
+                            onPageChanged: (context, reason) {
+                              setState(() {
+                                currentIndex = index;
+                              });
+                            },
+                            viewportFraction: 1, // ubah nilai viewportFraction
+                          ),
                         ),
-                      )
-                      .toList(),
-                  options: CarouselOptions(
-                    initialPage: 0,
-                    enableInfiniteScroll: widget.product.galleries.length > 1,
-                    onPageChanged: (context, reason) {
-                      setState(() {
-                        currentIndex = index;
-                      });
-                    },
-                    viewportFraction: 1, // ubah nilai viewportFraction
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Container(
@@ -205,15 +205,6 @@ class _ServiceDetailBengkelState extends State<ServiceDetailBengkel> {
                 SizedBox(
                   height: 4,
                 ),
-                // Text(
-                //   NumberFormat.currency(
-                //     locale: 'id', // sesuaikan dengan locale yang diinginkan
-                //     symbol: 'Rp. ',
-                //     decimalDigits: 0, // jumlah digit dibelakang koma
-                //   ).format(widget.product.price),
-                //   style: priceTextStyle.copyWith(
-                //       fontWeight: semibold, fontSize: 18),
-                // )
               ],
             ),
           ),
@@ -249,7 +240,7 @@ class _ServiceDetailBengkelState extends State<ServiceDetailBengkel> {
                   height: defaultMargin,
                 ),
                 Text(
-                  "Bengkel Rekomendasi Lain",
+                  "Rekomendasi Bengkel Lain",
                   style: primaryTextStyle.copyWith(
                       fontSize: 16, fontWeight: semibold),
                 ),
@@ -264,7 +255,7 @@ class _ServiceDetailBengkelState extends State<ServiceDetailBengkel> {
               child: ResponsiveGridRow(
                 horizontalGridMargin: 30,
                 spacing: 15,
-                itemWidth: 150,
+                itemWidth: 250,
                 rowMainAxisAlignment: MainAxisAlignment.start,
                 rowItems: [
                   ...productProvider.products
@@ -272,7 +263,8 @@ class _ServiceDetailBengkelState extends State<ServiceDetailBengkel> {
                         (product) => ServiceCardBengkel(product),
                       )
                       .where((product) =>
-                          product.category.id == widget.product.category.id)
+                          product.category.id == widget.product.category.id &&
+                          product.product.id != widget.product.id)
                       .toList(),
                 ],
               ),
@@ -284,88 +276,33 @@ class _ServiceDetailBengkelState extends State<ServiceDetailBengkel> {
 
     return SafeArea(
       child: Scaffold(
-          backgroundColor: backgroundColor1,
-          // appBar: AppBar(
-          //   toolbarHeight: 60,
-          //   backgroundColor: backgroundColor1,
-          //   elevation: 0,
-          //   title: Text(
-          //     "Servis Rutin",
-          //     style: primaryTextStyle.copyWith(fontWeight: medium),
-          //   ),
-          //   centerTitle: true,
-          //   leading: GestureDetector(
-          //     onTap: () {
-          //       Navigator.pop(context);
-          //     },
-          //     child: Icon(
-          //       Icons.chevron_left,
-          //       color: blackColor,
-          //       size: 30,
-          //     ),
-          //   ),
-          //   actions: <Widget>[
-          //     Padding(
-          //       padding: const EdgeInsets.all(14.0),
-          //       child: Image.asset(
-          //         "assets/icon_trolley.png",
-          //         color: blackColor,
-          //         height: 25,
-          //         width: 25,
-          //       ),
-          //     )
-          //   ],
-          // ),
-          floatingActionButton: Padding(
-            padding: EdgeInsets.only(top: 14),
-            child: FloatingActionButton(
-              heroTag: null,
-              mini: true,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Image.asset(
-                "assets/icon_back.png",
-                color: blackColor,
-                height: 18,
-              ),
-              backgroundColor:
-                  primaryColor, // sesuaikan dengan warna yang diinginkan
-              shape: CircleBorder(),
-              elevation: 1,
-              // set shape menjadi CircleBorder
+        backgroundColor: backgroundColor1,
+        floatingActionButton: Padding(
+          padding: EdgeInsets.only(top: 14),
+          child: FloatingActionButton(
+            heroTag: null,
+            mini: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Image.asset(
+              "assets/icon_back.png",
+              color: blackColor,
+              height: 18,
             ),
+            backgroundColor:
+                primaryColor, // sesuaikan dengan warna yang diinginkan
+            shape: CircleBorder(),
+            elevation: 1,
+            // set shape menjadi CircleBorder
           ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-          body: ListView(
-            physics:
-                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-            children: [content()],
-          ),
-          // bottomNavigationBar: Container(
-          //   margin:
-          //       EdgeInsets.symmetric(vertical: 10, horizontal: defaultMargin),
-          //   height: 50,
-          //   child: TextButton(
-          //     onPressed: () {
-          //       cartProvider.addCart(widget.product);
-          //       showSuccessDialog();
-          //     },
-          //     style: TextButton.styleFrom(
-          //       shape: RoundedRectangleBorder(
-          //         borderRadius: BorderRadius.circular(10),
-          //       ),
-          //       backgroundColor: primaryColor,
-          //     ),
-          //     child: Text(
-          //       'Add to Cart',
-          //       style: primaryTextStyle.copyWith(
-          //         fontSize: 16,
-          //         fontWeight: semibold,
-          //       ),
-          //     ),
-          //   ),
-          // )
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+        body: ListView(
+          physics:
+              BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          children: [content()],
+        ),
       ),
     );
   }

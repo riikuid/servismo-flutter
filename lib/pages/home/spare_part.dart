@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
-import 'package:serpismotor2/models/product_model.dart';
 import 'package:serpismotor2/providers/product_provider.dart';
 import 'package:serpismotor2/theme.dart';
 import 'package:serpismotor2/widgets/service_card.dart';
 
-class ServicePage extends StatefulWidget {
-  // const ServicePage({super.key});
+class SparePart extends StatefulWidget {
+  const SparePart({super.key});
 
   @override
-  State<ServicePage> createState() => _ServicePageState();
+  State<SparePart> createState() => _SparePartState();
 }
 
-class _ServicePageState extends State<ServicePage> {
+class _SparePartState extends State<SparePart> {
   String searchKeyword = '';
-
   @override
   Widget build(BuildContext context) {
     ProductProvider productProvider = Provider.of<ProductProvider>(context);
@@ -25,7 +23,7 @@ class _ServicePageState extends State<ServicePage> {
         centerTitle: true,
         toolbarHeight: 80,
         title: Text(
-          "Semua Servis",
+          "Servis Kendala",
           style: primaryTextStyle.copyWith(fontWeight: semibold),
         ),
         elevation: 0,
@@ -47,12 +45,12 @@ class _ServicePageState extends State<ServicePage> {
               offset: Offset(0, 0))
         ]),
         child: TextField(
-          style: primaryTextStyle.copyWith(fontWeight: semibold),
           onChanged: (value) {
             setState(() {
               searchKeyword = value;
             });
           },
+          style: primaryTextStyle.copyWith(fontWeight: semibold),
           cursorColor: primaryColor,
           decoration: InputDecoration(
             hintText: "Cari kebutuhan kendaraanmu",
@@ -94,14 +92,13 @@ class _ServicePageState extends State<ServicePage> {
             horizontalGridSpacing: 15,
             rowMainAxisAlignment: MainAxisAlignment.start,
             verticalGridSpacing: 15,
-            // verticalGridMargin: 30,
+            verticalGridMargin: 15,
             children: [
               ...productProvider.products
                   .map(
                     (product) => ServiceCardAll(product),
                   )
-                  .where((product) =>
-                      product.category.id != 1 && product.category.id != 10)
+                  .where((product) => product.category.id == 1)
                   .where((product) =>
                       product.product.name
                           .toLowerCase()
@@ -116,15 +113,39 @@ class _ServicePageState extends State<ServicePage> {
       );
     }
 
-    return Column(
-      children: [
-        header(),
-        searchBar(),
-        content(),
-        // SizedBox(
-        //   height: 14,
-        // )
-      ],
+    return Scaffold(
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(left: 11, top: 14),
+        child: FloatingActionButton(
+          heroTag: null,
+          mini: true,
+          onPressed: () {
+            Navigator.pushNamed(context, '/home');
+          },
+          child: Image.asset(
+            "assets/icon_back.png",
+            color: blackColor,
+            height: 18,
+          ),
+          backgroundColor:
+              primaryColor, // sesuaikan dengan warna yang diinginkan
+          shape: CircleBorder(),
+          elevation: 1,
+          // set shape menjadi CircleBorder
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      backgroundColor: backgroundColor1,
+      body: Column(
+        children: [
+          header(),
+          searchBar(),
+          content(),
+          // SizedBox(
+          //   height: 14,
+          // )
+        ],
+      ),
     );
   }
 }

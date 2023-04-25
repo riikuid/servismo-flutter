@@ -13,6 +13,7 @@ class CartCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CartProvider cartProvider = Provider.of<CartProvider>(context);
+
     return Container(
       margin: EdgeInsets.only(
         top: 14,
@@ -80,9 +81,15 @@ class CartCard extends StatelessWidget {
                     onTap: () {
                       cartProvider.addQuantity(cart.id);
                     },
-                    child: Image.asset(
-                      'assets/button_add.png',
+                    child: Container(
                       width: 16,
+                      child: AspectRatio(
+                        aspectRatio: 1 / 1,
+                        child: Image.asset(
+                          'assets/button_add.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(

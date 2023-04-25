@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
-
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -22,7 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
     initSharedPref();
   }
 
-  void initSharedPref() async{
+  void initSharedPref() async {
     prefs = await SharedPreferences.getInstance();
   }
 
@@ -74,10 +73,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 )),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
+                    await AuthProvider().logout(user: user);
                     prefs.clear();
                     Navigator.pushNamedAndRemoveUntil(
-                        context, '/sign-in', (route) => false);
+                        context, '/', (route) => false);
                   },
                   child: Image.asset(
                     'assets/button_exit.png',

@@ -24,15 +24,14 @@ class _HomePageState extends State<HomePage> {
     initSharedPref();
     // TODO: implement initState
     super.initState();
-
   }
 
-  void initSharedPref() async{
+  void initSharedPref() async {
     prefs = await SharedPreferences.getInstance();
   }
+
   @override
   Widget build(BuildContext context) {
-
     ProductProvider productProvider = Provider.of<ProductProvider>(context);
 
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
@@ -43,10 +42,7 @@ class _HomePageState extends State<HomePage> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await authProvider.login(
           email: prefs.getString('email'), password: prefs.getString('pw'));
-
     }
-
-
 
     profileImage() {
       try {
@@ -77,9 +73,7 @@ class _HomePageState extends State<HomePage> {
                 Text(
                   '@${user.username}',
                   style: subtitleTextStyle.copyWith(fontSize: 16),
-
                 ),
-
               ],
             ),
           ),
@@ -281,7 +275,8 @@ class _HomePageState extends State<HomePage> {
                 .map(
                   (product) => ServiceCardAll(product),
                 )
-                .where((product) => product.category.id == 2).take(5)
+                .where((product) => product.category.id == 2)
+                .take(5)
                 .toList(),
           ),
         ),
@@ -338,7 +333,68 @@ class _HomePageState extends State<HomePage> {
                   )
                   // .take(10)
                   .where((product) =>
-                      product.category.id != 1 && product.category.id != 2).take(5)
+                      product.category.id != 1 &&
+                      product.category.id != 2 &&
+                      product.category.id != 10)
+                  .take(5)
+                  .toList(),
+            ],
+          ),
+        ),
+      );
+    }
+
+    Widget sparePartTitle() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: defaultMargin,
+          right: defaultMargin,
+          left: defaultMargin,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Spare Part',
+              style:
+                  primaryTextStyle.copyWith(fontSize: 18, fontWeight: semibold),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/spare-part');
+              },
+              child: Text(
+                "See All",
+                style: yellowTextStyle.copyWith(
+                  fontWeight: semibold,
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
+    Widget sparePart() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 14,
+        ),
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          child: ResponsiveGridRow(
+            horizontalGridMargin: 30,
+            itemWidth: 150,
+            spacing: 15,
+            rowItems: [
+              ...productProvider.products
+                  .map(
+                    (product) => ServiceCardAll(product),
+                  )
+                  // .take(10)
+                  .where((product) => product.category.id == 1)
+                  .take(5)
                   .toList(),
             ],
           ),
@@ -359,7 +415,7 @@ class _HomePageState extends State<HomePage> {
             Text(
               'Rekomendasi Bengkel',
               style:
-              primaryTextStyle.copyWith(fontSize: 18, fontWeight: semibold),
+                  primaryTextStyle.copyWith(fontSize: 18, fontWeight: semibold),
             ),
             // GestureDetector(
             //   onTap: () {
@@ -387,16 +443,15 @@ class _HomePageState extends State<HomePage> {
           scrollDirection: Axis.horizontal,
           child: ResponsiveGridRow(
             horizontalGridMargin: 30,
-            itemWidth: 150,
+            itemWidth: 250,
             spacing: 15,
             rowItems: [
               ...productProvider.products
                   .map(
                     (product) => ServiceCardBengkel(product),
-              )
-              // .take(10)
-                  .where((product) =>
-              product.category.id == 10)
+                  )
+                  // .take(10)
+                  .where((product) => product.category.id == 10)
                   .toList(),
             ],
           ),
@@ -416,9 +471,10 @@ class _HomePageState extends State<HomePage> {
         bannerServisProblem(),
         servisProblemTitle(),
         servisProblem(),
+        sparePartTitle(),
+        sparePart(),
         servisBengkelTitle(),
         servisBengkel(),
-
         SizedBox(
           height: 30,
         )

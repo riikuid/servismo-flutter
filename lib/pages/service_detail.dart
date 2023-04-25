@@ -248,7 +248,7 @@ class _ServiceDetailState extends State<ServiceDetail> {
                   height: defaultMargin,
                 ),
                 Text(
-                  "Servis yang Serupa",
+                  "Lainnya yang Serupa",
                   style: primaryTextStyle.copyWith(
                       fontSize: 16, fontWeight: semibold),
                 ),
@@ -271,7 +271,8 @@ class _ServiceDetailState extends State<ServiceDetail> {
                         (product) => ServiceCardAll(product),
                       )
                       .where((product) =>
-                          product.category.id == widget.product.category.id)
+                          product.category.id == widget.product.category.id &&
+                          product.product.id != widget.product.id)
                       .toList(),
                 ],
               ),
