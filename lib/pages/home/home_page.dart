@@ -8,6 +8,7 @@ import 'package:serpismotor2/widgets/service_card.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
 import 'package:serpismotor2/models/user_model.dart';
+import 'package:serpismotor2/widgets/service_card_bengkel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -345,6 +346,64 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
+    Widget servisBengkelTitle() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: defaultMargin,
+          right: defaultMargin,
+          left: defaultMargin,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Rekomendasi Bengkel',
+              style:
+              primaryTextStyle.copyWith(fontSize: 18, fontWeight: semibold),
+            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     Navigator.pushNamed(context, '/servis-problem');
+            //   },
+            //   child: Text(
+            //     "See All",
+            //     style: yellowTextStyle.copyWith(
+            //       fontWeight: semibold,
+            //     ),
+            //   ),
+            // )
+          ],
+        ),
+      );
+    }
+
+    Widget servisBengkel() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 14,
+        ),
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          child: ResponsiveGridRow(
+            horizontalGridMargin: 30,
+            itemWidth: 150,
+            spacing: 15,
+            rowItems: [
+              ...productProvider.products
+                  .map(
+                    (product) => ServiceCardBengkel(product),
+              )
+              // .take(10)
+                  .where((product) =>
+              product.category.id == 10)
+                  .toList(),
+            ],
+          ),
+        ),
+      );
+    }
+
     return ListView(
       physics: BouncingScrollPhysics(
         parent: AlwaysScrollableScrollPhysics(),
@@ -357,6 +416,9 @@ class _HomePageState extends State<HomePage> {
         bannerServisProblem(),
         servisProblemTitle(),
         servisProblem(),
+        servisBengkelTitle(),
+        servisBengkel(),
+
         SizedBox(
           height: 30,
         )
