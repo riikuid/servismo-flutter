@@ -7,7 +7,7 @@ class ProductService {
   String baseUrl = 'http://dashboard.servismo.me/api';
 
   Future<List<ProductModel>> getProduct() async {
-    var url = '$baseUrl/products';
+    var url = '$baseUrl/products?limit=100';
     var headers = {'Content-Type': 'application/json'};
 
     var response = await http.get(Uri.parse(url), headers: headers);

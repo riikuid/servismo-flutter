@@ -98,7 +98,7 @@ class _ServisRutinState extends State<ServisRutin> {
                   .map(
                     (product) => ServiceCardAll(product),
                   )
-                  .where((product) => product.category.id == 1)
+                  .where((product) => product.category.id == 2)
                   .where((product) =>
                       product.product.name
                           .toLowerCase()

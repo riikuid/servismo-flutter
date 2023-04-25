@@ -40,14 +40,22 @@ class ServiceCardAll extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: 1 / 1,
-              child: Image.network(
+              child: product.galleries.isEmpty?Image.asset(
+                'assets/image_servis_rutin.png',
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Icon(
+                      Icons.error); // widget pengganti ketika terjadi kesalahan
+                },
+              ): Image.network(
+
                 'http://dashboard.servismo.me${product.galleries[0].url}',
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Icon(
                       Icons.error); // widget pengganti ketika terjadi kesalahan
                 },
-              ),
+              )
             ),
             SizedBox(
               height: 15,

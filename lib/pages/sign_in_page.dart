@@ -18,17 +18,24 @@ class _SignInPageState extends State<SignInPage> {
 
   bool isLoading = false;
 
+
+
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     handleSignIn() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
       setState(() {
         isLoading = true;
       });
 
       if (await authProvider.login(
           email: emailController.text, password: passwordController.text)) {
+        prefs.setBool("isLoggedIn", true);
+        prefs.setString('pw', passwordController.text);
+        prefs.setString('email', emailController.text);
         Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

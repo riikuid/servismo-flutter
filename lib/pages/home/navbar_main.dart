@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:serpismotor2/pages/home/home_page.dart';
 import 'package:serpismotor2/pages/home/service_page.dart';
 import 'package:serpismotor2/pages/home/profile_page.dart';
+import 'package:serpismotor2/services/auth_service.dart';
 import 'package:serpismotor2/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:serpismotor2/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:serpismotor2/models/user_model.dart';
 
 class NavbarMain extends StatefulWidget {
   @override
@@ -11,10 +17,26 @@ class NavbarMain extends StatefulWidget {
 }
 
 class _NavbarMainState extends State<NavbarMain> {
+
   int currentIndex = 0;
+
+
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    getInit() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await authProvider.login(
+          email: prefs.getString('email'), password: prefs.getString('pw'));
+
+    }
+
+
+
+
+
+
     Widget cartButton() {
       return FloatingActionButton(
         backgroundColor: primaryColor,
@@ -154,6 +176,7 @@ class _NavbarMainState extends State<NavbarMain> {
       switch (currentIndex) {
         case 0:
           previousIndex = 0;
+
           return HomePage();
           break;
         case 1:
@@ -166,6 +189,7 @@ class _NavbarMainState extends State<NavbarMain> {
           break;
 
         default:
+
           currentIndex = previousIndex;
           return body();
       }

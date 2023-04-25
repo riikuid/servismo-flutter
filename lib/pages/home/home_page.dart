@@ -8,14 +8,44 @@ import 'package:serpismotor2/widgets/service_card.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
 import 'package:serpismotor2/models/user_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late SharedPreferences prefs;
+
+  @override
+  void initState() {
+    initSharedPref();
+    // TODO: implement initState
+    super.initState();
+
+  }
+
+  void initSharedPref() async{
+    prefs = await SharedPreferences.getInstance();
+  }
   @override
   Widget build(BuildContext context) {
+
     ProductProvider productProvider = Provider.of<ProductProvider>(context);
 
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
     UserModel user = authProvider.user;
+
+    getInit() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await authProvider.login(
+          email: prefs.getString('email'), password: prefs.getString('pw'));
+
+    }
+
+
 
     profileImage() {
       try {
@@ -46,7 +76,9 @@ class HomePage extends StatelessWidget {
                 Text(
                   '@${user.username}',
                   style: subtitleTextStyle.copyWith(fontSize: 16),
-                )
+
+                ),
+
               ],
             ),
           ),
@@ -248,7 +280,7 @@ class HomePage extends StatelessWidget {
                 .map(
                   (product) => ServiceCardAll(product),
                 )
-                .where((product) => product.category.id == 1)
+                .where((product) => product.category.id == 2).take(5)
                 .toList(),
           ),
         ),
@@ -305,7 +337,7 @@ class HomePage extends StatelessWidget {
                   )
                   // .take(10)
                   .where((product) =>
-                      product.category.id != 1 && product.category.id != 2)
+                      product.category.id != 1 && product.category.id != 2).take(5)
                   .toList(),
             ],
           ),
