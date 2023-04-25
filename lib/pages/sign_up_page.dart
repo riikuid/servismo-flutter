@@ -231,6 +231,8 @@ class _SignUpPageState extends State<SignUpPage> {
     }
 
     Widget passwordInput() {
+      bool _isObscure =
+          true; // variable untuk menyimpan kondisi password tersembunyi atau tidak
       return Container(
         margin: EdgeInsets.only(top: 20),
         child: Column(
@@ -252,7 +254,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                  color: whiteColor, borderRadius: BorderRadius.circular(12)),
+                color: whiteColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
               child: Center(
                 child: Row(
                   children: [
@@ -264,23 +268,87 @@ class _SignUpPageState extends State<SignUpPage> {
                       width: 16,
                     ),
                     Expanded(
-                        child: TextFormField(
-                      controller: passwordController,
-                      style: primaryTextStyle,
-                      obscureText: true,
-                      decoration: InputDecoration.collapsed(
-                        hintText: 'Your Password',
-                        hintStyle: subtitleTextStyle,
+                      child: TextFormField(
+                        controller: passwordController,
+                        style: primaryTextStyle,
+                        obscureText: _isObscure, // gunakan kondisi _isObscure
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Your Password',
+                          hintStyle: subtitleTextStyle,
+                        ),
                       ),
-                    ))
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        _isObscure ? Icons.visibility_off : Icons.visibility,
+                        color: subtitleColor,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isObscure =
+                              false; // toggle kondisi _isObscure ketika button ditekan
+                        });
+                      },
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       );
     }
+    // Widget passwordInput() {
+    //   return Container(
+    //     margin: EdgeInsets.only(top: 20),
+    //     child: Column(
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       children: [
+    //         Text(
+    //           'Password',
+    //           style: primaryTextStyle.copyWith(
+    //             fontSize: 16,
+    //             fontWeight: medium,
+    //           ),
+    //         ),
+    //         SizedBox(
+    //           height: 12,
+    //         ),
+    //         Container(
+    //           height: 50,
+    //           padding: EdgeInsets.symmetric(
+    //             horizontal: 16,
+    //           ),
+    //           decoration: BoxDecoration(
+    //               color: whiteColor, borderRadius: BorderRadius.circular(12)),
+    //           child: Center(
+    //             child: Row(
+    //               children: [
+    //                 Image.asset(
+    //                   'assets/icon_password.png',
+    //                   width: 17,
+    //                 ),
+    //                 SizedBox(
+    //                   width: 16,
+    //                 ),
+    //                 Expanded(
+    //                     child: TextFormField(
+    //                   controller: passwordController,
+    //                   style: primaryTextStyle,
+    //                   obscureText: true,
+    //                   decoration: InputDecoration.collapsed(
+    //                     hintText: 'Your Password',
+    //                     hintStyle: subtitleTextStyle,
+    //                   ),
+    //                 ))
+    //               ],
+    //             ),
+    //           ),
+    //         )
+    //       ],
+    //     ),
+    //   );
+    // }
 
     Widget signUpButton() {
       return Container(

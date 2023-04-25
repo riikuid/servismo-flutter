@@ -5,7 +5,6 @@ import 'package:serpismotor2/providers/auth_provider.dart';
 import 'package:serpismotor2/widgets/loading_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class SignInPage extends StatefulWidget {
   @override
   State<SignInPage> createState() => _SignInPageState();
@@ -17,8 +16,6 @@ class _SignInPageState extends State<SignInPage> {
   TextEditingController passwordController = TextEditingController(text: '');
 
   bool isLoading = false;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +32,6 @@ class _SignInPageState extends State<SignInPage> {
         prefs.setString('pw', passwordController.text);
         prefs.setString('email', emailController.text);
         Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -130,6 +126,8 @@ class _SignInPageState extends State<SignInPage> {
     }
 
     Widget passwordInput() {
+      bool _isObscure =
+          true; // variable untuk menyimpan kondisi password tersembunyi atau tidak
       return Container(
         margin: EdgeInsets.only(top: 20),
         child: Column(
@@ -151,7 +149,9 @@ class _SignInPageState extends State<SignInPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                  color: whiteColor, borderRadius: BorderRadius.circular(12)),
+                color: whiteColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
               child: Center(
                 child: Row(
                   children: [
@@ -163,23 +163,87 @@ class _SignInPageState extends State<SignInPage> {
                       width: 16,
                     ),
                     Expanded(
-                        child: TextFormField(
-                      controller: passwordController,
-                      style: primaryTextStyle,
-                      obscureText: true,
-                      decoration: InputDecoration.collapsed(
-                        hintText: 'Your Password',
-                        hintStyle: subtitleTextStyle,
+                      child: TextFormField(
+                        controller: passwordController,
+                        style: primaryTextStyle,
+                        obscureText: _isObscure, // gunakan kondisi _isObscure
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Your Password',
+                          hintStyle: subtitleTextStyle,
+                        ),
                       ),
-                    ))
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        _isObscure ? Icons.visibility_off : Icons.visibility,
+                        color: subtitleColor,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isObscure =
+                              false; // toggle kondisi _isObscure ketika button ditekan
+                        });
+                      },
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       );
     }
+    // Widget passwordInput() {
+    //   return Container(
+    //     margin: EdgeInsets.only(top: 20),
+    //     child: Column(
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       children: [
+    //         Text(
+    //           'Password',
+    //           style: primaryTextStyle.copyWith(
+    //             fontSize: 16,
+    //             fontWeight: medium,
+    //           ),
+    //         ),
+    //         SizedBox(
+    //           height: 12,
+    //         ),
+    //         Container(
+    //           height: 50,
+    //           padding: EdgeInsets.symmetric(
+    //             horizontal: 16,
+    //           ),
+    //           decoration: BoxDecoration(
+    //               color: whiteColor, borderRadius: BorderRadius.circular(12)),
+    //           child: Center(
+    //             child: Row(
+    //               children: [
+    //                 Image.asset(
+    //                   'assets/icon_password.png',
+    //                   width: 17,
+    //                 ),
+    //                 SizedBox(
+    //                   width: 16,
+    //                 ),
+    //                 Expanded(
+    //                     child: TextFormField(
+    //                   controller: passwordController,
+    //                   style: primaryTextStyle,
+    //                   obscureText: true,
+    //                   decoration: InputDecoration.collapsed(
+    //                     hintText: 'Your Password',
+    //                     hintStyle: subtitleTextStyle,
+    //                   ),
+    //                 ))
+    //               ],
+    //             ),
+    //           ),
+    //         )
+    //       ],
+    //     ),
+    //   );
+    // }
 
     Widget signInButton() {
       return Container(

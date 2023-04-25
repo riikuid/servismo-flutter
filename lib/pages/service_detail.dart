@@ -22,12 +22,6 @@ class ServiceDetail extends StatefulWidget {
 class _ServiceDetailState extends State<ServiceDetail> {
   List<ProductModel> similarProducts = [];
 
-  List images = [
-    'assets/image_cat.jpg',
-    'assets/image_cat.jpg',
-    'assets/image_shoes.png',
-  ];
-
   int currentIndex = 0;
   bool isWishList = false;
   void initState() {
@@ -104,7 +98,7 @@ class _ServiceDetailState extends State<ServiceDetail> {
                     height: 44,
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/cart');
+                        Navigator.popAndPushNamed(context, '/cart');
                       },
                       style: TextButton.styleFrom(
                           backgroundColor: primaryColor,
@@ -273,6 +267,7 @@ class _ServiceDetailState extends State<ServiceDetail> {
                       .where((product) =>
                           product.category.id == widget.product.category.id &&
                           product.product.id != widget.product.id)
+                      .take(5)
                       .toList(),
                 ],
               ),

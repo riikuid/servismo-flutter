@@ -44,14 +44,16 @@ class _HomePageState extends State<HomePage> {
           email: prefs.getString('email'), password: prefs.getString('pw'));
     }
 
-    profileImage() {
-      try {
-        return SvgPicture.network(user.profilePhotoUrl!);
-      } catch (e) {
-        // Use Image.memory to load the data as image
-        return Image.network(user.profilePhotoUrl!);
-      }
-    }
+    // profileImage() {
+    //   try {
+    //     return SvgPicture.network(user.profilePhotoUrl!);
+    //   } catch (e) {
+    //     // Use Image.memory to load the data as image
+    //     return Image.asset(
+    //       'assets/image_profile.png',
+    //     );
+    //   }
+    // }
 
     Widget header() {
       return Container(
@@ -78,8 +80,8 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           ClipOval(
-            child: SvgPicture.network(
-              user.profilePhotoUrl!,
+            child: Image.asset(
+              'assets/image_profile.png',
               height: 54,
               width: 54,
             ),
