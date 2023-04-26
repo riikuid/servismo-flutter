@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:serpismotor2/providers/auth_provider.dart';
 
 class AuthService {
-  String baseUrl = 'http://dashboard.servismo.me/api';
+  String baseUrl = 'https://dashboard.servismo.me/api';
 
   Future<UserModel> register({
     String? name,

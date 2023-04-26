@@ -37,7 +37,7 @@ class CartCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
                     image: NetworkImage(
-                      'http://dashboard.servismo.me${cart.product.galleries[0].url}',
+                      'https://dashboard.servismo.me${cart.product.galleries[0].url}',
                     ),
                   ),
                 ),

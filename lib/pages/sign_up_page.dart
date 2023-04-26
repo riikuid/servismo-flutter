@@ -278,18 +278,18 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                     ),
-                    IconButton(
-                      icon: Icon(
-                        _isObscure ? Icons.visibility_off : Icons.visibility,
-                        color: subtitleColor,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isObscure =
-                              false; // toggle kondisi _isObscure ketika button ditekan
-                        });
-                      },
-                    ),
+                    // IconButton(
+                    //   icon: Icon(
+                    //     _isObscure ? Icons.visibility_off : Icons.visibility,
+                    //     color: subtitleColor,
+                    //   ),
+                    //   onPressed: () {
+                    //     setState(() {
+                    //       _isObscure =
+                    //           false; // toggle kondisi _isObscure ketika button ditekan
+                    //     });
+                    //   },
+                    // ),
                   ],
                 ),
               ),

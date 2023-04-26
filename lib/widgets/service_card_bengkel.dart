@@ -46,7 +46,7 @@ class ServiceCardBengkel extends StatelessWidget {
                         .error) // widget pengganti ketika terjadi kesalahan
 
                     : Image.network(
-                        'http://dashboard.servismo.me${product.galleries[0].url}',
+                        'https://dashboard.servismo.me${product.galleries[0].url}',
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return Icon(Icons

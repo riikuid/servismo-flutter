@@ -1,4 +1,4 @@
-package com.example.tokosepatu
+package com.servismo.agile
 
 import io.flutter.embedding.android.FlutterActivity
 

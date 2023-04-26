@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:serpismotor2/models/product_model.dart';
 
 class ProductService {
-  String baseUrl = 'http://dashboard.servismo.me/api';
+  String baseUrl = 'https://dashboard.servismo.me/api';
 
   Future<List<ProductModel>> getProduct() async {
     var url = '$baseUrl/products?limit=100';

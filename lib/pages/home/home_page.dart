@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Halo ${user.name}',
+                  'Halo ${user.name!.split(" ")[0]}',
                   style: primaryTextStyle.copyWith(
                     fontSize: 22,
                     fontWeight: semibold,

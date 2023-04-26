@@ -155,7 +155,7 @@ class _ServiceDetailBengkelState extends State<ServiceDetailBengkel> {
                           items: widget.product.galleries
                               .map(
                                 (image) => Image.network(
-                                  'http://dashboard.servismo.me${image.url}',
+                                  'https://dashboard.servismo.me${image.url}',
                                   width: MediaQuery.of(context).size.width,
                                   fit: BoxFit.cover,
                                 ),
