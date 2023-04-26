@@ -228,9 +228,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   'Your Service List',
                 ),
               ),
-              menuItem(
-                'Help',
-              ),
               SizedBox(
                 height: 30,
               ),
@@ -243,14 +240,20 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               GestureDetector(
                 onTap: () {
-                  launchUrl(Uri.parse('http://servismo.me'));
+                  launchUrl(Uri.parse('https://servismo.me'));
                 },
                 child: menuItem(
                   'Our Website',
                 ),
               ),
-              menuItem(
-                'Rate App',
+              GestureDetector(
+                onTap: () {
+                  launchUrl(Uri.parse(
+                      'https://play.google.com/store/apps/details?id=com.servismo.agile'));
+                },
+                child: menuItem(
+                  'Rate App',
+                ),
               ),
             ],
           ),
