@@ -9,6 +9,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
 import 'package:serpismotor2/models/user_model.dart';
 import 'package:serpismotor2/widgets/service_card_bengkel.dart';
+import 'package:serpismotor2/widgets/spare_part_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -275,7 +276,7 @@ class _HomePageState extends State<HomePage> {
             spacing: 15,
             rowItems: productProvider.products
                 .map(
-                  (product) => ServiceCardAll(product),
+                  (product) => SparePartCard(product),
                 )
                 .where((product) => product.category.id == 2)
                 .take(5)
@@ -392,7 +393,7 @@ class _HomePageState extends State<HomePage> {
             rowItems: [
               ...productProvider.products
                   .map(
-                    (product) => ServiceCardAll(product),
+                    (product) => SparePartCard(product),
                   )
                   // .take(10)
                   .where((product) => product.category.id == 1)

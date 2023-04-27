@@ -41,12 +41,13 @@ class _SplashPageState extends State<SplashPage> {
       print(status);
       if (status) {
         if (await authProvider.login(
-            email: prefs.getString('email'), password: prefs.getString('pw')?? null)) {
+            email: prefs.getString('email'),
+            password: prefs.getString('pw') ?? null)) {
           Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-
         }
-      }else{
-        Navigator.pushNamedAndRemoveUntil(context, '/sign-in', (route) => false);
+      } else {
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/sign-in', (route) => false);
       }
     }
 
@@ -64,9 +65,7 @@ class _SplashPageState extends State<SplashPage> {
               image: DecorationImage(
                   image: AssetImage('assets/servismoputih.png'))),
         ),
-
       ),
     );
-
   }
 }

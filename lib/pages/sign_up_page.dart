@@ -3,6 +3,7 @@ import 'package:serpismotor2/providers/auth_provider.dart';
 import 'package:serpismotor2/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:serpismotor2/widgets/loading_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -25,6 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
 
     handleSignUp() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
       setState(() {
         isLoading = true;
       });
@@ -34,6 +36,9 @@ class _SignUpPageState extends State<SignUpPage> {
           username: usernameController.text,
           email: emailController.text,
           password: passwordController.text)) {
+        prefs.setBool("isLoggedIn", true);
+        prefs.setString('pw', passwordController.text);
+        prefs.setString('email', emailController.text);
         Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -169,6 +174,12 @@ class _SignUpPageState extends State<SignUpPage> {
                         hintText: 'Your Username',
                         hintStyle: subtitleTextStyle,
                       ),
+                      validator: (value) {
+                        if (value!.contains(' ')) {
+                          return 'Username cannot contain spaces';
+                        }
+                        return null;
+                      },
                     ))
                   ],
                 ),

@@ -99,7 +99,9 @@ class _ServisProblemState extends State<ServisProblem> {
                     (product) => ServiceCardAll(product),
                   )
                   .where((product) =>
-                      product.category.id != 1 && product.category.id != 2)
+                      product.category.id != 1 &&
+                      product.category.id != 2 &&
+                      product.category.id != 10)
                   .where((product) =>
                       product.product.name
                           .toLowerCase()

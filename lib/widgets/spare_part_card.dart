@@ -6,10 +6,10 @@ import 'package:serpismotor2/theme.dart';
 import '../models/category_model.dart';
 import 'package:intl/intl.dart';
 
-class ServiceCardAll extends StatelessWidget {
-  // const ServiceCardAll({super.key});
+class SparePartCard extends StatelessWidget {
+  // const SparePartCard({super.key});
   final ProductModel product;
-  ServiceCardAll(this.product);
+  SparePartCard(this.product);
   CategoryModel get category => product.category;
 
   @override
@@ -60,7 +60,7 @@ class ServiceCardAll extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.category.name,
+                    product.name,
                     style: blackTextStyle.copyWith(fontWeight: semibold),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -84,7 +84,7 @@ class ServiceCardAll extends StatelessWidget {
                     height: 2,
                   ),
                   Text(
-                    product.name,
+                    product.category.name,
                     style: secondaryTextStyle.copyWith(
                         fontSize: 12, fontWeight: semibold),
                     overflow: TextOverflow.ellipsis,
