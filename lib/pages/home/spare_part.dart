@@ -4,6 +4,7 @@ import 'package:responsive_grid_list/responsive_grid_list.dart';
 import 'package:serpismotor2/providers/product_provider.dart';
 import 'package:serpismotor2/theme.dart';
 import 'package:serpismotor2/widgets/service_card.dart';
+import 'package:serpismotor2/widgets/spare_part_card.dart';
 
 class SparePart extends StatefulWidget {
   const SparePart({super.key});
@@ -23,7 +24,7 @@ class _SparePartState extends State<SparePart> {
         centerTitle: true,
         toolbarHeight: 80,
         title: Text(
-          "Servis Kendala",
+          "Spare Part",
           style: primaryTextStyle.copyWith(fontWeight: semibold),
         ),
         elevation: 0,
@@ -96,7 +97,7 @@ class _SparePartState extends State<SparePart> {
             children: [
               ...productProvider.products
                   .map(
-                    (product) => ServiceCardAll(product),
+                    (product) => SparePartCard(product),
                   )
                   .where((product) => product.category.id == 1)
                   .where((product) =>
