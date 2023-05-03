@@ -22,7 +22,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   getInit() async {
-    await Provider.of<ProductProvider>(context, listen: false).getProducts();
+    // await Provider.of<ProductProvider>(context, listen: false).getProducts();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // var status = prefs.getBool('isLoggedIn') ?? false;
     // print(status);

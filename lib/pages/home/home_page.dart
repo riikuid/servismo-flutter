@@ -9,8 +9,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
 import 'package:serpismotor2/models/user_model.dart';
 import 'package:serpismotor2/widgets/service_card_bengkel.dart';
+import 'package:serpismotor2/widgets/skeleton_card.dart';
 import 'package:serpismotor2/widgets/spare_part_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -19,12 +21,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late SharedPreferences prefs;
+  late bool _isLoading;
 
   @override
   void initState() {
-    initSharedPref();
-    // TODO: implement initState
+    loadProduct();
     super.initState();
+  }
+
+  loadProduct() async {
+    setState(() {
+      _isLoading = false;
+    });
+    await Provider.of<ProductProvider>(context, listen: false).getProducts();
+    setState(() {
+      _isLoading = true;
+    });
   }
 
   void initSharedPref() async {
@@ -39,12 +51,6 @@ class _HomePageState extends State<HomePage> {
 
     UserModel user = authProvider.user;
 
-    getInit() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await authProvider.login(
-          email: prefs.getString('email'), password: prefs.getString('pw'));
-    }
-
     // profileImage() {
     //   try {
     //     return SvgPicture.network(user.profilePhotoUrl!);
@@ -55,6 +61,42 @@ class _HomePageState extends State<HomePage> {
     //     );
     //   }
     // }
+
+    shimmerCardLoagin() {
+      return Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10), color: whiteColor),
+        padding: EdgeInsets.all(10),
+        child: Shimmer.fromColors(
+          child: SkeletonCard(),
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+        ),
+      );
+    }
+
+    Widget rowLoading() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 14,
+        ),
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          child: ResponsiveGridRow(
+              horizontalGridMargin: 30,
+              itemWidth: 150,
+              spacing: 15,
+              rowItems: [
+                shimmerCardLoagin(),
+                shimmerCardLoagin(),
+                shimmerCardLoagin(),
+                shimmerCardLoagin(),
+                shimmerCardLoagin(),
+              ]),
+        ),
+      );
+    }
 
     Widget header() {
       return Container(
@@ -470,12 +512,12 @@ class _HomePageState extends State<HomePage> {
         header(),
         bannerServisRutin(),
         servisRutinTitle(),
-        servisRutin(),
+        _isLoading ? servisRutin() : rowLoading(),
         bannerServisProblem(),
         servisProblemTitle(),
-        servisProblem(),
+        _isLoading ? servisProblem() : rowLoading(),
         sparePartTitle(),
-        sparePart(),
+        _isLoading ? sparePart() : rowLoading(),
         servisBengkelTitle(),
         servisBengkel(),
         SizedBox(
