@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late SharedPreferences prefs;
-  late bool _isLoading;
+  late bool _isLoading = true;
 
   @override
   void initState() {
