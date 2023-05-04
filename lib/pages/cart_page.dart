@@ -211,7 +211,7 @@ class CartPage extends StatelessWidget {
               ),
               child: TextButton(
                 onPressed: () {
-                  showSuccessDialog();
+                  Navigator.popAndPushNamed(context, '/servis-list');
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: primaryColor,

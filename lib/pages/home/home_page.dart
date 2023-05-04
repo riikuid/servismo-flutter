@@ -9,6 +9,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
 import 'package:serpismotor2/models/user_model.dart';
 import 'package:serpismotor2/widgets/service_card_bengkel.dart';
+import 'package:serpismotor2/widgets/skeleton_bengkel_card.dart';
 import 'package:serpismotor2/widgets/skeleton_card.dart';
 import 'package:serpismotor2/widgets/spare_part_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -93,6 +94,41 @@ class _HomePageState extends State<HomePage> {
                 shimmerCardLoagin(),
                 shimmerCardLoagin(),
                 shimmerCardLoagin(),
+              ]),
+        ),
+      );
+    }
+
+    shimmerBengkelCardLoading() {
+      return Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10), color: whiteColor),
+        child: Shimmer.fromColors(
+          child: SkeletonBengkelCard(),
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+        ),
+      );
+    }
+
+    Widget rowBengkelLoading() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 14,
+        ),
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          child: ResponsiveGridRow(
+              horizontalGridMargin: 30,
+              itemWidth: 250,
+              spacing: 15,
+              rowItems: [
+                shimmerBengkelCardLoading(),
+                shimmerBengkelCardLoading(),
+                shimmerBengkelCardLoading(),
+                shimmerBengkelCardLoading(),
+                shimmerBengkelCardLoading(),
               ]),
         ),
       );
@@ -519,7 +555,7 @@ class _HomePageState extends State<HomePage> {
         sparePartTitle(),
         _isLoading ? sparePart() : rowLoading(),
         servisBengkelTitle(),
-        servisBengkel(),
+        _isLoading ? servisBengkel() : rowBengkelLoading(),
         SizedBox(
           height: 30,
         )

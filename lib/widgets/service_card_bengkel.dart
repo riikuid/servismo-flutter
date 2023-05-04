@@ -54,7 +54,7 @@ class ServiceCardBengkel extends StatelessWidget {
                         },
                       )),
             SizedBox(
-              height: 15,
+              height: 10,
             ),
             Container(
               width: double.infinity,
