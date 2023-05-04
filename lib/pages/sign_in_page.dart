@@ -16,6 +16,13 @@ class _SignInPageState extends State<SignInPage> {
   TextEditingController passwordController = TextEditingController(text: '');
 
   bool isLoading = false;
+  var _isObscure;
+
+  @override
+  void initState() {
+    super.initState();
+    _isObscure = true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,8 +133,6 @@ class _SignInPageState extends State<SignInPage> {
     }
 
     Widget passwordInput() {
-      bool _isObscure =
-          true; // variable untuk menyimpan kondisi password tersembunyi atau tidak
       return Container(
         margin: EdgeInsets.only(top: 20),
         child: Column(
@@ -173,18 +178,20 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                     ),
-                    // IconButton(
-                    //   icon: Icon(
-                    //     _isObscure ? Icons.visibility_off : Icons.visibility,
-                    //     color: subtitleColor,
-                    //   ),
-                    //   onPressed: () {
-                    //     setState(() {
-                    //       _isObscure =
-                    //           false; // toggle kondisi _isObscure ketika button ditekan
-                    //     });
-                    //   },
-                    // ),
+                    IconButton(
+                      splashColor: Colors.transparent,
+                      splashRadius: 1,
+                      icon: Icon(
+                        _isObscure ? Icons.visibility : Icons.visibility_off,
+                        color: subtitleColor,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isObscure =
+                              !_isObscure; // toggle kondisi _isObscure ketika button ditekan
+                        });
+                      },
+                    ),
                   ],
                 ),
               ),
