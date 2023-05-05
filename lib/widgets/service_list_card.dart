@@ -64,6 +64,7 @@ class ServiceListCard extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+      margin: EdgeInsets.only(bottom: 15),
       decoration: BoxDecoration(
         color: whiteColor,
         boxShadow: [

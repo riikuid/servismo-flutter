@@ -222,7 +222,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               GestureDetector(
                 onTap: () {
-                  showSuccessDialog();
+                  Navigator.pushNamed(context, '/servis-list');
                 },
                 child: menuItem(
                   'Your Service List',

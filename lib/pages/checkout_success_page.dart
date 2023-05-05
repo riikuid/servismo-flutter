@@ -55,7 +55,7 @@ class CheckoutSuccessPage extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Order Other Shoes',
+                  'Explore Other Service',
                   style: primaryTextStyle.copyWith(
                     fontSize: 16,
                     fontWeight: medium,
@@ -78,7 +78,7 @@ class CheckoutSuccessPage extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'View My Order',
+                  'View My Service List',
                   style: primaryTextStyle.copyWith(
                     fontSize: 16,
                     fontWeight: medium,
@@ -93,12 +93,15 @@ class CheckoutSuccessPage extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor3,
+      backgroundColor: backgroundColor1,
       appBar: AppBar(
         backgroundColor: backgroundColor1,
         centerTitle: true,
         title: Text(
           'Checkout Success',
+          style: primaryTextStyle.copyWith(
+            fontWeight: semibold,
+          ),
         ),
         elevation: 0,
       ),

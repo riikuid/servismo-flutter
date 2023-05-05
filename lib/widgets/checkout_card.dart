@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:serpismotor2/models/cart_model.dart';
 import 'package:serpismotor2/theme.dart';
 
 class CheckoutCard extends StatelessWidget {
-  const CheckoutCard({Key? key}) : super(key: key);
+  CheckoutCard(this.cart);
+  final CartModel cart;
+
+  // const CheckoutCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +18,9 @@ class CheckoutCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(
         vertical: 20,
         horizontal: 12,
-
       ),
       decoration: BoxDecoration(
-        color: backgroundColor4,
+        color: whiteColor,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -27,9 +31,8 @@ class CheckoutCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               image: DecorationImage(
-                image: AssetImage(
-                  'assets/image_shoes.png'
-                ),
+                image: NetworkImage(
+                    'https://dashboard.servismo.me${cart.product.galleries[0].url}'),
               ),
             ),
           ),
@@ -41,19 +44,24 @@ class CheckoutCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Terrex Urban Low',
+                  cart.product.name,
                   style: primaryTextStyle.copyWith(
                     fontWeight: semibold,
                   ),
                   overflow: TextOverflow.ellipsis,
-
                 ),
                 SizedBox(
                   height: 2,
                 ),
                 Text(
-                    '\$143,98',
-                  style: priceTextStyle,
+                  NumberFormat.currency(
+                    locale: 'id', // sesuaikan dengan locale yang diinginkan
+                    symbol: 'Rp. ',
+                    decimalDigits: 0, // jumlah digit dibelakang koma
+                  ).format(cart.product.price),
+                  style: priceTextStyle.copyWith(
+                    fontWeight: medium,
+                  ),
                 ),
               ],
             ),
@@ -62,11 +70,10 @@ class CheckoutCard extends StatelessWidget {
             width: 12,
           ),
           Text(
-              '2 items',
+            '${cart.quantity} items',
             style: secondaryTextStyle.copyWith(
               fontSize: 12,
             ),
-
           ),
         ],
       ),

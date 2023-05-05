@@ -211,7 +211,7 @@ class CartPage extends StatelessWidget {
               ),
               child: TextButton(
                 onPressed: () {
-                  Navigator.popAndPushNamed(context, '/servis-list');
+                  Navigator.pushNamed(context, '/checkout');
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: primaryColor,

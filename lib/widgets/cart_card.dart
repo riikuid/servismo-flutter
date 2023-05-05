@@ -34,8 +34,9 @@ class CartCard extends StatelessWidget {
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
+                    fit: BoxFit.cover,
                     image: NetworkImage(
                       'https://dashboard.servismo.me${cart.product.galleries[0].url}',
                     ),
@@ -53,6 +54,8 @@ class CartCard extends StatelessWidget {
                   children: [
                     Text(
                       cart.product.category.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: secondaryTextStyle.copyWith(
                           fontWeight: semibold, fontSize: 12),
                     ),
@@ -75,73 +78,108 @@ class CartCard extends StatelessWidget {
                   ],
                 ),
               )),
-              Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      cartProvider.addQuantity(cart.id);
-                    },
-                    child: Container(
-                      width: 16,
-                      child: AspectRatio(
-                        aspectRatio: 1 / 1,
-                        child: Image.asset(
-                          'assets/button_add.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 3,
-                  ),
-                  Text(
-                    cart.quantity.toString(),
-                    style: primaryTextStyle.copyWith(
-                      fontWeight: medium,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 3,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      cartProvider.reduceQuantity(cart.id);
-                    },
-                    child: Image.asset(
-                      'assets/button_min.png',
-                      width: 16,
-                    ),
-                  ),
-                ],
-              ),
+              // Column(
+              //   children: [
+              //     GestureDetector(
+              //       onTap: () {
+              //         cartProvider.addQuantity(cart.id);
+              //       },
+              //       child: Container(
+              //         width: 16,
+              //         child: AspectRatio(
+              //           aspectRatio: 1 / 1,
+              //           child: Image.asset(
+              //             'assets/button_add.png',
+              //             fit: BoxFit.cover,
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       height: 3,
+              //     ),
+              //     Text(
+              //       cart.quantity.toString(),
+              //       style: primaryTextStyle.copyWith(
+              //         fontWeight: medium,
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       height: 3,
+              //     ),
+              //     GestureDetector(
+              //       onTap: () {
+              //         cartProvider.reduceQuantity(cart.id);
+              //       },
+              //       child: Image.asset(
+              //         'assets/button_min.png',
+              //         width: 16,
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
           SizedBox(
             height: 12,
           ),
-          GestureDetector(
-            onTap: () {
-              cartProvider.removeCart(cart.id);
-            },
-            child: Row(
-              children: [
-                Image.asset(
-                  'assets/icon_remove.png',
-                  width: 10,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  cartProvider.removeCart(cart.id);
+                },
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/icon_remove.png',
+                      width: 12,
+                    ),
+                    SizedBox(
+                      width: 4,
+                    ),
+                    Text(
+                      'Remove',
+                      style: alertTextStyle.copyWith(
+                        fontSize: 14,
+                        fontWeight: light,
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  width: 4,
+              ),
+              Container(
+                height: 30,
+                width: 80,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        cartProvider.reduceQuantity(cart.id);
+                      },
+                      child: Image.asset(
+                        'assets/button_min.png',
+                        width: 20,
+                      ),
+                    ),
+                    Text(
+                      cart.quantity.toString(),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        cartProvider.addQuantity(cart.id);
+                      },
+                      child: Image.asset(
+                        'assets/button_add.png',
+                        width: 20,
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  'Remove',
-                  style: alertTextStyle.copyWith(
-                    fontSize: 12,
-                    fontWeight: light,
-                  ),
-                ),
-              ],
-            ),
+              )
+            ],
           ),
         ],
       ),

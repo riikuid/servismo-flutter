@@ -92,6 +92,7 @@ class ServiceListPage extends StatelessWidget {
             ),
             children: const [
               ServiceListCard(),
+              ServiceListCard(),
             ]),
       );
     }
@@ -104,7 +105,7 @@ class ServiceListPage extends StatelessWidget {
           heroTag: null,
           mini: true,
           onPressed: () {
-            Navigator.pushNamed(context, '/home');
+            Navigator.pop(context);
           },
           child: Image.asset(
             "assets/icon_back.png",
@@ -123,7 +124,7 @@ class ServiceListPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           header(),
-          cartProvider.carts.length == 0 ? emptyCart() : content(),
+          content(),
         ],
       ),
     );
