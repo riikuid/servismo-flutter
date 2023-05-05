@@ -212,6 +212,7 @@ class CartPage extends StatelessWidget {
               child: TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/checkout');
+                  // showSuccessDialog();
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: primaryColor,

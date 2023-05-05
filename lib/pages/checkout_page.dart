@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:serpismotor2/providers/auth_provider.dart';
 import 'package:serpismotor2/providers/cart_provider.dart';
+import 'package:serpismotor2/providers/transaction_provider.dart';
 import 'package:serpismotor2/theme.dart';
 import 'package:serpismotor2/widgets/checkout_card.dart';
 
@@ -18,6 +20,30 @@ class _CheckoutPageState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
     CartProvider cartProvider = Provider.of<CartProvider>(context);
+    TransactionProvider transactionProvider =
+        Provider.of<TransactionProvider>(context);
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    handleCheckout() async {
+      if (nameServiceController.text.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: alertColor,
+          content: Text(
+            'Service list name must not empty',
+            textAlign: TextAlign.center,
+          ),
+        ));
+      } else {
+        if (await transactionProvider.checkout(
+            authProvider.user.token!,
+            cartProvider.carts,
+            nameServiceController.text,
+            cartProvider.totalPrice())) {
+          cartProvider.carts = [];
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/checkout-success', (route) => false);
+        }
+      }
+    }
 
     Widget header() {
       return AppBar(
@@ -220,22 +246,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 vertical: defaultMargin,
               ),
               child: TextButton(
-                onPressed: () {
-                  if (nameServiceController.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: alertColor,
-                        content: Text(
-                          'Service list name must not empty',
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    );
-                  } else {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, '/checkout-success', (route) => false);
-                  }
-                },
+                onPressed: handleCheckout,
                 style: TextButton.styleFrom(
                   backgroundColor: primaryColor,
                   shape: RoundedRectangleBorder(

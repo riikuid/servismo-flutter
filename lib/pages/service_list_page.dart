@@ -1,17 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:serpismotor2/models/user_model.dart';
+import 'package:serpismotor2/providers/auth_provider.dart';
 import 'package:serpismotor2/providers/cart_provider.dart';
+import 'package:serpismotor2/providers/transaction_provider.dart';
+import 'package:serpismotor2/services/transaction_service.dart';
 import 'package:serpismotor2/theme.dart';
 import 'package:serpismotor2/widgets/cart_card.dart';
 import 'package:serpismotor2/widgets/service_list_card.dart';
 
-class ServiceListPage extends StatelessWidget {
+class ServiceListPage extends StatefulWidget {
   const ServiceListPage({Key? key}) : super(key: key);
 
   @override
+  State<ServiceListPage> createState() => _ServiceListPageState();
+}
+
+class _ServiceListPageState extends State<ServiceListPage> {
+  late bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    // TransactionProvider transactionProvider =
+    //     Provider.of<TransactionProvider>(context);
+
+    if (_isLoading) {
+      setState(() {
+        _isLoading = false;
+      });
+
+      // transactionProvider.getTransactions(authProvider.user.token!);
+
+      setState(() {
+        _isLoading = true;
+      });
+    }
+
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    CartProvider cartProvider = Provider.of<CartProvider>(context);
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+    // TransactionProvider transactionProvider =
+    //     Provider.of<TransactionProvider>(context);
 
     Widget header() {
       return AppBar(
@@ -90,9 +130,15 @@ class ServiceListPage extends StatelessWidget {
             padding: EdgeInsets.symmetric(
               horizontal: defaultMargin,
             ),
-            children: const [
-              ServiceListCard(),
-              ServiceListCard(),
+            children: [
+              // ...transactionProvider.transactions
+              //     .map((transaction) => Container(
+              //           color: Colors.red,
+              //           height: 80,
+              //           width: 100,
+              //           child: Text(transaction.totalPrice.toString()),
+              //         ))
+              //     .toList(),
             ]),
       );
     }
@@ -124,7 +170,11 @@ class ServiceListPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           header(),
-          content(),
+          _isLoading
+              ? content()
+              : Center(
+                  child: CircularProgressIndicator(),
+                )
         ],
       ),
     );

@@ -18,6 +18,7 @@ import 'package:flutter/services.dart';
 import 'package:serpismotor2/providers/auth_provider.dart';
 import 'package:serpismotor2/providers/cart_provider.dart';
 import 'package:serpismotor2/providers/product_provider.dart';
+import 'package:serpismotor2/providers/transaction_provider.dart';
 import 'package:serpismotor2/theme.dart';
 
 void main() {
@@ -42,7 +43,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => ProductProvider(),
         ),
-        ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(
+          create: (context) => CartProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => TransactionProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

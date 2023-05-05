@@ -27,20 +27,20 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  removeCart(int id) {
-    _carts.removeAt(id);
+  removeCart(CartModel cart) {
+    _carts.removeWhere((element) => element.hashCode == cart.hashCode);
     notifyListeners();
   }
 
-  addQuantity(int id) {
-    _carts[id].quantity++;
+  addQuantity(CartModel cart) {
+    cart.quantity++;
     notifyListeners();
   }
 
-  reduceQuantity(int id) {
-    _carts[id].quantity--;
-    if (_carts[id].quantity == 0) {
-      _carts.removeAt(id);
+  reduceQuantity(CartModel cart) {
+    cart.quantity--;
+    if (cart.quantity == 0) {
+      _carts.removeWhere((element) => element.hashCode == cart.hashCode);
     }
 
     notifyListeners();

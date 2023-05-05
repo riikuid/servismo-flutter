@@ -29,8 +29,9 @@ class CheckoutCard extends StatelessWidget {
             width: 60,
             height: 60,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
+                fit: BoxFit.cover,
                 image: NetworkImage(
                     'https://dashboard.servismo.me${cart.product.galleries[0].url}'),
               ),

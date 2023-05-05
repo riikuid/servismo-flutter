@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:serpismotor2/models/cart_model.dart';
+import 'package:serpismotor2/models/category_model.dart';
 import 'package:serpismotor2/providers/cart_provider.dart';
 import 'package:serpismotor2/theme.dart';
 
@@ -13,6 +14,7 @@ class CartCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CartProvider cartProvider = Provider.of<CartProvider>(context);
+    CategoryModel category;
 
     return Container(
       margin: EdgeInsets.only(
@@ -128,7 +130,7 @@ class CartCard extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  cartProvider.removeCart(cart.id);
+                  cartProvider.removeCart(cart);
                 },
                 child: Row(
                   children: [
@@ -157,7 +159,7 @@ class CartCard extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        cartProvider.reduceQuantity(cart.id);
+                        cartProvider.reduceQuantity(cart);
                       },
                       child: Image.asset(
                         'assets/button_min.png',
@@ -169,7 +171,7 @@ class CartCard extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        cartProvider.addQuantity(cart.id);
+                        cartProvider.addQuantity(cart);
                       },
                       child: Image.asset(
                         'assets/button_add.png',

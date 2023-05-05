@@ -43,6 +43,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           token: user.token,
           profilePhotoUrl: user.profilePhotoUrl,
         ));
+        Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: successColor,
