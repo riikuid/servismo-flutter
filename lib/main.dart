@@ -60,7 +60,9 @@ class MyApp extends StatelessWidget {
           '/servis-problem': (context) => ServisProblem(),
           '/spare-part': (context) => SparePart(),
           '/servis-rutin': (context) => ServisRutin(),
-          '/servis-list': (context) => ServiceListPage(),
+          // '/servis-list': (context) => ServiceListPage(
+          //       token: AuthProvider().user.token!,
+          //     ),
           '/edit-profile': (context) => EditProfilePage(),
           '/cart': (context) => CartPage(),
           '/checkout': (context) => CheckoutPage(),

@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:serpismotor2/models/transaction_model.dart';
 import 'package:serpismotor2/theme.dart';
 
 class ServiceListCard extends StatelessWidget {
-  const ServiceListCard({super.key});
+  // const ServiceListCard({super.key});
+  final TransactionModel transaction;
+  ServiceListCard(this.transaction);
+
+  totalItem() {
+    int total = 0;
+    for (var item in transaction.items) {
+      total += item.quantity;
+    }
+    return total;
+  }
 
   @override
   Widget build(BuildContext context) {
     Widget itemService() {
       return Container(
-        margin: EdgeInsets.only(top: 15),
+        margin: EdgeInsets.only(
+          top: 15,
+        ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -20,8 +34,8 @@ class ServiceListCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  "assets/image_shoes.png",
+                child: Image.network(
+                  'https://dashboard.servismo.me${transaction.items[0].product.galleries[0].url}',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -34,14 +48,14 @@ class ServiceListCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Servis Rutin",
+                  transaction.items[0].product.category.name,
                   style: subtitleTextStyle.copyWith(
                     fontSize: 12,
                     fontWeight: medium,
                   ),
                 ),
                 Text(
-                  "Ganti Oli dengan mas Akmal",
+                  transaction.items[0].product.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: primaryTextStyle.copyWith(
@@ -49,7 +63,7 @@ class ServiceListCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "2 Items",
+                  transaction.items[0].quantity.toString(),
                   style: subtitleTextStyle.copyWith(
                     fontSize: 12,
                     fontWeight: medium,
@@ -96,7 +110,7 @@ class ServiceListCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Untuk service Beat",
+                    transaction.address,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: primaryTextStyle.copyWith(
@@ -104,7 +118,8 @@ class ServiceListCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Rabu, 31 Februari 2023",
+                    DateFormat('EEEE, dd MMMM yyyy')
+                        .format(transaction.updatedAt),
                     style: subtitleTextStyle.copyWith(
                       fontWeight: medium,
                       fontSize: 12,
@@ -157,7 +172,7 @@ class ServiceListCard extends StatelessWidget {
                     height: 2,
                   ),
                   Text(
-                    "10 Items",
+                    "${totalItem()} Items",
                     style: primaryTextStyle.copyWith(
                       fontWeight: semibold,
                     ),
@@ -168,7 +183,7 @@ class ServiceListCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Rp. 150,000",
+                    transaction.totalPrice.toString(),
                     style: primaryTextStyle.copyWith(
                       fontWeight: semibold,
                       fontSize: 16,

@@ -45,37 +45,29 @@ class TransactionService {
     }
   }
 
-  // Future<List<TransactionModel>> getTransactions(String token) async {
-  //   var url = '$baseUrl/transactions';
-  //   var headers = {
-  //     'Content-Type': 'application/json',
-  //     'Authorization': token,
-  //   };
+  Future<List<TransactionModel>> getTransactions(String token) async {
+    var url = '$baseUrl/transactions';
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': token,
+    };
 
-  //   var response = await http.get(
-  //     Uri.parse(url),
-  //     headers: headers,
-  //   );
+    var response = await http.get(
+      Uri.parse(url),
+      headers: headers,
+    );
 
-  //   if (response.statusCode == 200) {
-  //     var data = jsonDecode(response.body)['data']['data'];
-  //     List<TransactionModel> transactions = [];
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body)['data']['data'];
+      List<TransactionModel> transactions = [];
 
-  //     for (var item in data) {
-  //       var transaction = TransactionModel.fromJson(item);
-  //       List<TransactionItemModel> items = [];
+      for (var item in data) {
+        transactions.add(TransactionModel.fromJson(item));
+      }
 
-  //       for (var item in item['items']) {
-  //         items.add(TransactionItemModel.fromJson(item));
-  //       }
-
-  //       transaction.items = items;
-  //       transactions.add(transaction);
-  //     }
-
-  //     return transactions;
-  //   } else {
-  //     throw Exception('Failed to get transactions');
-  //   }
-  // }
+      return transactions;
+    } else {
+      throw Exception('Failed to get transactions');
+    }
+  }
 }

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:serpismotor2/models/user_model.dart';
+import 'package:serpismotor2/pages/service_list_page.dart';
 import 'package:serpismotor2/providers/auth_provider.dart';
 import 'package:serpismotor2/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../widgets/transaction_list_widget.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -222,8 +225,15 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/servis-list');
+                  // Navigator.pushNamed(context, '/servis-list');
                   // showSuccessDialog();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ServiceListPage(token: authProvider.user.token!),
+                    ),
+                  );
                 },
                 child: menuItem(
                   'Your Service List',

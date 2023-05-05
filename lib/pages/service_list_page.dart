@@ -10,48 +10,17 @@ import 'package:serpismotor2/theme.dart';
 import 'package:serpismotor2/widgets/cart_card.dart';
 import 'package:serpismotor2/widgets/service_list_card.dart';
 
-class ServiceListPage extends StatefulWidget {
-  const ServiceListPage({Key? key}) : super(key: key);
-
-  @override
-  State<ServiceListPage> createState() => _ServiceListPageState();
-}
-
-class _ServiceListPageState extends State<ServiceListPage> {
-  late bool _isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    AuthProvider authProvider = Provider.of<AuthProvider>(context);
-    // TransactionProvider transactionProvider =
-    //     Provider.of<TransactionProvider>(context);
-
-    if (_isLoading) {
-      setState(() {
-        _isLoading = false;
-      });
-
-      // transactionProvider.getTransactions(authProvider.user.token!);
-
-      setState(() {
-        _isLoading = true;
-      });
-    }
-
-    super.didChangeDependencies();
-  }
+class ServiceListPage extends StatelessWidget {
+  // const ServiceListPage({Key? key}) : super(key: key);
+  final String token;
+  ServiceListPage({required this.token});
 
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
-    // TransactionProvider transactionProvider =
-    //     Provider.of<TransactionProvider>(context);
+    TransactionProvider transactionProvider =
+        Provider.of<TransactionProvider>(context);
 
     Widget header() {
       return AppBar(
@@ -131,14 +100,14 @@ class _ServiceListPageState extends State<ServiceListPage> {
               horizontal: defaultMargin,
             ),
             children: [
-              // ...transactionProvider.transactions
-              //     .map((transaction) => Container(
-              //           color: Colors.red,
-              //           height: 80,
-              //           width: 100,
-              //           child: Text(transaction.totalPrice.toString()),
-              //         ))
-              //     .toList(),
+              ...transactionProvider.transactions
+                  .map((transaction) => Container(
+                        color: Colors.red,
+                        height: 80,
+                        width: 100,
+                        child: Text(transaction.totalPrice.toString()),
+                      ))
+                  .toList(),
             ]),
       );
     }
@@ -166,16 +135,55 @@ class _ServiceListPageState extends State<ServiceListPage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          header(),
-          _isLoading
-              ? content()
-              : Center(
-                  child: CircularProgressIndicator(),
-                )
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            header(),
+            FutureBuilder(
+              future: Provider.of<TransactionProvider>(context, listen: false)
+                  .getTransactions(token),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                } else if (snapshot.hasError) {
+                  return Expanded(
+                    child: Center(
+                      child: Text('Failed to load transaction list'),
+                    ),
+                  );
+                } else {
+                  return Consumer<TransactionProvider>(
+                      builder: (context, transactionProvider, _) {
+                    if (transactionProvider.transactions.isEmpty) {
+                      return Expanded(
+                        child: Center(
+                          child: Text('No transaction found'),
+                        ),
+                      );
+                    } else {
+                      return Expanded(
+                        child: ListView.builder(
+                          itemCount: transactionProvider.transactions.length,
+                          itemBuilder: (context, index) {
+                            final transaction =
+                                transactionProvider.transactions[index];
+                            return ServiceListCard(transaction);
+                          },
+                        ),
+                      );
+                    }
+                  });
+                }
+              },
+            )
+          ],
+        ),
       ),
     );
   }

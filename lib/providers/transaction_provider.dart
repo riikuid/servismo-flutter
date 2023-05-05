@@ -5,6 +5,14 @@ import 'package:serpismotor2/services/transaction_service.dart';
 import '../models/transaction_model.dart';
 
 class TransactionProvider with ChangeNotifier {
+  List<TransactionModel> _transactions = [];
+  List<TransactionModel> get transactions => _transactions;
+
+  set transactions(List<TransactionModel> transactions) {
+    _transactions = transactions;
+    notifyListeners();
+  }
+
   Future<bool> checkout(String token, List<CartModel> carts, String address,
       double totalPrice) async {
     try {
@@ -17,6 +25,17 @@ class TransactionProvider with ChangeNotifier {
     } catch (e) {
       print(e);
       return false;
+    }
+  }
+
+  Future<void> getTransactions(String token) async {
+    try {
+      List<TransactionModel> transactions =
+          await TransactionService().getTransactions(token);
+      _transactions = transactions;
+    } catch (e) {
+      print(e);
+      throw Exception('Failed to get transaction list');
     }
   }
 }
