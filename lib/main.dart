@@ -10,6 +10,7 @@ import 'package:serpismotor2/pages/home/servis_rutin.dart';
 import 'package:serpismotor2/pages/home/spare_part.dart';
 import 'package:serpismotor2/pages/product_page.dart';
 import 'package:serpismotor2/pages/service_detail.dart';
+import 'package:serpismotor2/pages/service_list_detail.dart';
 import 'package:serpismotor2/pages/service_list_page.dart';
 import 'package:serpismotor2/pages/sign_in_page.dart';
 import 'package:serpismotor2/pages/splash_pages.dart';
@@ -60,9 +61,9 @@ class MyApp extends StatelessWidget {
           '/servis-problem': (context) => ServisProblem(),
           '/spare-part': (context) => SparePart(),
           '/servis-rutin': (context) => ServisRutin(),
-          // '/servis-list': (context) => ServiceListPage(
-          //       token: AuthProvider().user.token!,
-          //     ),
+          '/servis-list': (context) => ServiceListPage(
+                token: Provider.of<AuthProvider>(context).user.token!,
+              ),
           '/edit-profile': (context) => EditProfilePage(),
           '/cart': (context) => CartPage(),
           '/checkout': (context) => CheckoutPage(),

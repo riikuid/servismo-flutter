@@ -93,25 +93,6 @@ class ServiceListPage extends StatelessWidget {
       );
     }
 
-    Widget content() {
-      return Expanded(
-        child: ListView(
-            padding: EdgeInsets.symmetric(
-              horizontal: defaultMargin,
-            ),
-            children: [
-              ...transactionProvider.transactions
-                  .map((transaction) => Container(
-                        color: Colors.red,
-                        height: 80,
-                        width: 100,
-                        child: Text(transaction.totalPrice.toString()),
-                      ))
-                  .toList(),
-            ]),
-      );
-    }
-
     return Scaffold(
       backgroundColor: backgroundColor1,
       floatingActionButton: Padding(
@@ -138,7 +119,7 @@ class ServiceListPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             header(),
             FutureBuilder(
@@ -169,10 +150,13 @@ class ServiceListPage extends StatelessWidget {
                     } else {
                       return Expanded(
                         child: ListView.builder(
+                          padding: EdgeInsets.only(top: 1),
+                          physics: BouncingScrollPhysics(),
                           itemCount: transactionProvider.transactions.length,
                           itemBuilder: (context, index) {
-                            final transaction =
-                                transactionProvider.transactions[index];
+                            final transaction = transactionProvider
+                                .transactions.reversed
+                                .toList()[index];
                             return ServiceListCard(transaction);
                           },
                         ),

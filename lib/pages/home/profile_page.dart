@@ -225,15 +225,15 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               GestureDetector(
                 onTap: () {
-                  // Navigator.pushNamed(context, '/servis-list');
+                  Navigator.pushNamed(context, '/servis-list');
                   // showSuccessDialog();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          ServiceListPage(token: authProvider.user.token!),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) =>
+                  //         ServiceListPage(token: authProvider.user.token!),
+                  //   ),
+                  // );
                 },
                 child: menuItem(
                   'Your Service List',

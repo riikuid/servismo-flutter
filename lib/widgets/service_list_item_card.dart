@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:serpismotor2/models/cart_model.dart';
+import 'package:serpismotor2/models/transaction_model.dart';
 import 'package:serpismotor2/theme.dart';
 
-class CheckoutCard extends StatelessWidget {
-  CheckoutCard(this.cart);
-  final CartModel cart;
+import '../models/transaction_item_model.dart';
 
-  // const CheckoutCard({Key? key}) : super(key: key);
+class ServiceListItemCard extends StatelessWidget {
+  ServiceListItemCard(this.item);
+  final TransactionItemModel item;
+
+  // const ServiceListItemCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class CheckoutCard extends StatelessWidget {
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(
-                    'https://dashboard.servismo.me${cart.product.galleries[0].url}'),
+                    'https://dashboard.servismo.me${item.product.galleries[0].url}'),
               ),
             ),
           ),
@@ -45,7 +48,7 @@ class CheckoutCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  cart.product.category.name,
+                  item.product.category.name,
                   style: subtitleTextStyle.copyWith(
                     fontWeight: semibold,
                     fontSize: 12,
@@ -56,7 +59,7 @@ class CheckoutCard extends StatelessWidget {
                   height: 2,
                 ),
                 Text(
-                  cart.product.name,
+                  item.product.name,
                   style: primaryTextStyle.copyWith(
                     fontWeight: semibold,
                   ),
@@ -71,7 +74,7 @@ class CheckoutCard extends StatelessWidget {
                     locale: 'id', // sesuaikan dengan locale yang diinginkan
                     symbol: 'Rp. ',
                     decimalDigits: 0, // jumlah digit dibelakang koma
-                  ).format(cart.product.price),
+                  ).format(item.product.price),
                   style: priceTextStyle.copyWith(
                     fontWeight: medium,
                   ),
@@ -83,7 +86,7 @@ class CheckoutCard extends StatelessWidget {
             width: 12,
           ),
           Text(
-            '${cart.quantity} items',
+            'x${item.quantity}',
             style: secondaryTextStyle.copyWith(
               fontSize: 12,
             ),

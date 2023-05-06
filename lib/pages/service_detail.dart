@@ -23,21 +23,6 @@ class _ServiceDetailState extends State<ServiceDetail> {
   List<ProductModel> similarProducts = [];
 
   int currentIndex = 0;
-  bool isWishList = false;
-  void initState() {
-    super.initState();
-    _getSimilarProducts();
-  }
-
-  void _getSimilarProducts() async {
-    final productProvider =
-        Provider.of<ProductProvider>(context, listen: false);
-    // Mendapatkan daftar produk dengan kategori yang sama
-    final products = await productProvider
-        .getProductsByCategory(widget.product.category.name);
-    // Menyaring produk agar tidak menampilkan produk yang sedang ditampilkan
-    similarProducts = products.where((p) => p.id != widget.product.id).toList();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:serpismotor2/pages/service_list_page.dart';
+import 'package:serpismotor2/providers/auth_provider.dart';
 import 'package:serpismotor2/theme.dart';
 
 class CheckoutSuccessPage extends StatelessWidget {
@@ -6,6 +9,7 @@ class CheckoutSuccessPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
     Widget header() {
       return AppBar();
     }
@@ -63,27 +67,29 @@ class CheckoutSuccessPage extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              width: 196,
-              height: 44,
-              margin: EdgeInsets.only(
-                top: 12,
-              ),
-              child: TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  backgroundColor: Color(0xff39374B),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/servis-list');
+
+                // Navigator.pop(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) =>
+                //         ServiceListPage(token: authProvider.user.token!),
+                //   ),
+                // );
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                child: Text(
-                  'View My Service List',
-                  style: primaryTextStyle.copyWith(
-                    fontSize: 16,
-                    fontWeight: medium,
-                    color: Color(0xffB7B6BF),
-                  ),
+              ),
+              child: Text(
+                'View My Service List',
+                style: primaryTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: medium,
                 ),
               ),
             ),
