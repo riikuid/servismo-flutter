@@ -293,21 +293,29 @@ class _SignInPageState extends State<SignInPage> {
     }
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: backgroundColor1,
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              header(),
-              emailInput(),
-              passwordInput(),
-              isLoading ? LoadingButton() : signInButton(),
-              Spacer(),
-              footer()
-            ],
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
+            ),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  header(),
+                  emailInput(),
+                  passwordInput(),
+                  isLoading ? LoadingButton() : signInButton(),
+                  Spacer(),
+                  footer()
+                ],
+              ),
+            ),
           ),
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:serpismotor2/providers/auth_provider.dart';
@@ -107,6 +108,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           ),
                           hintText: 'Enter your service list name',
                         ),
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(25),
+                        ],
                       ),
                     ),
                   )

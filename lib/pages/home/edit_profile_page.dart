@@ -1,3 +1,4 @@
+import 'package:auto_validate/auto_validate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,7 +30,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
     bool isLoading = false;
 
     handleEditProfile() async {
-      if (await authProvider.updateProfile(
+      if (AutoValidate.userName(usernameController.text.toString()) == false) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: alertColor,
+            content: Text(
+              'Username Must contains Alphanumeric, underscores and hyphens and its long between 3 to 16 characters',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }else if (await authProvider.updateProfile(
         name: nameController.text,
         username: usernameController.text,
         email: emailController.text,
@@ -135,6 +146,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   borderSide: BorderSide(color: primaryColor, width: 2),
                 ),
               ),
+
+              autovalidateMode: AutovalidateMode.always,
+              validator: FormValidator.userName(
+                errorMessage: 'Must contains Alphanumeric, underscores and hyphens and its long between 3 to 16 characters',
+
+              ),
+
             ),
           ],
         ),
