@@ -29,7 +29,7 @@ class _SparePartDetailState extends State<SparePartDetail> {
   Widget build(BuildContext context) {
     void launchShopee(String url) async {
       if (await canLaunchUrl(Uri.parse(url))) {
-        await launchUrl(Uri.parse(url));
+        await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
       } else {
         throw 'Could not launch $url';
       }
