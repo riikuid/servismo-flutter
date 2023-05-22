@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:serpismotor2/models/transaction_model.dart';
 import 'package:serpismotor2/pages/service_list_detail.dart';
+import 'package:serpismotor2/providers/auth_provider.dart';
+import 'package:serpismotor2/providers/transaction_provider.dart';
 import 'package:serpismotor2/theme.dart';
 
 class ServiceListCard extends StatelessWidget {
@@ -21,6 +24,9 @@ class ServiceListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TransactionProvider transactionProvider =
+        Provider.of<TransactionProvider>(context);
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
     Widget itemLain() {
       return Column(
         children: [
@@ -103,7 +109,18 @@ class ServiceListCard extends StatelessWidget {
                     fontWeight: medium,
                     fontSize: 12,
                   ),
-                )
+                ),
+                GestureDetector(
+                  onTap: () {
+                    transactionProvider.deleteTransaction(
+                        authProvider.user.token!, transaction.id);
+                  },
+                  child: Icon(
+                    Icons.delete,
+                    color: alertColor,
+                    size: 20,
+                  ),
+                ),
               ],
             ),
             const SizedBox(

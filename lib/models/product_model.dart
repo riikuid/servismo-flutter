@@ -6,6 +6,7 @@ class ProductModel {
   late String name;
   late double price;
   late String description;
+  late String tags;
   late CategoryModel category;
   late DateTime createdAt;
   late DateTime updatedAt;
@@ -16,6 +17,7 @@ class ProductModel {
     required this.name,
     required this.price,
     required this.description,
+    required this.tags,
     required this.category,
     required this.createdAt,
     required this.updatedAt,
@@ -27,6 +29,7 @@ class ProductModel {
     name = json['name'];
     price = double.parse(json['price'].toString());
     description = json['description'];
+    tags = json['tags'];
     category = CategoryModel.fromJson(json['category']);
     galleries = json['galleries']
         .map<GalleryModel>((gallery) => GalleryModel.fromJson(gallery))

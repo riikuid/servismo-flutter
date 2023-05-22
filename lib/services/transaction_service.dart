@@ -7,6 +7,7 @@ import '../models/transaction_model.dart';
 
 class TransactionService {
   String baseUrl = 'https://dashboard.servismo.me/api';
+  // String baseUrl = 'http://yantoserpis.my.id/api/';
 
   Future<bool> checkout(String token, List<CartModel> carts, String address,
       double totalPrice) async {
@@ -46,7 +47,7 @@ class TransactionService {
   }
 
   Future<List<TransactionModel>> getTransactions(String token) async {
-    var url = '$baseUrl/transactions?limit=1000';
+    var url = '$baseUrl/transactions';
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token,
@@ -68,6 +69,27 @@ class TransactionService {
       return transactions;
     } else {
       throw Exception('Failed to get transactions');
+    }
+  }
+
+  Future<bool> deleteTransaction(String token, int transactionId) async {
+    var url = '$baseUrl/transactions/$transactionId';
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': token,
+    };
+
+    var response = await http.delete(
+      Uri.parse(url),
+      headers: headers,
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      throw Exception('Failed to delete transaction');
     }
   }
 }

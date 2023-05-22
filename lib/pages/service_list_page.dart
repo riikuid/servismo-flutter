@@ -17,6 +17,7 @@ class ServiceListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(token);
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
     TransactionProvider transactionProvider =
@@ -144,7 +145,7 @@ class ServiceListPage extends StatelessWidget {
                     if (transactionProvider.transactions.isEmpty) {
                       return Expanded(
                         child: Center(
-                          child: Text('No transaction found'),
+                          child: Text('No Service List Found'),
                         ),
                       );
                     } else {

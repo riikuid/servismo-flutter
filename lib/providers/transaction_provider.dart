@@ -38,4 +38,20 @@ class TransactionProvider with ChangeNotifier {
       throw Exception('Failed to get transaction list');
     }
   }
+
+  Future<bool> deleteTransaction(String token, int transactionId) async {
+    try {
+      if (await TransactionService().deleteTransaction(token, transactionId)) {
+        _transactions
+            .removeWhere((transaction) => transaction.id == transactionId);
+        notifyListeners();
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 }

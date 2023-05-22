@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:serpismotor2/models/product_model.dart';
-import 'package:serpismotor2/pages/spare_part_detail.dart';
+import 'package:serpismotor2/pages/service_detail.dart';
 import 'package:serpismotor2/theme.dart';
 import '../models/category_model.dart';
 import 'package:intl/intl.dart';
 
-class SparePartCard extends StatelessWidget {
-  // const SparePartCard({super.key});
+class ServiceCardReversed extends StatelessWidget {
+  // const ServiceCardReversed({super.key});
   final ProductModel product;
-  const SparePartCard(this.product, {super.key});
+  const ServiceCardReversed(this.product, {super.key});
   CategoryModel get category => product.category;
 
   @override
@@ -18,7 +18,7 @@ class SparePartCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: ((context) => SparePartDetail(product)),
+            builder: ((context) => ServiceDetail(product)),
           ),
         );
       },
@@ -40,7 +40,7 @@ class SparePartCard extends StatelessWidget {
             AspectRatio(
                 aspectRatio: 1 / 1,
                 child: product.galleries.isEmpty
-                    ? const Icon(Icons.error)
+                    ? Icon(Icons.error)
                     : Image.network(
                         'https://dashboard.servismo.me${product.galleries[0].url}',
                         fit: BoxFit.cover,
