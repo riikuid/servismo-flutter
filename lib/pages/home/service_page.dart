@@ -101,7 +101,7 @@ class _ServicePageState extends State<ServicePage> {
                     (product) => ServiceCardAll(product),
                   )
                   .where((product) =>
-                      product.category.id != 1 && product.category.id != 10)
+                      product.category.id != 1 && product.category.id != 10 && product.category.id != 42)
                   .where((product) =>
                       product.product.name
                           .toLowerCase()

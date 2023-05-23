@@ -15,6 +15,7 @@ import 'package:serpismotor2/widgets/spare_part_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../widgets/banner_card_reversed.dart';
 import '../../widgets/service_card_reversed.dart';
 
 class HomePage extends StatefulWidget {
@@ -311,6 +312,8 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
+
+
     Widget servisRutinTitle() {
       return Container(
         margin: EdgeInsets.only(
@@ -365,6 +368,31 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     }
+
+    Widget bannerForm() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 14,
+        ),
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          child: ResponsiveGridRow(
+            horizontalGridMargin: 1,
+            itemWidth: MediaQuery.of(context).size.width,
+            spacing: 1,
+            rowItems: productProvider.products
+                .map(
+                  (product) => BannerCardReversed(product),
+            )
+                .where((product) => product.category.id == 42)
+                .toList(),
+          ),
+        ),
+      );
+    }
+
+
 
     Widget servisProblemTitle() {
       return Container(
@@ -548,6 +576,7 @@ class _HomePageState extends State<HomePage> {
       ),
       children: [
         header(),
+        productProvider.products.where((product) => product.category.id == 42).isNotEmpty? bannerForm(): SizedBox(height: 1,),
         bannerServisRutin(),
         servisRutinTitle(),
         _isLoading ? servisRutin() : rowLoading(),
