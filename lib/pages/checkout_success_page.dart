@@ -20,27 +20,27 @@ class CheckoutSuccessPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/icon_empty_cart.png',
+              'assets/icon_success.png',
               width: 80,
             ),
             SizedBox(
               height: 20,
             ),
-            Text(
-              'You made a transaction',
-              style: primaryTextStyle.copyWith(
-                fontSize: 16,
-                fontWeight: medium,
-              ),
-            ),
+            // Text(
+            //   'You made a transaction',
+            //   style: primaryTextStyle.copyWith(
+            //     fontSize: 16,
+            //     fontWeight: medium,
+            //   ),
+            // ),
             SizedBox(
               height: 12,
             ),
-            Text(
-              'Stay at home while we\n prepare your dream shoes',
-              style: secondaryTextStyle,
-              textAlign: TextAlign.center,
-            ),
+            // Text(
+            //   'Stay at home while we\n prepare your dream shoes',
+            //   style: secondaryTextStyle,
+            //   textAlign: TextAlign.center,
+            // ),
             Container(
               width: 196,
               height: 44,
@@ -59,40 +59,41 @@ class CheckoutSuccessPage extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Explore Other Service',
+                  'Explore Other',
                   style: primaryTextStyle.copyWith(
                     fontSize: 16,
                     fontWeight: medium,
                   ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, '/servis-list');
-
-                // Navigator.pop(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) =>
-                //         ServiceListPage(token: authProvider.user.token!),
-                //   ),
-                // );
-              },
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              child: Text(
-                'View My Service List',
-                style: primaryTextStyle.copyWith(
-                  fontSize: 12,
-                  fontWeight: medium,
-                ),
-              ),
-            ),
+            // TextButton(
+            //   onPressed: () {
+            //     Navigator.pushReplacementNamed(context, '/servis-list');
+            //
+            //     // Navigator.pop(
+            //     //   context,
+            //     //   MaterialPageRoute(
+            //     //     builder: (context) =>
+            //     //         ServiceListPage(token: authProvider.user.token!),
+            //     //   ),
+            //     // );
+            //   },
+            //   style: TextButton.styleFrom(
+            //     backgroundColor: Colors.transparent,
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(12),
+            //     ),
+            //   ),
+            //   child: Text(
+            //     'View My Service List',
+            //     style: primaryTextStyle.copyWith(
+            //       fontSize: 12,
+            //       fontWeight: medium,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       );
@@ -104,7 +105,7 @@ class CheckoutSuccessPage extends StatelessWidget {
         backgroundColor: backgroundColor1,
         centerTitle: true,
         title: Text(
-          'Checkout Success',
+          'Save Success',
           style: primaryTextStyle.copyWith(
             fontWeight: semibold,
           ),

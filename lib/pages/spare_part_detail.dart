@@ -377,13 +377,16 @@ class _SparePartDetailState extends State<SparePartDetail> {
                           side: BorderSide(color: primaryColor)),
                       backgroundColor: whiteColor,
                     ),
-                    child: Text(
-                      'Buy',
-                      style: primaryTextStyle.copyWith(
-                        fontSize: 16,
-                        fontWeight: bold,
-                        color: primaryColor,
-                      ),
+                    // child: Text(
+                    //   'Buy',
+                    //   style: primaryTextStyle.copyWith(
+                    //     fontSize: 16,
+                    //     fontWeight: bold,
+                    //     color: primaryColor,
+                    //   ),
+                    child: ImageIcon(
+                    AssetImage('assets/shopee_icon.png'),
+                      color: primaryColor,
                     ),
                   ),
                 ),

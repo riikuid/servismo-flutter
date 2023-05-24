@@ -570,27 +570,41 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    return ListView(
-      physics: BouncingScrollPhysics(
-        parent: AlwaysScrollableScrollPhysics(),
+    return RefreshIndicator(
+      onRefresh: (){
+        return Future.delayed(
+          Duration(seconds: 1),
+            (){
+            setState(() {
+              loadProduct();
+            });
+            }
+        );
+      },
+      color: primaryColor,
+      child: ListView(
+        physics: BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
+
+        children: [
+          header(),
+          productProvider.products.where((product) => product.category.id == 42).isNotEmpty? bannerForm(): SizedBox(height: 1,),
+          bannerServisRutin(),
+          servisRutinTitle(),
+          _isLoading ? servisRutin() : rowLoading(),
+          bannerServisProblem(),
+          servisProblemTitle(),
+          _isLoading ? servisProblem() : rowLoading(),
+          sparePartTitle(),
+          _isLoading ? sparePart() : rowLoading(),
+          servisBengkelTitle(),
+          _isLoading ? servisBengkel() : rowBengkelLoading(),
+          SizedBox(
+            height: 30,
+          )
+        ],
       ),
-      children: [
-        header(),
-        productProvider.products.where((product) => product.category.id == 42).isNotEmpty? bannerForm(): SizedBox(height: 1,),
-        bannerServisRutin(),
-        servisRutinTitle(),
-        _isLoading ? servisRutin() : rowLoading(),
-        bannerServisProblem(),
-        servisProblemTitle(),
-        _isLoading ? servisProblem() : rowLoading(),
-        sparePartTitle(),
-        _isLoading ? sparePart() : rowLoading(),
-        servisBengkelTitle(),
-        _isLoading ? servisBengkel() : rowBengkelLoading(),
-        SizedBox(
-          height: 30,
-        )
-      ],
     );
   }
 }

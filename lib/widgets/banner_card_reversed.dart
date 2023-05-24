@@ -43,7 +43,7 @@ class BannerCardReversed extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AutoSizeText(
-              product.description,
+              product.name,
               style: whiteTextStyle.copyWith(fontSize: 20, fontWeight: bold),
               overflow: TextOverflow.clip,
               minFontSize: 10,
@@ -53,7 +53,7 @@ class BannerCardReversed extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Isi Sekarang",
+                  product.description,
                   style:
                       whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
                 ),
