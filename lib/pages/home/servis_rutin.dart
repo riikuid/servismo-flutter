@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
 import 'package:serpismotor2/providers/product_provider.dart';
 import 'package:serpismotor2/theme.dart';
+import 'package:serpismotor2/widgets/servis_rutin_card.dart';
 import 'package:serpismotor2/widgets/spare_part_card.dart';
 
 class ServisRutin extends StatefulWidget {
@@ -96,7 +97,7 @@ class _ServisRutinState extends State<ServisRutin> {
             children: [
               ...productProvider.products
                   .map(
-                    (product) => SparePartCard(product),
+                    (product) => ServisRutinCard(product),
                   )
                   .where((product) => product.category.id == 2)
                   .where((product) =>

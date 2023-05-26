@@ -1,35 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:serpismotor2/models/product_model.dart';
-import 'package:serpismotor2/pages/home/service_page.dart';
-import 'package:serpismotor2/pages/service_detail.dart';
+import 'package:serpismotor2/pages/servis_rutin_detail.dart';
+import 'package:serpismotor2/pages/spare_part_detail.dart';
 import 'package:serpismotor2/theme.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../models/category_model.dart';
 import 'package:intl/intl.dart';
 
-class ServiceCardAll extends StatelessWidget {
-  // const ServiceCardAll({super.key});
+class ServisRutinCard extends StatelessWidget {
+  // const SparePartCard({super.key});
   final ProductModel product;
-  ServiceCardAll(this.product);
+  const ServisRutinCard(this.product, {super.key});
   CategoryModel get category => product.category;
-
-
 
   @override
   Widget build(BuildContext context) {
-    void launchShopee(String url) async {
-      if (await canLaunchUrl(Uri.parse(url))) {
-        await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
-      } else {
-        throw 'Could not launch $url';
-      }
-    }
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: ((context) => ServiceDetail(product)),
+            builder: ((context) => ServisRutinDetail(product)),
           ),
         );
       },
@@ -41,7 +31,7 @@ class ServiceCardAll extends StatelessWidget {
         // margin: EdgeInsets.only(
         //   right: defaultMargin,
         // ),
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10), color: whiteColor),
         child: Column(
@@ -51,7 +41,7 @@ class ServiceCardAll extends StatelessWidget {
             AspectRatio(
                 aspectRatio: 1 / 1,
                 child: product.galleries.isEmpty
-                    ? Icon(Icons.error)
+                    ? const Icon(Icons.error)
                     : Image.network(
                         'https://dashboard.servismo.me${product.galleries[0].url}',
                         fit: BoxFit.cover,
@@ -70,9 +60,9 @@ class ServiceCardAll extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.category.name,
+                    product.name,
                     style: blackTextStyle.copyWith(fontWeight: semibold),
-                    overflow: TextOverflow.clip,
+                    overflow: TextOverflow.ellipsis,
                     maxLines: 4,
                   ),
                   SizedBox(
@@ -89,16 +79,15 @@ class ServiceCardAll extends StatelessWidget {
                       fontSize: 16,
                     ),
                     overflow: TextOverflow.ellipsis,
-
                   ),
                   SizedBox(
                     height: 2,
                   ),
                   Text(
-                    product.name,
+                    product.category.name,
                     style: secondaryTextStyle.copyWith(
                         fontSize: 12, fontWeight: semibold),
-                    overflow: TextOverflow.clip,
+                    overflow: TextOverflow.ellipsis,
                     maxLines: 4,
                   ),
                 ],
