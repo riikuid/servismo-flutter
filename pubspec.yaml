@@ -48,6 +48,7 @@ dependencies:
   url_launcher: ^6.1.10
   shimmer: ^2.0.0
   auto_validate: ^2.0.0-nullsafety.0
+  readmore: ^2.2.0
 
 
 dev_dependencies:

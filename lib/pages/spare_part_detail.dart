@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:readmore/readmore.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
 import 'package:serpismotor2/providers/cart_provider.dart';
 import 'package:serpismotor2/providers/product_provider.dart';
@@ -225,12 +226,17 @@ class _SparePartDetailState extends State<SparePartDetail> {
                 SizedBox(
                   height: 8,
                 ),
-                Text(
+                ReadMoreText(
                   widget.product.description,
                   style: primaryTextStyle.copyWith(
                     fontWeight: medium,
                   ),
                   textAlign: TextAlign.justify,
+                  trimLines: 6,
+                  colorClickableText: primaryColor,
+                  trimMode: TrimMode.Line,
+                  trimCollapsedText: 'Show More',
+                  trimExpandedText: 'Show Less',
                 ),
                 SizedBox(
                   height: defaultMargin,

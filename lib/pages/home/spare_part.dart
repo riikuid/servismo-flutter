@@ -18,6 +18,13 @@ class _SparePartState extends State<SparePart> {
   @override
   Widget build(BuildContext context) {
     ProductProvider productProvider = Provider.of<ProductProvider>(context);
+    loadProduct() async {
+
+      await Provider.of<ProductProvider>(context, listen: false).getProducts();
+      setState(() {
+
+      });
+    }
     Widget header() {
       return AppBar(
         backgroundColor: backgroundColor1,
@@ -87,28 +94,41 @@ class _SparePartState extends State<SparePart> {
       return Expanded(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-          child: ResponsiveGridList(
-            minItemWidth: MediaQuery.of(context).size.width / 3.5,
-            maxItemsPerRow: 2,
-            horizontalGridSpacing: 15,
-            rowMainAxisAlignment: MainAxisAlignment.start,
-            verticalGridSpacing: 15,
-            verticalGridMargin: 15,
-            children: [
-              ...productProvider.products
-                  .map(
-                    (product) => SparePartCard(product),
-                  )
-                  .where((product) => product.category.id == 1)
-                  .where((product) =>
-                      product.product.name
-                          .toLowerCase()
-                          .contains(searchKeyword.toLowerCase()) ||
-                      product.category.name
-                          .toLowerCase()
-                          .contains(searchKeyword.toLowerCase()))
-                  .toList(),
-            ],
+          child: RefreshIndicator(
+            onRefresh: (){
+              return Future.delayed(
+                  Duration(seconds: 1),
+                      (){
+                    setState(() {
+                      loadProduct();
+                    });
+                  }
+              );
+            },
+            color: primaryColor,
+            child: ResponsiveGridList(
+              minItemWidth: MediaQuery.of(context).size.width / 3.5,
+              maxItemsPerRow: 2,
+              horizontalGridSpacing: 15,
+              rowMainAxisAlignment: MainAxisAlignment.start,
+              verticalGridSpacing: 15,
+              verticalGridMargin: 15,
+              children: [
+                ...productProvider.products
+                    .map(
+                      (product) => SparePartCard(product),
+                    )
+                    .where((product) => product.category.id == 1)
+                    .where((product) =>
+                        product.product.name
+                            .toLowerCase()
+                            .contains(searchKeyword.toLowerCase()) ||
+                        product.category.name
+                            .toLowerCase()
+                            .contains(searchKeyword.toLowerCase()))
+                    .toList(),
+              ],
+            ),
           ),
         ),
       );

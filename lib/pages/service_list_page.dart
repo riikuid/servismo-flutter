@@ -10,18 +10,31 @@ import 'package:serpismotor2/theme.dart';
 import 'package:serpismotor2/widgets/cart_card.dart';
 import 'package:serpismotor2/widgets/service_list_card.dart';
 
-class ServiceListPage extends StatelessWidget {
+class ServiceListPage extends StatefulWidget {
   // const ServiceListPage({Key? key}) : super(key: key);
   final String token;
   ServiceListPage({required this.token});
 
   @override
+  State<ServiceListPage> createState() => _ServiceListPageState();
+}
+
+class _ServiceListPageState extends State<ServiceListPage> {
+  @override
   Widget build(BuildContext context) {
-    print(token);
+    print(widget.token);
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
     TransactionProvider transactionProvider =
         Provider.of<TransactionProvider>(context);
+
+    loadProduct() async {
+
+      await Provider.of<TransactionProvider>(context, listen: false).getTransactions(widget.token);
+      setState(() {
+
+      });
+    }
 
     Widget header() {
       return AppBar(
@@ -125,7 +138,7 @@ class ServiceListPage extends StatelessWidget {
             header(),
             FutureBuilder(
               future: Provider.of<TransactionProvider>(context, listen: false)
-                  .getTransactions(token),
+                  .getTransactions(widget.token),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Expanded(
@@ -150,16 +163,31 @@ class ServiceListPage extends StatelessWidget {
                       );
                     } else {
                       return Expanded(
-                        child: ListView.builder(
-                          padding: EdgeInsets.only(top: 1),
-                          physics: BouncingScrollPhysics(),
-                          itemCount: transactionProvider.transactions.length,
-                          itemBuilder: (context, index) {
-                            final transaction = transactionProvider
-                                .transactions.reversed
-                                .toList()[index];
-                            return ServiceListCard(transaction);
+                        child: RefreshIndicator(
+                          onRefresh: (){
+                            return Future.delayed(
+                                Duration(seconds: 1),
+                                    (){
+                                  setState(() {
+                                    loadProduct();
+                                  });
+                                }
+                            );
                           },
+                          color: primaryColor,
+                          child: ListView.builder(
+                            padding: EdgeInsets.only(top: 1),
+                            physics: BouncingScrollPhysics(
+                              parent: AlwaysScrollableScrollPhysics(),
+                            ),
+                            itemCount: transactionProvider.transactions.length,
+                            itemBuilder: (context, index) {
+                              final transaction = transactionProvider
+                                  .transactions.reversed
+                                  .toList()[index];
+                              return ServiceListCard(transaction);
+                            },
+                          ),
                         ),
                       );
                     }

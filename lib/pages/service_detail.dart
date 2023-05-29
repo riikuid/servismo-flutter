@@ -9,6 +9,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:serpismotor2/widgets/service_card.dart';
 
 import '../models/product_model.dart';
+import 'package:readmore/readmore.dart';
 
 class ServiceDetail extends StatefulWidget {
   // const ServiceDetail({super.key});
@@ -216,12 +217,17 @@ class _ServiceDetailState extends State<ServiceDetail> {
                 SizedBox(
                   height: 8,
                 ),
-                Text(
+                ReadMoreText(
                   widget.product.description,
                   style: primaryTextStyle.copyWith(
                     fontWeight: medium,
                   ),
                   textAlign: TextAlign.justify,
+                  trimLines: 6,
+                  colorClickableText: primaryColor,
+                  trimMode: TrimMode.Line,
+                  trimCollapsedText: 'Show More',
+                  trimExpandedText: 'Show Less',
                 ),
                 SizedBox(
                   height: defaultMargin,

@@ -5,12 +5,24 @@ import 'package:serpismotor2/providers/cart_provider.dart';
 import 'package:serpismotor2/theme.dart';
 import 'package:serpismotor2/widgets/cart_card.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
 
   @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  @override
   Widget build(BuildContext context) {
     CartProvider cartProvider = Provider.of<CartProvider>(context);
+    loadProduct() async {
+
+      await Provider.of<CartProvider>(context, listen: false).carts;
+      setState(() {
+
+      });
+    }
     Future<void> showSuccessDialog() {
       return showDialog(
         context: context,
@@ -158,11 +170,27 @@ class CartPage extends StatelessWidget {
 
     Widget content() {
       return Expanded(
-        child: ListView(
-          padding: EdgeInsets.symmetric(
-            horizontal: defaultMargin,
+        child: RefreshIndicator(
+          onRefresh: (){
+            return Future.delayed(
+                Duration(seconds: 1),
+                    (){
+                  setState(() {
+                    loadProduct();
+                  });
+                }
+            );
+          },
+          color: primaryColor,
+          child: ListView(
+            physics: BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
+            ),
+            padding: EdgeInsets.symmetric(
+              horizontal: defaultMargin,
+            ),
+            children: cartProvider.carts.map((cart) => CartCard(cart)).toList(),
           ),
-          children: cartProvider.carts.map((cart) => CartCard(cart)).toList(),
         ),
       );
     }
