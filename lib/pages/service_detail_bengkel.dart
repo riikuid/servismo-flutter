@@ -210,11 +210,18 @@ class _ServiceDetailBengkelState extends State<ServiceDetailBengkel> {
                       style: secondaryTextStyle.copyWith(
                         fontWeight: semibold,
                       ),
+                      maxLines: 2,
+                      overflow: TextOverflow.clip,
                     ),
-                    Text(
-                      widget.product.name,
-                      style: primaryTextStyle.copyWith(
-                          fontWeight: semibold, fontSize: 20),
+                    Container(
+                      width: MediaQuery.of(context).size.width/1.8,
+                      child: Text(
+                        widget.product.name,
+                        style: primaryTextStyle.copyWith(
+                            fontWeight: semibold, fontSize: 20),
+                        maxLines: 2,
+                        overflow: TextOverflow.clip,
+                      ),
                     ),
                     SizedBox(
                       height: 4,
