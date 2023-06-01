@@ -6,6 +6,8 @@ import 'package:serpismotor2/theme.dart';
 import 'package:serpismotor2/widgets/servis_rutin_card.dart';
 import 'package:serpismotor2/widgets/spare_part_card.dart';
 
+import '../../widgets/service_card_reversed.dart';
+
 class ServisRutin extends StatefulWidget {
   const ServisRutin({super.key});
 
@@ -20,11 +22,8 @@ class _ServisRutinState extends State<ServisRutin> {
     ProductProvider productProvider = Provider.of<ProductProvider>(context);
 
     loadProduct() async {
-
       await Provider.of<ProductProvider>(context, listen: false).getProducts();
-      setState(() {
-
-      });
+      setState(() {});
     }
 
     Widget header() {
@@ -97,18 +96,19 @@ class _ServisRutinState extends State<ServisRutin> {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: defaultMargin),
           child: RefreshIndicator(
-            onRefresh: (){
-              return Future.delayed(
-                  Duration(seconds: 1),
-                      (){
-                    setState(() {
-                      loadProduct();
-                    });
-                  }
-              );
+            onRefresh: () {
+              return Future.delayed(Duration(seconds: 1), () {
+                setState(() {
+                  loadProduct();
+                });
+              });
             },
             color: primaryColor,
             child: ResponsiveGridList(
+              listViewBuilderOptions: ListViewBuilderOptions(
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                physics: BouncingScrollPhysics(),
+              ),
               minItemWidth: MediaQuery.of(context).size.width / 3.5,
               maxItemsPerRow: 2,
               horizontalGridSpacing: 15,
@@ -118,7 +118,7 @@ class _ServisRutinState extends State<ServisRutin> {
               children: [
                 ...productProvider.products
                     .map(
-                      (product) => ServisRutinCard(product),
+                      (product) => ServiceCardReversed(product),
                     )
                     .where((product) => product.category.id == 2)
                     .where((product) =>
@@ -163,6 +163,7 @@ class _ServisRutinState extends State<ServisRutin> {
         children: [
           header(),
           searchBar(),
+
           content(),
           // SizedBox(
           //   height: 14,

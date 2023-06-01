@@ -7,20 +7,55 @@ import 'package:serpismotor2/providers/auth_provider.dart';
 import 'package:serpismotor2/providers/transaction_provider.dart';
 import 'package:serpismotor2/theme.dart';
 
-class ServiceListCard extends StatelessWidget {
+class ServiceListCard extends StatefulWidget {
   // const ServiceListCard({super.key});
   final TransactionModel transaction;
   ServiceListCard(this.transaction);
 
-  totalItem() {
+  @override
+  State<ServiceListCard> createState() => _ServiceListCardState();
+}
+
+class _ServiceListCardState extends State<ServiceListCard> {
+  totalItemSparePart() {
     int total = 0;
-    for (var item in transaction.items) {
-      total += item.quantity;
+    for (var item in widget.transaction.items) {
+      if (item.product.category.id == 1) {
+        total += 1;
+      }
     }
     return total;
   }
 
+  totalItemServis() {
+    int total = 0;
+    for (var item in widget.transaction.items) {
+      if (item.product.category.id == 1) {
+        total += 0;
+      } else {
+        total += 1;
+      }
+    }
+    return total;
+  }
+
+  bool serviceKosong = false;
+
+  bool sparePartKosong = false;
+
   bool tampilkanItemLain = false;
+
+  String totalItemTransaction() {
+    String text =
+        "${totalItemServis()} Service & ${totalItemSparePart()} Spare Part";
+    if (totalItemServis() == 0) {
+      text = "${totalItemSparePart()} Spare Part";
+    }
+    if (totalItemSparePart() == 0) {
+      text = "${totalItemServis()} Service";
+    }
+    return text;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +100,7 @@ class ServiceListCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: ((context) => ServiceListDetail(transaction)),
+            builder: ((context) => ServiceListDetail(widget.transaction)),
           ),
         );
       },
@@ -93,27 +128,33 @@ class ServiceListCard extends StatelessWidget {
                 Flexible(
                   child: Padding(
                     padding: const EdgeInsets.only(right: 5.0),
-                    child: Text(
-                      transaction.address,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: primaryTextStyle.copyWith(
-                        fontWeight: semibold,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.transaction.address,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: primaryTextStyle.copyWith(
+                            fontWeight: semibold,
+                          ),
+                        ),
+                        Text(
+                          DateFormat('EE, dd MMMM yyyy')
+                              .format(widget.transaction.updatedAt),
+                          style: subtitleTextStyle.copyWith(
+                            fontWeight: medium,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
-                Text(
-                  DateFormat('EE, dd MMMM yyyy').format(transaction.updatedAt),
-                  style: subtitleTextStyle.copyWith(
-                    fontWeight: medium,
-                    fontSize: 12,
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
                     transactionProvider.deleteTransaction(
-                        authProvider.user.token!, transaction.id);
+                        authProvider.user.token!, widget.transaction.id);
                   },
                   child: Icon(
                     Icons.delete,
@@ -150,7 +191,7 @@ class ServiceListCard extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.network(
-                          'https://dashboard.servismo.me${transaction.items[0].product.galleries[0].url}',
+                          'https://dashboard.servismo.me${widget.transaction.items[0].product.galleries[0].url}',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -164,14 +205,14 @@ class ServiceListCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            transaction.items[0].product.category.name,
+                            widget.transaction.items[0].product.category.name,
                             style: subtitleTextStyle.copyWith(
                               fontSize: 12,
                               fontWeight: medium,
                             ),
                           ),
                           Text(
-                            transaction.items[0].product.name,
+                            widget.transaction.items[0].product.name,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: primaryTextStyle.copyWith(
@@ -179,7 +220,7 @@ class ServiceListCard extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'x${transaction.items[0].quantity.toString()}',
+                            'x${widget.transaction.items[0].quantity.toString()}',
                             style: subtitleTextStyle.copyWith(
                               fontSize: 12,
                               fontWeight: medium,
@@ -213,7 +254,7 @@ class ServiceListCard extends StatelessWidget {
                       height: 2,
                     ),
                     Text(
-                      "${transaction.items.length.toString()} Service | ${totalItem()} Items",
+                      totalItemTransaction(),
                       style: primaryTextStyle.copyWith(
                         fontWeight: semibold,
                         fontSize: 12,
@@ -229,7 +270,7 @@ class ServiceListCard extends StatelessWidget {
                         locale: 'id', // sesuaikan dengan locale yang diinginkan
                         symbol: 'Rp. ',
                         decimalDigits: 0, // jumlah digit dibelakang koma
-                      ).format(transaction.totalPrice),
+                      ).format(widget.transaction.totalPrice),
                       style: priceTextStyle.copyWith(
                         fontWeight: bold,
                         fontSize: 16,

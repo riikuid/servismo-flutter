@@ -5,6 +5,10 @@ import 'package:serpismotor2/models/product_model.dart';
 import 'package:serpismotor2/providers/product_provider.dart';
 import 'package:serpismotor2/theme.dart';
 import 'package:serpismotor2/widgets/service_card.dart';
+import 'package:serpismotor2/widgets/service_card_reversed.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../../widgets/skeleton_card.dart';
 
 class ServicePage extends StatefulWidget {
   // const ServicePage({super.key});
@@ -15,25 +19,29 @@ class ServicePage extends StatefulWidget {
 
 class _ServicePageState extends State<ServicePage> {
   String searchKeyword = '';
-
+  late bool _isLoading = true;
+  bool servis = true;
   @override
   Widget build(BuildContext context) {
     ProductProvider productProvider = Provider.of<ProductProvider>(context);
 
     loadProduct() async {
-
+      setState(() {
+        _isLoading = false;
+      });
       await Provider.of<ProductProvider>(context, listen: false).getProducts();
       setState(() {
-
+        _isLoading = true;
       });
     }
+
     Widget header() {
       return AppBar(
         backgroundColor: backgroundColor1,
         centerTitle: true,
         toolbarHeight: 80,
         title: Text(
-          "Semua Servis",
+          "View All",
           style: primaryTextStyle.copyWith(fontWeight: semibold),
         ),
         elevation: 0,
@@ -92,23 +100,110 @@ class _ServicePageState extends State<ServicePage> {
       );
     }
 
+    shimmerCardLoagin() {
+      return Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10), color: whiteColor),
+        padding: EdgeInsets.all(10),
+        child: Shimmer.fromColors(
+          child: SkeletonCard(),
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+        ),
+      );
+    }
+
+    Widget options() {
+      return Container(
+        margin: EdgeInsets.fromLTRB(defaultMargin, 0, defaultMargin, 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: InkWell(
+                  onTap: () {
+                    setState(() {
+                      servis = true;
+                    });
+                  },
+                  child: Column(
+                    children: [
+                      Text(
+                        'Service',
+                        style: primaryTextStyle.copyWith(
+                          fontWeight: servis ? bold : regular,
+                          fontSize: 14,
+                          color: servis ? primaryColor : secondaryTextColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        height: servis ? 3 : 1.5,
+                        color: servis ? primaryColor : secondaryTextColor,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: InkWell(
+                  onTap: () {
+                    setState(() {
+                      servis = false;
+                    });
+                  },
+                  child: Column(
+                    children: [
+                      Text(
+                        'Spare Part',
+                        style: primaryTextStyle.copyWith(
+                          fontWeight: servis ? regular : semibold,
+                          fontSize: 14,
+                          color: servis ? secondaryTextColor : primaryColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        height: servis ? 1.5 : 3,
+                        color: servis ? secondaryTextColor : primaryColor,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
     Widget content() {
       return Expanded(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: defaultMargin),
           child: RefreshIndicator(
-            onRefresh: (){
-              return Future.delayed(
-                  Duration(seconds: 1),
-                      (){
-                    setState(() {
-                      loadProduct();
-                    });
-                  }
-              );
+            onRefresh: () {
+              return Future.delayed(Duration(seconds: 1), () {
+                setState(() {
+                  loadProduct();
+                });
+              });
             },
             color: primaryColor,
             child: ResponsiveGridList(
+              listViewBuilderOptions: ListViewBuilderOptions(
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                physics: BouncingScrollPhysics(),
+              ),
               minItemWidth: MediaQuery.of(context).size.width / 3.5,
               maxItemsPerRow: 2,
               horizontalGridSpacing: 15,
@@ -121,7 +216,9 @@ class _ServicePageState extends State<ServicePage> {
                       (product) => ServiceCardAll(product),
                     )
                     .where((product) =>
-                        product.category.id != 1 && product.category.id != 10 && product.category.id != 42)
+                        product.category.id != 1 &&
+                        product.category.id != 10 &&
+                        product.category.id != 42)
                     .where((product) =>
                         product.product.name
                             .toLowerCase()
@@ -137,11 +234,91 @@ class _ServicePageState extends State<ServicePage> {
       );
     }
 
+    Widget contentSparePart() {
+      return Expanded(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+          child: RefreshIndicator(
+            onRefresh: () {
+              return Future.delayed(Duration(seconds: 1), () {
+                setState(() {
+                  loadProduct();
+                });
+              });
+            },
+            color: primaryColor,
+            child: ResponsiveGridList(
+              listViewBuilderOptions: ListViewBuilderOptions(
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                physics: BouncingScrollPhysics(),
+              ),
+              minItemWidth: MediaQuery.of(context).size.width / 3.5,
+              maxItemsPerRow: 2,
+              horizontalGridSpacing: 15,
+              rowMainAxisAlignment: MainAxisAlignment.start,
+              verticalGridSpacing: 15,
+              // verticalGridMargin: 30,
+              children: [
+                ...productProvider.products
+                    .map(
+                      (product) => ServiceCardReversed(product),
+                    )
+                    .where((product) => product.category.id == 1)
+                    .where((product) =>
+                        product.product.name
+                            .toLowerCase()
+                            .contains(searchKeyword.toLowerCase()) ||
+                        product.category.name
+                            .toLowerCase()
+                            .contains(searchKeyword.toLowerCase()))
+                    .toList(),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget loading() {
+      return Expanded(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+          child: ResponsiveGridList(
+            listViewBuilderOptions: ListViewBuilderOptions(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+              physics: NeverScrollableScrollPhysics(),
+            ),
+            minItemWidth: MediaQuery.of(context).size.width / 3.5,
+            maxItemsPerRow: 2,
+            horizontalGridSpacing: 15,
+            rowMainAxisAlignment: MainAxisAlignment.start,
+            verticalGridSpacing: 15,
+            // verticalGridMargin: 30,
+            children: [
+              shimmerCardLoagin(),
+              shimmerCardLoagin(),
+              shimmerCardLoagin(),
+              shimmerCardLoagin(),
+              shimmerCardLoagin(),
+              shimmerCardLoagin(),
+              shimmerCardLoagin(),
+              shimmerCardLoagin(),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Column(
       children: [
         header(),
         searchBar(),
-        content(),
+        options(),
+        _isLoading
+            ? servis
+                ? content()
+                : contentSparePart()
+            : loading(),
         // SizedBox(
         //   height: 14,
         // )

@@ -38,30 +38,35 @@ class BannerCardReversed extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Color(0xFFB65FCF).withOpacity(0.7)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Row(
           children: [
-            AutoSizeText(
-              product.name,
-              style: whiteTextStyle.copyWith(fontSize: 20, fontWeight: bold),
-              overflow: TextOverflow.clip,
-              minFontSize: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  product.description,
+                AutoSizeText(
+                  product.name,
                   style:
-                      whiteTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+                      whiteTextStyle.copyWith(fontSize: 20, fontWeight: bold),
+                  overflow: TextOverflow.clip,
+                  minFontSize: 10,
                 ),
-                SizedBox(
-                  width: 20,
-                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      product.description,
+                      style: whiteTextStyle.copyWith(
+                          fontWeight: medium, fontSize: 14),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                  ],
+                )
               ],
-            )
+            ),
           ],
         ),
       ),

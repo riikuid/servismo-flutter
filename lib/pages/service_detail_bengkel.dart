@@ -30,6 +30,7 @@ class _ServiceDetailBengkelState extends State<ServiceDetailBengkel> {
       throw 'Could not launch $url';
     }
   }
+
   List<ProductModel> similarProducts = [];
 
   int currentIndex = 0;
@@ -195,25 +196,54 @@ class _ServiceDetailBengkelState extends State<ServiceDetailBengkel> {
             width: double.infinity,
             padding:
                 EdgeInsets.symmetric(vertical: 20, horizontal: defaultMargin),
-            child: Column(
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  widget.product.category.name,
-                  style: secondaryTextStyle.copyWith(
-                    fontWeight: semibold,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      widget.product.category.name,
+                      style: secondaryTextStyle.copyWith(
+                        fontWeight: semibold,
+                      ),
+                    ),
+                    Text(
+                      widget.product.name,
+                      style: primaryTextStyle.copyWith(
+                          fontWeight: semibold, fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  height: 40,
+                  width: 100,
+                  child: TextButton(
+                    onPressed: () {
+                      launchWeb(widget.product.tags);
+                    },
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      backgroundColor: primaryColor,
+                    ),
+                    child: Text(
+                      'Lokasi',
+                      style: primaryTextStyle.copyWith(
+                        fontSize: 16,
+                        fontWeight: semibold,
+                      ),
+                    ),
                   ),
-                ),
-                Text(
-                  widget.product.name,
-                  style: primaryTextStyle.copyWith(
-                      fontWeight: semibold, fontSize: 20),
-                ),
-                SizedBox(
-                  height: 4,
-                ),
+                )
               ],
             ),
           ),
@@ -317,29 +347,7 @@ class _ServiceDetailBengkelState extends State<ServiceDetailBengkel> {
               BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: [content()],
         ),
-          bottomNavigationBar: Container(
-            margin:
-            EdgeInsets.symmetric(vertical: 10, horizontal: defaultMargin),
-            height: 50,
-            child: TextButton(
-              onPressed: () {
-                launchWeb(widget.product.tags);
-              },
-              style: TextButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                backgroundColor: primaryColor,
-              ),
-              child: Text(
-                'Lokasi',
-                style: primaryTextStyle.copyWith(
-                  fontSize: 16,
-                  fontWeight: semibold,
-                ),
-              ),
-            ),
-          )
+        //
       ),
     );
   }

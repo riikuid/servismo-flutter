@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:serpismotor2/pages/home/home_page.dart';
+import 'package:serpismotor2/pages/home/service_list_page.dart';
 import 'package:serpismotor2/pages/home/service_page.dart';
 import 'package:serpismotor2/pages/home/profile_page.dart';
+import 'package:serpismotor2/pages/service_list_page.dart';
 import 'package:serpismotor2/services/auth_service.dart';
 import 'package:serpismotor2/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,10 +19,7 @@ class NavbarMain extends StatefulWidget {
 }
 
 class _NavbarMainState extends State<NavbarMain> {
-
   int currentIndex = 0;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +28,7 @@ class _NavbarMainState extends State<NavbarMain> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await authProvider.login(
           email: prefs.getString('email'), password: prefs.getString('pw'));
-
     }
-
-
-
-
-
 
     Widget cartButton() {
       return FloatingActionButton(
@@ -115,37 +108,9 @@ class _NavbarMainState extends State<NavbarMain> {
                           SizedBox(
                             height: 2,
                           ),
-                          Text("Services",
+                          Text("View All",
                               style: GoogleFonts.poppins(
                                   color: currentIndex == 1
-                                      ? primaryColor
-                                      : blackColor,
-                                  fontWeight: semibold,
-                                  fontSize: 10))
-                        ],
-                      ),
-                    ),
-                    label: ''),
-                BottomNavigationBarItem(
-                    icon: Container(
-                      margin: EdgeInsets.only(
-                        top: 20,
-                      ),
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            currentIndex == 2
-                                ? 'assets/icon_profile_on.png'
-                                : 'assets/icon_profile_off.png',
-                            width: 26,
-                            // color: currentIndex == 0 ? primaryColor : iconColor,
-                          ),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          Text("Profile",
-                              style: GoogleFonts.poppins(
-                                  color: currentIndex == 2
                                       ? primaryColor
                                       : blackColor,
                                   fontWeight: semibold,
@@ -165,6 +130,62 @@ class _NavbarMainState extends State<NavbarMain> {
                   ),
                   label: '',
                 ),
+                BottomNavigationBarItem(
+                    icon: Container(
+                      margin: EdgeInsets.only(
+                        top: 20,
+                      ),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            currentIndex == 3
+                                ? 'assets/icon_history_on.png'
+                                : 'assets/icon_history_off.png',
+                            width: 26,
+                            // color: currentIndex == 0 ? primaryColor : iconColor,
+                          ),
+                          SizedBox(
+                            height: 2,
+                          ),
+                          Text("My List",
+                              style: GoogleFonts.poppins(
+                                  color: currentIndex == 3
+                                      ? primaryColor
+                                      : blackColor,
+                                  fontWeight: semibold,
+                                  fontSize: 10))
+                        ],
+                      ),
+                    ),
+                    label: ''),
+                BottomNavigationBarItem(
+                    icon: Container(
+                      margin: EdgeInsets.only(
+                        top: 20,
+                      ),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            currentIndex == 4
+                                ? 'assets/icon_profile_on.png'
+                                : 'assets/icon_profile_off.png',
+                            width: 26,
+                            // color: currentIndex == 0 ? primaryColor : iconColor,
+                          ),
+                          SizedBox(
+                            height: 2,
+                          ),
+                          Text("Profile",
+                              style: GoogleFonts.poppins(
+                                  color: currentIndex == 4
+                                      ? primaryColor
+                                      : blackColor,
+                                  fontWeight: semibold,
+                                  fontSize: 10))
+                        ],
+                      ),
+                    ),
+                    label: ''),
               ]),
         ),
       );
@@ -183,13 +204,16 @@ class _NavbarMainState extends State<NavbarMain> {
           previousIndex = 1;
           return ServicePage();
           break;
-        case 2:
-          previousIndex = 2;
+        case 3:
+          previousIndex = 3;
+          return ServiceListHomePage(token: authProvider.user.token!);
+          break;
+        case 4:
+          previousIndex = 4;
           return ProfilePage();
           break;
 
         default:
-
           currentIndex = previousIndex;
           return body();
       }
@@ -205,9 +229,10 @@ class _NavbarMainState extends State<NavbarMain> {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: backgroundColor1,
       floatingActionButton: cartButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: customBottomNav(),
       body: body(),
     );

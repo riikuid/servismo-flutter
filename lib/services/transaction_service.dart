@@ -47,7 +47,7 @@ class TransactionService {
   }
 
   Future<List<TransactionModel>> getTransactions(String token) async {
-    var url = '$baseUrl/transactions';
+    var url = '$baseUrl/transactions?limit=100';
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token,

@@ -117,6 +117,7 @@ class _SignInPageState extends State<SignInPage> {
                     Expanded(
                         child: TextFormField(
                       controller: emailController,
+                      textInputAction: TextInputAction.next,
                       style: primaryTextStyle,
                       decoration: InputDecoration.collapsed(
                         hintText: 'Your Email Address',
@@ -298,23 +299,18 @@ class _SignInPageState extends State<SignInPage> {
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics(),
-            ),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  header(),
-                  emailInput(),
-                  passwordInput(),
-                  isLoading ? LoadingButton() : signInButton(),
-                  Spacer(),
-                  footer()
-                ],
-              ),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                header(),
+                emailInput(),
+                passwordInput(),
+                isLoading ? LoadingButton() : signInButton(),
+                Spacer(),
+                footer()
+              ],
             ),
           ),
         ),

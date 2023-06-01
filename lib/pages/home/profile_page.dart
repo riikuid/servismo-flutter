@@ -34,80 +34,6 @@ class _ProfilePageState extends State<ProfilePage> {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
 
-    Future<void> showSuccessDialog() {
-      return showDialog(
-        context: context,
-        builder: (BuildContext context) => Container(
-          width: MediaQuery.of(context).size.width - (2 * defaultMargin),
-          child: AlertDialog(
-            backgroundColor: backgroundColor1,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-            content: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        Icons.close,
-                        color: primaryTextColor,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  Text(
-                    'Coming Soon',
-                    style: primaryTextStyle.copyWith(
-                      fontSize: 18,
-                      fontWeight: semibold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  Text(
-                    'Sabar Bro...',
-                    style: secondaryTextStyle,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    width: 154,
-                    height: 44,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      style: TextButton.styleFrom(
-                          backgroundColor: primaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          )),
-                      child: Text(
-                        'Close',
-                        style: primaryTextStyle.copyWith(
-                          fontSize: 16,
-                          fontWeight: medium,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
     Widget header() {
       return AppBar(
         backgroundColor: backgroundColor1,
@@ -150,18 +76,18 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ],
                 )),
-                GestureDetector(
-                  onTap: () async {
-                    await AuthProvider().logout(user: user);
-                    prefs.clear();
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, '/', (route) => false);
-                  },
-                  child: Image.asset(
-                    'assets/button_exit.png',
-                    width: 20,
-                  ),
-                ),
+                // GestureDetector(
+                //   onTap: () async {
+                //     await AuthProvider().logout(user: user);
+                //     prefs.clear();
+                //     Navigator.pushNamedAndRemoveUntil(
+                //         context, '/', (route) => false);
+                //   },
+                //   child: Image.asset(
+                //     'assets/button_exit.png',
+                //     width: 20,
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -264,6 +190,25 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
                 child: menuItem(
                   'Rate App',
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              GestureDetector(
+                onTap: () async {
+                  await AuthProvider().logout(user: user);
+                  prefs.clear();
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/', (route) => false);
+                },
+                child: Text(
+                  'Sign Out',
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 16,
+                    fontWeight: semibold,
+                    color: alertColor,
+                  ),
                 ),
               ),
             ],

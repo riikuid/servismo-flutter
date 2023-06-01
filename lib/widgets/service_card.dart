@@ -13,8 +13,6 @@ class ServiceCardAll extends StatelessWidget {
   ServiceCardAll(this.product);
   CategoryModel get category => product.category;
 
-
-
   @override
   Widget build(BuildContext context) {
     void launchShopee(String url) async {
@@ -24,6 +22,7 @@ class ServiceCardAll extends StatelessWidget {
         throw 'Could not launch $url';
       }
     }
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -73,7 +72,7 @@ class ServiceCardAll extends StatelessWidget {
                     product.category.name,
                     style: blackTextStyle.copyWith(fontWeight: semibold),
                     overflow: TextOverflow.clip,
-                    maxLines: 4,
+                    maxLines: 2,
                   ),
                   SizedBox(
                     height: 2,
@@ -89,7 +88,6 @@ class ServiceCardAll extends StatelessWidget {
                       fontSize: 16,
                     ),
                     overflow: TextOverflow.ellipsis,
-
                   ),
                   SizedBox(
                     height: 2,
@@ -99,7 +97,7 @@ class ServiceCardAll extends StatelessWidget {
                     style: secondaryTextStyle.copyWith(
                         fontSize: 12, fontWeight: semibold),
                     overflow: TextOverflow.clip,
-                    maxLines: 4,
+                    maxLines: 2,
                   ),
                 ],
               ),

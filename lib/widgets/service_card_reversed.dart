@@ -62,7 +62,7 @@ class ServiceCardReversed extends StatelessWidget {
                     product.name,
                     style: blackTextStyle.copyWith(fontWeight: semibold),
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 4,
+                    maxLines: 2,
                   ),
                   SizedBox(
                     height: 2,
@@ -81,13 +81,6 @@ class ServiceCardReversed extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 2,
-                  ),
-                  Text(
-                    product.category.name,
-                    style: secondaryTextStyle.copyWith(
-                        fontSize: 12, fontWeight: semibold),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 4,
                   ),
                 ],
               ),

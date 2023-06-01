@@ -4,6 +4,7 @@ import 'package:responsive_grid_list/responsive_grid_list.dart';
 import 'package:serpismotor2/providers/auth_provider.dart';
 import 'package:serpismotor2/providers/product_provider.dart';
 import 'package:serpismotor2/theme.dart';
+import 'package:serpismotor2/widgets/banner_form_card.dart';
 import 'package:serpismotor2/widgets/service_card.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
@@ -312,8 +313,6 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-
-
     Widget servisRutinTitle() {
       return Container(
         margin: EdgeInsets.only(
@@ -383,16 +382,14 @@ class _HomePageState extends State<HomePage> {
             spacing: 1,
             rowItems: productProvider.products
                 .map(
-                  (product) => BannerCardReversed(product),
-            )
+                  (product) => BannerFormCard(product),
+                )
                 .where((product) => product.category.id == 42)
                 .toList(),
           ),
         ),
       );
     }
-
-
 
     Widget servisProblemTitle() {
       return Container(
@@ -571,25 +568,27 @@ class _HomePageState extends State<HomePage> {
     }
 
     return RefreshIndicator(
-      onRefresh: (){
-        return Future.delayed(
-          Duration(seconds: 1),
-            (){
-            setState(() {
-              loadProduct();
-            });
-            }
-        );
+      onRefresh: () {
+        return Future.delayed(Duration(seconds: 1), () {
+          setState(() {
+            loadProduct();
+          });
+        });
       },
       color: primaryColor,
       child: ListView(
         physics: BouncingScrollPhysics(
           parent: AlwaysScrollableScrollPhysics(),
         ),
-
         children: [
           header(),
-          productProvider.products.where((product) => product.category.id == 42).isNotEmpty? bannerForm(): SizedBox(height: 1,),
+          productProvider.products
+                  .where((product) => product.category.id == 42)
+                  .isNotEmpty
+              ? bannerForm()
+              : SizedBox(
+                  height: 1,
+                ),
           bannerServisRutin(),
           servisRutinTitle(),
           _isLoading ? servisRutin() : rowLoading(),

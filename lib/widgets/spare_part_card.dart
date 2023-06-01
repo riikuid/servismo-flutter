@@ -82,13 +82,6 @@ class SparePartCard extends StatelessWidget {
                   SizedBox(
                     height: 2,
                   ),
-                  Text(
-                    product.category.name,
-                    style: secondaryTextStyle.copyWith(
-                        fontSize: 12, fontWeight: semibold),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
                 ],
               ),
             )

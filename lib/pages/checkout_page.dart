@@ -7,6 +7,7 @@ import 'package:serpismotor2/providers/cart_provider.dart';
 import 'package:serpismotor2/providers/transaction_provider.dart';
 import 'package:serpismotor2/theme.dart';
 import 'package:serpismotor2/widgets/checkout_card.dart';
+import 'package:serpismotor2/widgets/loading_button.dart';
 
 class CheckoutPage extends StatefulWidget {
   CheckoutPage({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class CheckoutPage extends StatefulWidget {
 
 class _CheckoutPageState extends State<CheckoutPage> {
   TextEditingController nameServiceController = TextEditingController(text: '');
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -102,15 +104,24 @@ class _CheckoutPageState extends State<CheckoutPage> {
         ),
       );
     }
+
     handleCheckout() async {
+      setState(() {
+        _isLoading = true;
+      });
       if (nameServiceController.text.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: alertColor,
-          content: Text(
-            'Service list name must not empty',
-            textAlign: TextAlign.center,
+        setState(() {
+          _isLoading = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: alertColor,
+            content: Text(
+              'Service list name must not empty',
+              textAlign: TextAlign.center,
+            ),
           ),
-        ));
+        );
       } else {
         if (await transactionProvider.checkout(
             authProvider.user.token!,
@@ -118,8 +129,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
             nameServiceController.text,
             cartProvider.totalPrice())) {
           cartProvider.carts = [];
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/home', (route) => false);
+          Navigator.popAndPushNamed(context, '/home');
           showSuccessDialog();
         }
       }
@@ -322,29 +332,31 @@ class _CheckoutPageState extends State<CheckoutPage> {
               ),
             ),
 
-            Container(
-              height: 50,
-              width: double.infinity,
-              margin: EdgeInsets.symmetric(
-                vertical: defaultMargin,
-              ),
-              child: TextButton(
-                onPressed: handleCheckout,
-                style: TextButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+            _isLoading
+                ? LoadingButton()
+                : Container(
+                    height: 50,
+                    width: double.infinity,
+                    margin: EdgeInsets.symmetric(
+                      vertical: defaultMargin,
+                    ),
+                    child: TextButton(
+                      onPressed: handleCheckout,
+                      style: TextButton.styleFrom(
+                        backgroundColor: primaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: Text(
+                        'Save Now',
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: semibold,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                child: Text(
-                  'Save Now',
-                  style: primaryTextStyle.copyWith(
-                    fontSize: 16,
-                    fontWeight: semibold,
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       );

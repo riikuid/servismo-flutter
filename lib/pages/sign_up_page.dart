@@ -20,7 +20,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   TextEditingController passwordController = TextEditingController(text: '');
 
-  TextEditingController verifpasswordController = TextEditingController(text: '');
+  TextEditingController verifpasswordController =
+      TextEditingController(text: '');
 
   bool isLoading = false;
   var _isObscure;
@@ -42,7 +43,9 @@ class _SignUpPageState extends State<SignUpPage> {
       setState(() {
         isLoading = true;
       });
-      if (AutoValidate.alphanumericWithSpaces(nameController.text.toString()) == false || AutoValidate.minLength(nameController.text.toString(), 5) == false) {
+      if (AutoValidate.alphanumericWithSpaces(nameController.text.toString()) ==
+              false ||
+          AutoValidate.minLength(nameController.text.toString(), 5) == false) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: alertColor,
@@ -52,7 +55,8 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ),
         );
-      }else if (AutoValidate.userName(usernameController.text.toString()) == false) {
+      } else if (AutoValidate.userName(usernameController.text.toString()) ==
+          false) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: alertColor,
@@ -62,7 +66,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ),
         );
-      }else if (AutoValidate.email(emailController.text.toString()) == false) {
+      } else if (AutoValidate.email(emailController.text.toString()) == false) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: alertColor,
@@ -72,7 +76,9 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ),
         );
-      }else if (AutoValidate.minLength(passwordController.text.toString(),8) == false) {
+      } else if (AutoValidate.minLength(
+              passwordController.text.toString(), 8) ==
+          false) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: alertColor,
@@ -82,7 +88,9 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ),
         );
-      } else if (AutoValidate.match(verifpasswordController.text.toString(), passwordController.text.toString())! == false) {
+      } else if (AutoValidate.match(verifpasswordController.text.toString(),
+              passwordController.text.toString())! ==
+          false) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: alertColor,
@@ -92,7 +100,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ),
         );
-      }else if (await authProvider.register(
+      } else if (await authProvider.register(
           name: nameController.text,
           username: usernameController.text,
           email: emailController.text,
@@ -135,7 +143,8 @@ class _SignUpPageState extends State<SignUpPage> {
               height: 2,
             ),
             Text(
-              'Register and Happy Shopping',
+              // 'Register and Happy Shopping',
+              'Register to Explore',
               style: subtitleTextStyle,
             )
           ],
@@ -165,12 +174,16 @@ class _SignUpPageState extends State<SignUpPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                  color: whiteColor, borderRadius: BorderRadius.circular(12),
-                  border: nameController.text.isEmpty
-                          ? Border.all(color: Colors.transparent)
-                          : AutoValidate.alphanumericWithSpaces(nameController.text.toString())! && AutoValidate.minLength(nameController.text.toString(), 5)!
-                          ?Border.all(color: Colors.green)
-                          : Border.all(color: alertColor),
+                color: whiteColor,
+                borderRadius: BorderRadius.circular(12),
+                border: nameController.text.isEmpty
+                    ? Border.all(color: Colors.transparent)
+                    : AutoValidate.alphanumericWithSpaces(
+                                nameController.text.toString())! &&
+                            AutoValidate.minLength(
+                                nameController.text.toString(), 5)!
+                        ? Border.all(color: Colors.transparent)
+                        : Border.all(color: alertColor),
               ),
               child: Center(
                 child: Row(
@@ -186,12 +199,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: TextFormField(
                         controller: nameController,
                         autovalidateMode: AutovalidateMode.always,
-                        validator: FormValidator.combination(
-                          validators: [
-                            FormValidator.alphanumericWithSpaces(),
-                            FormValidator.minLength(minLength: 5)
-                          ]
-                        ),
+                        validator: FormValidator.combination(validators: [
+                          FormValidator.alphanumericWithSpaces(),
+                          FormValidator.minLength(minLength: 5)
+                        ]),
+                        textInputAction: TextInputAction.next,
                         style: primaryTextStyle,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Your Full Name',
@@ -200,37 +212,48 @@ class _SignUpPageState extends State<SignUpPage> {
                         onChanged: (_) => setState(() {}),
                       ),
                     ),
-                    nameController.text.isEmpty
-                        ? Icon(Icons.check, color: Colors.transparent)
-                        : AutoValidate.alphanumericWithSpaces(nameController.text.toString())! && AutoValidate.minLength(nameController.text.toString(), 5)!
-                        ? Icon(Icons.check, color: Colors.green)
-                        : Icon(Icons.close, color: alertColor),
+                    // nameController.text.isEmpty
+                    //     ? Icon(Icons.check, color: Colors.transparent)
+                    //     : AutoValidate.alphanumericWithSpaces(
+                    //                 nameController.text.toString())! &&
+                    //             AutoValidate.minLength(
+                    //                 nameController.text.toString(), 5)!
+                    //         ? Icon(Icons.check, color: Colors.green)
+                    //         : Icon(Icons.close, color: alertColor),
                   ],
                 ),
               ),
             ),
             nameController.text.isEmpty
                 ? SizedBox()
-                : AutoValidate.alphanumericWithSpaces(nameController.text.toString())! && AutoValidate.minLength(nameController.text.toString(), 5)!
-                ? SizedBox()
-                : Row(
-              children: [
-                // Icon(
-                //   Icons.close,
-                //   color: alertColor,
-                // ),
-                Expanded(
-                  child: Text(
-                    'Must contains your name and minimum 5 characters',
-                    overflow: TextOverflow.clip,
-                    style: primaryTextStyle.copyWith(
-                      fontSize: 11,
-                      fontWeight: medium,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                : AutoValidate.alphanumericWithSpaces(
+                            nameController.text.toString())! &&
+                        AutoValidate.minLength(
+                            nameController.text.toString(), 5)!
+                    ? SizedBox()
+                    : Row(
+                        children: [
+                          // Icon(
+                          //   Icons.close,
+                          //   color: alertColor,
+                          // ),
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10.0, top: 8),
+                              child: Text(
+                                'Must contains your name and minimum 5 characters',
+                                overflow: TextOverflow.clip,
+                                style: primaryTextStyle.copyWith(
+                                  fontSize: 11,
+                                  fontWeight: medium,
+                                  color: alertColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
           ],
         ),
       );
@@ -260,11 +283,10 @@ class _SignUpPageState extends State<SignUpPage> {
               decoration: BoxDecoration(
                 color: whiteColor,
                 borderRadius: BorderRadius.circular(12),
-                border:
-                usernameController.text.isEmpty
+                border: usernameController.text.isEmpty
                     ? Border.all(color: Colors.transparent)
-                    :AutoValidate.userName(usernameController.text.toString())!
-                        ? Border.all(color: Colors.green)
+                    : AutoValidate.userName(usernameController.text.toString())!
+                        ? Border.all(color: Colors.transparent)
                         : Border.all(color: alertColor),
               ),
               child: Center(
@@ -280,12 +302,13 @@ class _SignUpPageState extends State<SignUpPage> {
                     Expanded(
                         child: TextFormField(
                       controller: usernameController,
+                      textInputAction: TextInputAction.next,
                       style: primaryTextStyle,
                       decoration: InputDecoration.collapsed(
                         hintText: 'Your Username',
                         hintStyle: subtitleTextStyle,
                       ),
-                          onChanged: (_) => setState(() {}),
+                      onChanged: (_) => setState(() {}),
                       autovalidateMode: AutovalidateMode.always,
                       validator: FormValidator.userName(),
                       // validator: (value) {
@@ -295,11 +318,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       //   return null;
                       // },
                     )),
-                    usernameController.text.isEmpty
-                        ? SizedBox()
-                    :AutoValidate.userName(usernameController.text.toString())!
-                        ? Icon(Icons.check, color: Colors.green)
-                        : Icon(Icons.close, color: alertColor),
+                    // usernameController.text.isEmpty
+                    //     ? SizedBox()
+                    //     : AutoValidate.userName(
+                    //             usernameController.text.toString())!
+                    //         ? Icon(Icons.check, color: Colors.green)
+                    //         : Icon(Icons.close, color: alertColor),
                   ],
                 ),
               ),
@@ -315,12 +339,16 @@ class _SignUpPageState extends State<SignUpPage> {
                           //   color: alertColor,
                           // ),
                           Expanded(
-                            child: Text(
-                              'Must contains Alphanumeric, underscores and hyphens and its long between 3 to 16 characters',
-                              overflow: TextOverflow.clip,
-                              style: primaryTextStyle.copyWith(
-                                fontSize: 11,
-                                fontWeight: medium,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10.0, top: 8),
+                              child: Text(
+                                'Must contains Alphanumeric, underscores and hyphens and its long between 3 to 16 characters',
+                                overflow: TextOverflow.clip,
+                                style: primaryTextStyle.copyWith(
+                                    fontSize: 11,
+                                    fontWeight: medium,
+                                    color: alertColor),
                               ),
                             ),
                           ),
@@ -353,12 +381,13 @@ class _SignUpPageState extends State<SignUpPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                  color: whiteColor, borderRadius: BorderRadius.circular(12),
-                  border: emailController.text.isEmpty
-                      ? Border.all(color: Colors.transparent)
-                      :AutoValidate.email(emailController.text.toString())!
-                      ? Border.all(color: Colors.green)
-                      : Border.all(color: alertColor),
+                color: whiteColor,
+                borderRadius: BorderRadius.circular(12),
+                border: emailController.text.isEmpty
+                    ? Border.all(color: Colors.transparent)
+                    : AutoValidate.email(emailController.text.toString())!
+                        ? Border.all(color: Colors.transparent)
+                        : Border.all(color: alertColor),
               ),
               child: Center(
                 child: Row(
@@ -373,18 +402,19 @@ class _SignUpPageState extends State<SignUpPage> {
                     Expanded(
                         child: TextFormField(
                       controller: emailController,
+                      textInputAction: TextInputAction.next,
                       style: primaryTextStyle,
                       decoration: InputDecoration.collapsed(
                         hintText: 'Your Email Address',
                         hintStyle: subtitleTextStyle,
                       ),
-                          onChanged: (_) => setState(() {}),
+                      onChanged: (_) => setState(() {}),
                     )),
-                    emailController.text.isEmpty
-                        ? SizedBox()
-                        :AutoValidate.email(emailController.text.toString())!
-                        ? Icon(Icons.check, color: Colors.green)
-                        : Icon(Icons.close, color: alertColor),
+                    // emailController.text.isEmpty
+                    //     ? SizedBox()
+                    //     : AutoValidate.email(emailController.text.toString())!
+                    //         ? Icon(Icons.check, color: Colors.green)
+                    //         : Icon(Icons.close, color: alertColor),
                   ],
                 ),
               ),
@@ -392,25 +422,29 @@ class _SignUpPageState extends State<SignUpPage> {
             emailController.text.isEmpty
                 ? SizedBox()
                 : AutoValidate.email(emailController.text.toString())!
-                ? SizedBox()
-                : Row(
-              children: [
-                // Icon(
-                //   Icons.close,
-                //   color: alertColor,
-                // ),
-                Expanded(
-                  child: Text(
-                    'Must contains example@example.com',
-                    overflow: TextOverflow.clip,
-                    style: primaryTextStyle.copyWith(
-                      fontSize: 11,
-                      fontWeight: medium,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                    ? SizedBox()
+                    : Row(
+                        children: [
+                          // Icon(
+                          //   Icons.close,
+                          //   color: alertColor,
+                          // ),
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10.0, top: 8),
+                              child: Text(
+                                'Must contains example@example.com',
+                                overflow: TextOverflow.clip,
+                                style: primaryTextStyle.copyWith(
+                                    fontSize: 11,
+                                    fontWeight: medium,
+                                    color: alertColor),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
           ],
         ),
       );
@@ -442,9 +476,10 @@ class _SignUpPageState extends State<SignUpPage> {
                 borderRadius: BorderRadius.circular(12),
                 border: passwordController.text.isEmpty
                     ? Border.all(color: Colors.transparent)
-                    :AutoValidate.minLength(passwordController.text.toString(),8)!
-                    ? Border.all(color: Colors.green)
-                    : Border.all(color: alertColor),
+                    : AutoValidate.minLength(
+                            passwordController.text.toString(), 8)!
+                        ? Border.all(color: Colors.transparent)
+                        : Border.all(color: alertColor),
               ),
               child: Center(
                 child: Row(
@@ -460,6 +495,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: TextFormField(
                         controller: passwordController,
                         style: primaryTextStyle,
+
+                        textInputAction: TextInputAction.next,
                         obscureText: _isObscure, // gunakan kondisi _isObscure
                         decoration: InputDecoration.collapsed(
                           hintText: 'Your Password',
@@ -482,37 +519,43 @@ class _SignUpPageState extends State<SignUpPage> {
                         });
                       },
                     ),
-                    passwordController.text.isEmpty
-                        ? SizedBox()
-                        :AutoValidate.minLength(passwordController.text.toString(),8)!
-                        ? Icon(Icons.check, color: Colors.green)
-                        : Icon(Icons.close, color: alertColor),
+                    // passwordController.text.isEmpty
+                    //     ? SizedBox()
+                    //     : AutoValidate.minLength(
+                    //             passwordController.text.toString(), 8)!
+                    //         ? Icon(Icons.check, color: Colors.green)
+                    //         : Icon(Icons.close, color: alertColor),
                   ],
                 ),
               ),
             ),
             passwordController.text.isEmpty
                 ? SizedBox()
-                : AutoValidate.minLength(passwordController.text.toString(),8)!
-                ? SizedBox()
-                : Row(
-              children: [
-                // Icon(
-                //   Icons.close,
-                //   color: alertColor,
-                // ),
-                Expanded(
-                  child: Text(
-                    'Password must contains at least 8 characters',
-                    overflow: TextOverflow.clip,
-                    style: primaryTextStyle.copyWith(
-                      fontSize: 11,
-                      fontWeight: medium,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                : AutoValidate.minLength(passwordController.text.toString(), 8)!
+                    ? SizedBox()
+                    : Row(
+                        children: [
+                          // Icon(
+                          //   Icons.close,
+                          //   color: alertColor,
+                          // ),
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10.0, top: 8),
+                              child: Text(
+                                'Password must contains at least 8 characters',
+                                overflow: TextOverflow.clip,
+                                style: primaryTextStyle.copyWith(
+                                  fontSize: 11,
+                                  fontWeight: medium,
+                                  color: alertColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
           ],
         ),
       );
@@ -544,9 +587,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 borderRadius: BorderRadius.circular(12),
                 border: verifpasswordController.text.isEmpty
                     ? Border.all(color: Colors.transparent)
-                    :AutoValidate.match(verifpasswordController.text.toString(), passwordController.text.toString())!
-                    ? Border.all(color: Colors.green)
-                    : Border.all(color: alertColor),
+                    : AutoValidate.match(
+                            verifpasswordController.text.toString(),
+                            passwordController.text.toString())!
+                        ? Border.all(color: Colors.transparent)
+                        : Border.all(color: alertColor),
               ),
               child: Center(
                 child: Row(
@@ -580,41 +625,49 @@ class _SignUpPageState extends State<SignUpPage> {
                       onPressed: () {
                         setState(() {
                           _isObscure2 =
-                          !_isObscure2; // toggle kondisi _isObscure ketika button ditekan
+                              !_isObscure2; // toggle kondisi _isObscure ketika button ditekan
                         });
                       },
                     ),
-                    verifpasswordController.text.isEmpty
-                        ? SizedBox()
-                        :AutoValidate.match(verifpasswordController.text.toString(), passwordController.text.toString())!
-                        ? Icon(Icons.check, color: Colors.green)
-                        : Icon(Icons.close, color: alertColor),
+                    // verifpasswordController.text.isEmpty
+                    //     ? SizedBox()
+                    //     : AutoValidate.match(
+                    //             verifpasswordController.text.toString(),
+                    //             passwordController.text.toString())!
+                    //         ? Icon(Icons.check, color: Colors.green)
+                    //         : Icon(Icons.close, color: alertColor),
                   ],
                 ),
               ),
             ),
             verifpasswordController.text.isEmpty
                 ? SizedBox()
-                : AutoValidate.match(verifpasswordController.text.toString(), passwordController.text.toString())!
-                ? SizedBox()
-                : Row(
-              children: [
-                // Icon(
-                //   Icons.close,
-                //   color: alertColor,
-                // ),
-                Expanded(
-                  child: Text(
-                    'Please re-enter your password correctly',
-                    overflow: TextOverflow.clip,
-                    style: primaryTextStyle.copyWith(
-                      fontSize: 11,
-                      fontWeight: medium,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                : AutoValidate.match(verifpasswordController.text.toString(),
+                        passwordController.text.toString())!
+                    ? SizedBox()
+                    : Row(
+                        children: [
+                          // Icon(
+                          //   Icons.close,
+                          //   color: alertColor,
+                          // ),
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10.0, top: 8),
+                              child: Text(
+                                'Please re-enter your password correctly',
+                                overflow: TextOverflow.clip,
+                                style: primaryTextStyle.copyWith(
+                                  fontSize: 11,
+                                  fontWeight: medium,
+                                  color: alertColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
           ],
         ),
       );
@@ -717,31 +770,25 @@ class _SignUpPageState extends State<SignUpPage> {
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics(),
-            ),
-
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height*1.2,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    header(),
-                    nameInput(),
-                    usernameInput(),
-                    emailInput(),
-                    passwordInput(),
-                    verifpasswordInput(),
-                    isLoading ? LoadingButton() : signUpButton(),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    footer()
-                  ],
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 1.2,
+            child: ListView(
+              physics: BouncingScrollPhysics(),
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                header(),
+                nameInput(),
+                usernameInput(),
+                emailInput(),
+                passwordInput(),
+                verifpasswordInput(),
+                isLoading ? LoadingButton() : signUpButton(),
+                SizedBox(
+                  height: 20,
                 ),
-              ),
-
+                footer()
+              ],
+            ),
           ),
         ),
       ),

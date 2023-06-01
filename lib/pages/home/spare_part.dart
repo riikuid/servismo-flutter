@@ -19,12 +19,10 @@ class _SparePartState extends State<SparePart> {
   Widget build(BuildContext context) {
     ProductProvider productProvider = Provider.of<ProductProvider>(context);
     loadProduct() async {
-
       await Provider.of<ProductProvider>(context, listen: false).getProducts();
-      setState(() {
-
-      });
+      setState(() {});
     }
+
     Widget header() {
       return AppBar(
         backgroundColor: backgroundColor1,
@@ -95,18 +93,19 @@ class _SparePartState extends State<SparePart> {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: defaultMargin),
           child: RefreshIndicator(
-            onRefresh: (){
-              return Future.delayed(
-                  Duration(seconds: 1),
-                      (){
-                    setState(() {
-                      loadProduct();
-                    });
-                  }
-              );
+            onRefresh: () {
+              return Future.delayed(Duration(seconds: 1), () {
+                setState(() {
+                  loadProduct();
+                });
+              });
             },
             color: primaryColor,
             child: ResponsiveGridList(
+              listViewBuilderOptions: ListViewBuilderOptions(
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                physics: BouncingScrollPhysics(),
+              ),
               minItemWidth: MediaQuery.of(context).size.width / 3.5,
               maxItemsPerRow: 2,
               horizontalGridSpacing: 15,
