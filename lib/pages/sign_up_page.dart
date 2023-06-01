@@ -786,7 +786,10 @@ class _SignUpPageState extends State<SignUpPage> {
                 SizedBox(
                   height: 20,
                 ),
-                footer()
+                footer(),
+                SizedBox(
+                  height: 20,
+                )
               ],
             ),
           ),
