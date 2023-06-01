@@ -294,7 +294,7 @@ class _SignInPageState extends State<SignInPage> {
     }
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       backgroundColor: backgroundColor1,
       body: SafeArea(
         child: Container(

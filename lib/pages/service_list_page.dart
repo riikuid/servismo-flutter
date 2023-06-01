@@ -162,7 +162,8 @@ class _ServiceListPageState extends State<ServiceListPage> {
                         ),
                       );
                     } else {
-                      return Expanded(
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
                         child: RefreshIndicator(
                           onRefresh: (){
                             return Future.delayed(

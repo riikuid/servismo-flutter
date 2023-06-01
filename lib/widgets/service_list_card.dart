@@ -178,7 +178,8 @@ class _ServiceListCardState extends State<ServiceListCard> {
               margin: EdgeInsets.only(
                 top: 15,
               ),
-              child: Expanded(
+              width: MediaQuery.of(context).size.width,
+              child: Container(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [

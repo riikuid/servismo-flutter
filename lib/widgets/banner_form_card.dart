@@ -38,51 +38,56 @@ class BannerFormCard extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Color(0xFFB65FCF).withOpacity(0.7)),
-        child: Expanded(
-          child: Row(
-            children: [
-              product.galleries.isEmpty
-                  ? SizedBox(
-                      width: 1,
-                    )
-                  : Image.network(
-                      'https://dashboard.servismo.me${product.galleries[0].url}',
-                      height: 60,
-                    ),
-              SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      product.name,
-                      style: whiteTextStyle.copyWith(
-                          fontSize: 16, fontWeight: semibold),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+        child: Column(
+          children: [
+            Expanded(
+              child: Row(
+                children: [
+                  product.galleries.isEmpty
+                      ? SizedBox(
+                    width: 1,
+                  )
+                      : Image.network(
+                    'https://dashboard.servismo.me${product.galleries[0].url}',
+                    height: 60,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          product.description,
+                          product.name,
                           style: whiteTextStyle.copyWith(
-                              fontWeight: medium, fontSize: 14),
+                              fontSize: 16, fontWeight: semibold),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
                         ),
-                        SizedBox(
-                          width: 20,
-                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              product.description,
+                              style: whiteTextStyle.copyWith(
+                                  fontWeight: medium, fontSize: 14),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                          ],
+                        )
                       ],
-                    )
-                  ],
-                ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
+
         ),
       ),
     );
